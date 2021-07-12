@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:umanoShadowHeight="5dp"
-    tools:context=".MainActivity">
+    tools:context=".activities.main.MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
