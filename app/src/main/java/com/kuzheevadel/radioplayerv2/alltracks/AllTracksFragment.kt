@@ -9,11 +9,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kuzheevadel.radioplayerv2.R
+import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
 import javax.inject.Inject
 
 class AllTracksFragment: Fragment() {
+
+    private var _binding: AllTracksLayoutBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -34,11 +40,27 @@ class AllTracksFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.all_tracks_layout, container, false)
+        _binding = AllTracksLayoutBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val recycler = binding.allTracksRecycler
+
+        recycler.run {
+            layoutManager = LinearLayoutManager(context)
+            adapter = AllTracksAdapter()
+        }
+
         Log.d("ASDF", "$viewModel")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

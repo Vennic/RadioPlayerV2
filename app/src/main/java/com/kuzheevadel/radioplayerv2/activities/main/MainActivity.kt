@@ -6,14 +6,21 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kuzheevadel.radioplayerv2.R
+import com.kuzheevadel.radioplayerv2.databinding.ActivityMainBinding
 
 class MainActivity: AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val viewPager = findViewById<ViewPager2>(R.id.view_pager2)
-        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        val viewPager = binding.mainPlayer.viewPager2
+        val tabLayout = binding.mainPlayer.tabLayout
+
         viewPager.adapter = ViewPagerAdapter(this)
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
