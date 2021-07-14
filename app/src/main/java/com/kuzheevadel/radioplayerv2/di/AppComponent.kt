@@ -5,7 +5,10 @@ import com.kuzheevadel.radioplayerv2.alltracks.di.AllTracksComponent
 import dagger.BindsInstance
 import dagger.Component
 
-@Component(modules = [ViewModelBuilderModule::class, AppSubcomponents::class])
+@Component(modules = [
+    ViewModelBuilderModule::class,
+    AppSubcomponents::class,
+    RepoModule::class])
 interface AppComponent {
 
     @Component.Factory

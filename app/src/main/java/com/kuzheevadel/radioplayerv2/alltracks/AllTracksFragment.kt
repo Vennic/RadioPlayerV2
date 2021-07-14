@@ -12,16 +12,24 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AllTracksFragment: Fragment() {
 
     private var _binding: AllTracksLayoutBinding? = null
     private val binding get() = _binding!!
+    private val allTracksAdapter = AllTracksAdapter()
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -33,9 +41,11 @@ class AllTracksFragment: Fragment() {
         ) {
             isGranted: Boolean ->
             if (isGranted) {
+                viewModel.onPermissionGranted()
                 Log.d("ASDF", "Permission is granted in callback")
             } else {
                 Log.d("ASDF", "Permission is not granted")
+                viewModel.onPermissionGranted()
             }
         }
 
@@ -62,13 +72,33 @@ class AllTracksFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recycler = binding.allTracksRecycler
-
-        recycler.run {
+        binding.allTracksRecycler.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = AllTracksAdapter()
+            adapter = allTracksAdapter
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loadState.collect { loadState ->
+                    when (loadState) {
+                        is QueryResult.Success -> {
+                            allTracksAdapter.setTrackList(loadState.data)
+                            Log.d("ASDF", "Success {${loadState.data}")
+                        }
+                        is QueryResult.Loading -> {
+                            if (loadState.isLoading) {
+                                Snackbar.make(view, "Show Progress", Snackbar.LENGTH_SHORT).show()
+                            } else {
+                                Snackbar.make(view, "Hide progress", Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
+                        is QueryResult.Error -> {
+                            Snackbar.make(view, "Error", Snackbar.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
         Log.d("ASDF", "$viewModel")
         checkReadStoragePermission()
     }
@@ -85,6 +115,7 @@ class AllTracksFragment: Fragment() {
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED -> {
                 Log.d("ASDF", "Granted in check")
+                viewModel.onPermissionGranted()
             }
             shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
                 Log.d("ASDF", "Show permission rationale")

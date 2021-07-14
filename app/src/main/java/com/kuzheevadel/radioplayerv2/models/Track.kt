@@ -1,3 +1,9 @@
 package com.kuzheevadel.radioplayerv2.models
 
-data class Track(val name: String)
+import android.net.Uri
+
+data class Track(
+    val uri: Uri,
+    val name: String,
+    val id: Long,
+    val title: String)
