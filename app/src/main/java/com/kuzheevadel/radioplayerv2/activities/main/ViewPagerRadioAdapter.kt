@@ -5,7 +5,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kuzheevadel.radioplayerv2.tracks.albums.AlbumsFragment
 import com.kuzheevadel.radioplayerv2.tracks.alltracks.AllTracksFragment
-import com.kuzheevadel.radioplayerv2.radio.RadioFragment
+import com.kuzheevadel.radioplayerv2.radio.MainRadioFragment
+import com.kuzheevadel.radioplayerv2.tracks.playlist.PlaylistFragment
 
 class ViewPagerRadioAdapter(activity: FragmentActivity): FragmentStateAdapter(activity)  {
     override fun getItemCount(): Int = 3
@@ -14,7 +15,7 @@ class ViewPagerRadioAdapter(activity: FragmentActivity): FragmentStateAdapter(ac
         return when (position) {
             0 -> AllTracksFragment()
             1 -> AlbumsFragment()
-            else -> RadioFragment()
+            else -> PlaylistFragment()
         }
     }
 }

@@ -15,11 +15,11 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager2"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -35,9 +35,13 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="fixed"
                 android:textAlignment="center"
-                app:tabGravity="fill"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabGravity="fill"
+                app:tabMode="fixed" />
+
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

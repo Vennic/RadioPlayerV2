@@ -7,21 +7,17 @@ import com.kuzheevadel.radioplayerv2.tracks.albums.AlbumsFragment
 import com.kuzheevadel.radioplayerv2.tracks.alltracks.AllTracksFragment
 import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.tracks.playlist.PlaylistFragment
-import com.kuzheevadel.radioplayerv2.radio.RadioFragment
+import com.kuzheevadel.radioplayerv2.radio.MainRadioFragment
 
 class ViewPagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity) {
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
        return when (position) {
             0 -> AllTracksFragment()
             1 -> AlbumsFragment()
-            2 -> PlaylistFragment()
-            else -> RadioFragment()
+            else -> PlaylistFragment()
         }
     }
 
-    fun setTabs(mediaType: MediaType) {
-
-    }
 }
