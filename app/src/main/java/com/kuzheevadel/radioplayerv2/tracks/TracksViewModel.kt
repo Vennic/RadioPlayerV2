@@ -38,4 +38,9 @@ class TracksViewModel @Inject constructor(
             Log.d("ASDF", tracksRepo.getAllTracks().toString())
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("ASDC", "TracksViewModel onCleared")
+    }
 }

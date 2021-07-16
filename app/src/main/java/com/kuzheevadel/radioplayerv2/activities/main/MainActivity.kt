@@ -39,25 +39,29 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         binding.navMenu.setNavigationItemSelectedListener(this)
 
         fm.beginTransaction()
-                .add(R.id.main_container, tracksFragment)
+                .add(R.id.main_container, tracksFragment, "Tracks")
                 .commit()
-
     }
 
-    private fun setFragment(fragment: Fragment, fm: FragmentManager, container: Int) {
+    /*private fun setFragment(fragment: Fragment, fm: FragmentManager, container: Int, name: String) {
         fm.beginTransaction()
                 .replace(container, fragment)
+                .addToBackStack(name)
                 .commit()
-    }
+    }*/
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.local_audio -> {
-                setFragment(tracksFragment, fm, R.id.main_container)
+                fm.beginTransaction()
+                        .add(R.id.main_container, tracksFragment)
+                        .commit()
             }
 
             R.id.radio -> {
-                setFragment(mainRadioFragment, fm, R.id.main_container)
+                fm.beginTransaction()
+                        .add(R.id.main_container, mainRadioFragment)
+                        .commit()
             }
         }
 

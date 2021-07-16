@@ -1,5 +1,6 @@
 package com.kuzheevadel.radioplayerv2.radio
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +12,23 @@ import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerAdapter
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerRadioAdapter
 import com.kuzheevadel.radioplayerv2.databinding.MainRadioLayoutBinding
 import com.kuzheevadel.radioplayerv2.databinding.MainTracksLayoutBinding
+import com.kuzheevadel.radioplayerv2.di.PlayerApplication
+import com.kuzheevadel.radioplayerv2.radio.di.RadioComponent
 
 class MainRadioFragment: Fragment() {
 
     private var _binding: MainRadioLayoutBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var radioComponent: RadioComponent
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        radioComponent = (requireActivity().application as PlayerApplication).appComponent
+                .getRadioComponent()
+                .create()
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -29,7 +42,9 @@ class MainRadioFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.radioViewPager
-        viewPager.adapter = ViewPagerRadioAdapter(requireActivity())
+        //viewPager.isSaveEnabled = false
+
+        viewPager.adapter = ViewPagerRadioAdapter(childFragmentManager, lifecycle)
 
         val tabLayout = (requireActivity() as MainActivity).tabLayout
 

@@ -1,6 +1,8 @@
 package com.kuzheevadel.radioplayerv2.tracks
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +11,23 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerAdapter
 import com.kuzheevadel.radioplayerv2.databinding.MainTracksLayoutBinding
+import com.kuzheevadel.radioplayerv2.di.PlayerApplication
+import com.kuzheevadel.radioplayerv2.tracks.di.TracksComponent
 
 class MainTracksFragment: Fragment() {
 
     private var _binding: MainTracksLayoutBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var tracksComponent: TracksComponent
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        tracksComponent = (requireActivity().application as PlayerApplication).appComponent
+                .getTracksComponent()
+                .create()
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -27,7 +41,9 @@ class MainTracksFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.tracksViewPager
-        viewPager.adapter = ViewPagerAdapter(requireActivity())
+        //viewPager.isSaveEnabled = false
+
+        viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 
         val tabLayout = (requireActivity() as MainActivity).tabLayout
 
@@ -38,5 +54,10 @@ class MainTracksFragment: Fragment() {
                 else -> tab.text = "Playlist"
             }
         }.attach()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("ASDC", "MainTracksFragment onDestroy")
     }
 }

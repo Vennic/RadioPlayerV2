@@ -6,7 +6,7 @@ import com.kuzheevadel.radioplayerv2.tracks.playlist.PlaylistFragment
 import dagger.Subcomponent
 
 @TracksFragmentScope
-@Subcomponent(modules = [AllTracksModule::class])
+@Subcomponent(modules = [TracksModule::class])
 interface TracksComponent {
 
     @Subcomponent.Factory

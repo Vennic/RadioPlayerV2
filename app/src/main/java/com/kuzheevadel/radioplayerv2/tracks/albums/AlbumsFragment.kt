@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.kuzheevadel.radioplayerv2.R
+import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
+import com.kuzheevadel.radioplayerv2.tracks.MainTracksFragment
 import com.kuzheevadel.radioplayerv2.tracks.TracksViewModel
 import javax.inject.Inject
 
@@ -23,9 +25,7 @@ class AlbumsFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        (requireActivity().application as PlayerApplication).appComponent
-                .getAllTracksComponent()
-                .create()
+        (requireParentFragment() as MainTracksFragment).tracksComponent
                 .inject(this)
 
         Log.d("ASDF", "Albums viewModel - $viewModel")

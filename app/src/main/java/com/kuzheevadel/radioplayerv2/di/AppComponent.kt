@@ -1,6 +1,7 @@
 package com.kuzheevadel.radioplayerv2.di
 
 import android.content.Context
+import com.kuzheevadel.radioplayerv2.radio.di.RadioComponent
 import com.kuzheevadel.radioplayerv2.tracks.di.TracksComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -17,5 +18,6 @@ interface AppComponent {
         fun create(@BindsInstance appContext: Context): AppComponent
     }
 
-    fun getAllTracksComponent(): TracksComponent.Factory
+    fun getTracksComponent(): TracksComponent.Factory
+    fun getRadioComponent(): RadioComponent.Factory
 }

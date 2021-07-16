@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
+import com.kuzheevadel.radioplayerv2.tracks.MainTracksFragment
 import com.kuzheevadel.radioplayerv2.tracks.TracksViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -53,10 +54,8 @@ class AllTracksFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        (requireActivity().application as PlayerApplication).appComponent
-            .getAllTracksComponent()
-            .create()
-            .inject(this)
+        (requireParentFragment() as MainTracksFragment).tracksComponent
+                .inject(this)
     }
 
     override fun onCreateView(
@@ -130,5 +129,10 @@ class AllTracksFragment: Fragment() {
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("ASDC", "AllTracksFragment onDestroy")
     }
 }
