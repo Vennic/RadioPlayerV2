@@ -1,7 +1,7 @@
-package com.kuzheevadel.radioplayerv2.alltracks.di
+package com.kuzheevadel.radioplayerv2.tracks.di
 
 import androidx.lifecycle.ViewModel
-import com.kuzheevadel.radioplayerv2.alltracks.AllTracksViewModel
+import com.kuzheevadel.radioplayerv2.tracks.TracksViewModel
 import com.kuzheevadel.radioplayerv2.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
@@ -12,6 +12,6 @@ abstract class AllTracksModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AllTracksViewModel::class)
-    abstract fun bindViewModel(viewModel: AllTracksViewModel): ViewModel
+    @ViewModelKey(TracksViewModel::class)
+    abstract fun bindViewModel(viewModel: TracksViewModel): ViewModel
 }

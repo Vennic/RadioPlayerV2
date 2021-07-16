@@ -3,8 +3,8 @@ package com.kuzheevadel.radioplayerv2.activities.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.kuzheevadel.radioplayerv2.albums.AlbumsFragment
-import com.kuzheevadel.radioplayerv2.alltracks.AllTracksFragment
+import com.kuzheevadel.radioplayerv2.tracks.albums.AlbumsFragment
+import com.kuzheevadel.radioplayerv2.tracks.alltracks.AllTracksFragment
 import com.kuzheevadel.radioplayerv2.radio.RadioFragment
 
 class ViewPagerRadioAdapter(activity: FragmentActivity): FragmentStateAdapter(activity)  {

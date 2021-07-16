@@ -1,8 +1,8 @@
 package com.kuzheevadel.radioplayerv2.di
 
-import com.kuzheevadel.radioplayerv2.alltracks.di.AllTracksComponent
+import com.kuzheevadel.radioplayerv2.tracks.di.TracksComponent
 import dagger.Module
 
-@Module(subcomponents = [AllTracksComponent::class])
+@Module(subcomponents = [TracksComponent::class])
 class AppSubcomponents {
 }

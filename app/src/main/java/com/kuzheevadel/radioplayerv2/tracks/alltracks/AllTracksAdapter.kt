@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.alltracks
+package com.kuzheevadel.radioplayerv2.tracks.alltracks
 
 import android.util.Log
 import android.view.LayoutInflater

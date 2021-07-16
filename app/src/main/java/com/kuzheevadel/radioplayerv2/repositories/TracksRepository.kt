@@ -1,17 +1,15 @@
 package com.kuzheevadel.radioplayerv2.repositories
 
-import android.util.Log
-import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.models.Track
-import com.kuzheevadel.radioplayerv2.repositories.datasource.MediaDataSourceInterface
-import kotlinx.coroutines.CoroutineDispatcher
+import com.kuzheevadel.radioplayerv2.repositories.datasource.TracksDataSourceInterface
+import com.kuzheevadel.radioplayerv2.tracks.di.TracksFragmentScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
+
 class TracksRepository @Inject constructor(
-    private val mediaDataSource: MediaDataSourceInterface,
+        private val tracksDataSource: TracksDataSourceInterface,
     ): TracksRepositoryInterface {
 
     private lateinit var allTracksList: List<Track>
@@ -19,7 +17,7 @@ class TracksRepository @Inject constructor(
     override suspend fun loadTracksFromStorage() {
         withContext(Dispatchers.IO) {
             Thread.sleep(3000)
-                allTracksList = mediaDataSource.getTracksFromStorage()
+                allTracksList = tracksDataSource.getTracksFromStorage()
         }
     }
 

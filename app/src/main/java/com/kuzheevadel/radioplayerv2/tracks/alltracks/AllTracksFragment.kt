@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.alltracks
+package com.kuzheevadel.radioplayerv2.tracks.alltracks
 
 import android.Manifest
 import android.content.Context
@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
+import com.kuzheevadel.radioplayerv2.tracks.TracksViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class AllTracksFragment: Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<AllTracksViewModel> { viewModelFactory }
+    private val viewModel by viewModels<TracksViewModel> { viewModelFactory }
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()
@@ -99,7 +100,7 @@ class AllTracksFragment: Fragment() {
                 }
             }
         }
-        Log.d("ASDF", "$viewModel")
+        Log.d("ASDF", "All tracks viewModel - $viewModel")
         checkReadStoragePermission()
     }
 

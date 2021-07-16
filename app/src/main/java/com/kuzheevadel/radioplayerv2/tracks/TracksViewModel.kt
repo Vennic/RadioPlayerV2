@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.alltracks
+package com.kuzheevadel.radioplayerv2.tracks
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -6,12 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.models.Track
 import com.kuzheevadel.radioplayerv2.repositories.TracksRepositoryInterface
+import com.kuzheevadel.radioplayerv2.tracks.di.TracksFragmentScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AllTracksViewModel @Inject constructor(
+@TracksFragmentScope
+class TracksViewModel @Inject constructor(
     private val tracksRepo: TracksRepositoryInterface
 ): ViewModel() {
 

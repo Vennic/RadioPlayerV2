@@ -1,9 +1,10 @@
 package com.kuzheevadel.radioplayerv2.di
 
 import android.content.Context
-import com.kuzheevadel.radioplayerv2.alltracks.di.AllTracksComponent
+import com.kuzheevadel.radioplayerv2.tracks.di.TracksComponent
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
 @Component(modules = [
     ViewModelBuilderModule::class,
@@ -16,5 +17,5 @@ interface AppComponent {
         fun create(@BindsInstance appContext: Context): AppComponent
     }
 
-    fun getAllTracksComponent(): AllTracksComponent.Factory
+    fun getAllTracksComponent(): TracksComponent.Factory
 }

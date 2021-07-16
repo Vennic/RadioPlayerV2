@@ -1,17 +1,15 @@
 package com.kuzheevadel.radioplayerv2.repositories.datasource
 
-import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import androidx.core.content.ContentResolverCompat
 import com.kuzheevadel.radioplayerv2.models.Track
 import javax.inject.Inject
 
-class MediaDataSource @Inject constructor(
-    private val context: Context): MediaDataSourceInterface {
+class TracksDataSource @Inject constructor(
+    private val context: Context): TracksDataSourceInterface {
 
     override suspend fun getTracksFromStorage(): List<Track> {
         val tracksList = mutableListOf<Track>()

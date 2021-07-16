@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.playlist
+package com.kuzheevadel.radioplayerv2.tracks.playlist
 
 import androidx.fragment.app.Fragment
 
