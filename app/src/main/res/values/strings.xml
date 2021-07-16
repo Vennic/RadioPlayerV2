@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RadioPlayerV2</string>
+    <string name="local_audio">Local audio</string>
+    <string name="radio">radio</string>
 </resources>
