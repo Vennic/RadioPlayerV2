@@ -7,7 +7,11 @@ import javax.inject.Singleton
 
 
 class PlaybackViewModel @Inject constructor(
-        repository: CurrentMediaRepositoryInterface): ViewModel() {
+        private val repository: CurrentMediaRepositoryInterface): ViewModel()
+{
 
+    fun getRepo(): String {
+        return repository.toString()
+    }
 
 }
