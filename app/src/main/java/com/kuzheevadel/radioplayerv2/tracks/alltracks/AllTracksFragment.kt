@@ -23,6 +23,7 @@ import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
 import com.kuzheevadel.radioplayerv2.tracks.MainTracksFragment
 import com.kuzheevadel.radioplayerv2.tracks.TracksViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,9 +54,14 @@ class AllTracksFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+        Log.d("ASDC", "AllTracksFragment onAttach")
         (requireParentFragment() as MainTracksFragment).tracksComponent
                 .inject(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        checkReadStoragePermission()
     }
 
     override fun onCreateView(
@@ -65,7 +71,9 @@ class AllTracksFragment: Fragment() {
     ): View? {
         _binding = AllTracksLayoutBinding.inflate(inflater, container, false)
         val view = binding.root
+        Log.d("ASDC", "AllTracksFragment onCreateView")
 
+        Log.d("QWE", "View created")
         return view
     }
 
@@ -77,16 +85,18 @@ class AllTracksFragment: Fragment() {
             adapter = allTracksAdapter
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loadState.collect { loadState ->
+                    Log.d("ASDF", "launch $loadState")
                     when (loadState) {
                         is QueryResult.Success -> {
                             allTracksAdapter.setTrackList(loadState.data)
-                            Log.d("ASDF", "Success {${loadState.data}")
+                            //Log.d("ASDF", "Success {${loadState.data}")
                         }
                         is QueryResult.Loading -> {
                             if (loadState.isLoading) {
+                                Log.d("QWE", "Snack bar call")
                                 Snackbar.make(view, "Show Progress", Snackbar.LENGTH_SHORT).show()
                             } else {
                                 Snackbar.make(view, "Hide progress", Snackbar.LENGTH_SHORT).show()
@@ -98,17 +108,21 @@ class AllTracksFragment: Fragment() {
                     }
                 }
             }
+
         }
+
         Log.d("ASDF", "All tracks viewModel - $viewModel")
-        checkReadStoragePermission()
+        Log.d("ASDC", "AllTracksFragment onViewCreated")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Log.d("ASDC", "AllTracksFragment onDestroyView")
     }
 
     private fun checkReadStoragePermission() {
+        Log.d("QWE", "check permission")
         when {
             ContextCompat.checkSelfPermission(
                 requireContext(),

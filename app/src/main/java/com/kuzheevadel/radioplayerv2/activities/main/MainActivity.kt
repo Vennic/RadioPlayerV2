@@ -3,27 +3,28 @@ package com.kuzheevadel.radioplayerv2.activities.main
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager2.widget.ViewPager2
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.kuzheevadel.radioplayerv2.R
-import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.databinding.ActivityMainBinding
-import com.kuzheevadel.radioplayerv2.radio.MainRadioFragment
-import com.kuzheevadel.radioplayerv2.tracks.MainTracksFragment
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
-class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class MainActivity: AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var fm: FragmentManager
-
-    //FIX!!!
-    private val tracksFragment = MainTracksFragment()
-    private val mainRadioFragment = MainRadioFragment()
-
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navController: NavController
+    private lateinit var appBarConfig: AppBarConfiguration
+    private lateinit var slidingPanel: SlidingUpPanelLayout
     lateinit var tabLayout: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,42 +33,35 @@ class MainActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         val view = binding.root
         setContentView(view)
 
-        tabLayout = binding.mainPlayer.tabLayout
-
-        fm = supportFragmentManager
-
-        binding.navMenu.setNavigationItemSelectedListener(this)
-
-        fm.beginTransaction()
-                .add(R.id.main_container, tracksFragment, "Tracks")
-                .commit()
-    }
-
-    /*private fun setFragment(fragment: Fragment, fm: FragmentManager, container: Int, name: String) {
-        fm.beginTransaction()
-                .replace(container, fragment)
-                .addToBackStack(name)
-                .commit()
-    }*/
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.local_audio -> {
-                fm.beginTransaction()
-                        .add(R.id.main_container, tracksFragment)
-                        .commit()
-            }
-
-            R.id.radio -> {
-                fm.beginTransaction()
-                        .add(R.id.main_container, mainRadioFragment)
-                        .commit()
-            }
+        with(binding) {
+            tabLayout = mainPlayer.tabLayout
+            drawerLayout = mainDrawerLayout
         }
+        slidingPanel = binding.mainPlayer.root
 
-        return true
+        val toolbar = binding.mainPlayer.playerToolbar
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
+        navController = navHostFragment.navController
+
+        val navMenu = binding.navMenu
+
+        appBarConfig = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
+
+        toolbar.setupWithNavController(navController, appBarConfig)
+
+        navMenu.setupWithNavController(navController)
+
+
     }
 
+    override fun onBackPressed() {
+        when (slidingPanel.panelState) {
+            SlidingUpPanelLayout.PanelState.EXPANDED -> slidingPanel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+            else -> super.onBackPressed()
+        }
+    }
 
 }
 

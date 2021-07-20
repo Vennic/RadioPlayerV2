@@ -34,8 +34,6 @@ class TracksViewModel @Inject constructor(
 
             _loadState.value = QueryResult.Loading(false)
             _loadState.value = QueryResult.Success(tracksRepo.getAllTracks())
-
-            Log.d("ASDF", tracksRepo.getAllTracks().toString())
         }
     }
 

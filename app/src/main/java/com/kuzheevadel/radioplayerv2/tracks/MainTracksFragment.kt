@@ -41,7 +41,6 @@ class MainTracksFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.tracksViewPager
-        //viewPager.isSaveEnabled = false
 
         viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 

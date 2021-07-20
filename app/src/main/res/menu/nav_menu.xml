@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/local_audio"
+    <item android:id="@+id/mainTracksFragment"
         android:icon="@drawable/ic_baseline_storage_24"
         android:title="@string/local_audio"/>
 
-    <item android:id="@+id/radio"
+    <item android:id="@+id/mainRadioFragment"
         android:icon="@drawable/ic_baseline_radio_24"
         android:title="@string/radio"/>
 
