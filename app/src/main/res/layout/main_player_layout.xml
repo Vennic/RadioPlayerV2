@@ -20,7 +20,7 @@
         android:id="@+id/main_nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:defaultNavHost="true"
         app:navGraph="@navigation/main_nav_graph"/>
 

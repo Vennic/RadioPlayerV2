@@ -12,7 +12,6 @@ import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.ActivityMainBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
-
 class MainActivity: AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
@@ -47,7 +46,6 @@ class MainActivity: AppCompatActivity(){
         toolbar.setupWithNavController(navController, appBarConfig)
 
         navMenu.setupWithNavController(navController)
-
 
     }
 

@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.kuzheevadel.radioplayerv2.BR
 import com.kuzheevadel.radioplayerv2.R
+import com.kuzheevadel.radioplayerv2.databinding.TrackItemLayoutBinding
 import com.kuzheevadel.radioplayerv2.models.Track
 
 
@@ -21,19 +24,19 @@ class AllTracksAdapter: RecyclerView.Adapter<AllTracksAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.track_item_layout, parent, false)
-        return ViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = TrackItemLayoutBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = trackList[position].title
+        holder.binding?.setVariable(BR.track, trackList[position])
     }
 
     override fun getItemCount(): Int = trackList.size
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.textView5)
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        val binding: TrackItemLayoutBinding? = DataBindingUtil.bind(view)
     }
 
 }
