@@ -1,7 +1,9 @@
 package com.kuzheevadel.radioplayerv2.di
 
+import com.kuzheevadel.radioplayerv2.repositories.CurrentMediaRepository
 import com.kuzheevadel.radioplayerv2.repositories.TracksRepository
 import com.kuzheevadel.radioplayerv2.repositories.TracksRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.datasource.CurrentMediaRepositoryInterface
 import com.kuzheevadel.radioplayerv2.repositories.datasource.TracksDataSource
 import com.kuzheevadel.radioplayerv2.repositories.datasource.TracksDataSourceInterface
 import com.kuzheevadel.radioplayerv2.tracks.di.TracksFragmentScope
@@ -17,4 +19,7 @@ abstract class RepoModule {
 
     @Binds
     abstract fun provideTracksDataSource(dataSource: TracksDataSource): TracksDataSourceInterface
+
+    @Binds
+    abstract fun provideCurrentMediaRepo(repo: CurrentMediaRepository): CurrentMediaRepositoryInterface
 }

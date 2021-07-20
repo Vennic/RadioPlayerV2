@@ -1,14 +1,18 @@
 package com.kuzheevadel.radioplayerv2.di
 
 import android.content.Context
+import com.kuzheevadel.radioplayerv2.playback.PlaybackFragment
+import com.kuzheevadel.radioplayerv2.playback.di.PlaybackModule
 import com.kuzheevadel.radioplayerv2.radio.di.RadioComponent
 import com.kuzheevadel.radioplayerv2.tracks.di.TracksComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
+@Singleton
 @Component(modules = [
     ViewModelBuilderModule::class,
+    PlaybackModule::class,
     AppSubcomponents::class,
     RepoModule::class])
 interface AppComponent {
@@ -20,4 +24,5 @@ interface AppComponent {
 
     fun getTracksComponent(): TracksComponent.Factory
     fun getRadioComponent(): RadioComponent.Factory
+    fun inject(fragment: PlaybackFragment)
 }

@@ -56,6 +56,7 @@ class MainActivity: AppCompatActivity(){
 
     }
 
+    // Collapse panel when back button pressed if panel expanded
     override fun onBackPressed() {
         when (slidingPanel.panelState) {
             SlidingUpPanelLayout.PanelState.EXPANDED -> slidingPanel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
