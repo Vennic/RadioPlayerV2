@@ -1,12 +1,11 @@
 package com.kuzheevadel.radioplayerv2.di
 
-import com.kuzheevadel.radioplayerv2.repositories.CurrentMediaRepository
-import com.kuzheevadel.radioplayerv2.repositories.TracksRepository
-import com.kuzheevadel.radioplayerv2.repositories.TracksRepositoryInterface
-import com.kuzheevadel.radioplayerv2.repositories.datasource.CurrentMediaRepositoryInterface
-import com.kuzheevadel.radioplayerv2.repositories.datasource.TracksDataSource
-import com.kuzheevadel.radioplayerv2.repositories.datasource.TracksDataSourceInterface
-import com.kuzheevadel.radioplayerv2.tracks.di.TracksFragmentScope
+import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSource
+import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSourceInterface
 import dagger.Binds
 import dagger.Module
 
@@ -15,11 +14,11 @@ abstract class RepoModule {
 
 
     @Binds
-    abstract fun provideTracksRepo(repo: TracksRepository): TracksRepositoryInterface
+    abstract fun provideTracksRepo(repo: AudioRepository): AudioRepositoryInterface
 
     @Binds
-    abstract fun provideTracksDataSource(dataSource: TracksDataSource): TracksDataSourceInterface
+    abstract fun provideTracksDataSource(dataSource: AudioDataSource): AudioDataSourceInterface
 
     @Binds
-    abstract fun provideCurrentMediaRepo(repo: CurrentMediaRepository): CurrentMediaRepositoryInterface
+    abstract fun provideCurrentMediaRepo(repo: PlayerMediaRepository): PlayerMediaRepositoryInterface
 }

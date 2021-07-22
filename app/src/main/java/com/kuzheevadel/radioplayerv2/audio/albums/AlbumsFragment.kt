@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.tracks.albums
+package com.kuzheevadel.radioplayerv2.audio.albums
 
 import android.content.Context
 import android.os.Bundle
@@ -10,17 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.kuzheevadel.radioplayerv2.R
-import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
-import com.kuzheevadel.radioplayerv2.di.PlayerApplication
-import com.kuzheevadel.radioplayerv2.tracks.MainTracksFragment
-import com.kuzheevadel.radioplayerv2.tracks.TracksViewModel
+import com.kuzheevadel.radioplayerv2.audio.MainTracksFragment
+import com.kuzheevadel.radioplayerv2.audio.AudioViewModel
 import javax.inject.Inject
 
 class AlbumsFragment: Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<TracksViewModel> { viewModelFactory }
+    private val viewModel by viewModels<AudioViewModel> { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,6 +30,6 @@ class AlbumsFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.track_item_layout, container, false)
+        return inflater.inflate(R.layout.audio_item_layout, container, false)
     }
 }

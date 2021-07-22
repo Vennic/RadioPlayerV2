@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.tracks
+package com.kuzheevadel.radioplayerv2.audio
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerAdapter
 import com.kuzheevadel.radioplayerv2.databinding.MainTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
-import com.kuzheevadel.radioplayerv2.tracks.di.TracksComponent
+import com.kuzheevadel.radioplayerv2.audio.di.TracksComponent
 
 class MainTracksFragment: Fragment() {
 

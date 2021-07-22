@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.tracks.alltracks
+package com.kuzheevadel.radioplayerv2.audio.allaudio
 
 import android.Manifest
 import android.content.Context
@@ -20,48 +20,37 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
-import com.kuzheevadel.radioplayerv2.di.PlayerApplication
-import com.kuzheevadel.radioplayerv2.tracks.MainTracksFragment
-import com.kuzheevadel.radioplayerv2.tracks.TracksViewModel
-import kotlinx.coroutines.cancel
+import com.kuzheevadel.radioplayerv2.audio.MainTracksFragment
+import com.kuzheevadel.radioplayerv2.audio.AudioViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AllTracksFragment: Fragment() {
+class AllAudioFragment: Fragment() {
 
     private var _binding: AllTracksLayoutBinding? = null
     private val binding get() = _binding!!
-    private val allTracksAdapter = AllTracksAdapter()
+    private val allAudioAdapter = AllAudioAdapter()
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<TracksViewModel> { viewModelFactory }
+    private val viewModel by viewModels<AudioViewModel> { viewModelFactory }
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()
         ) {
             isGranted: Boolean ->
             if (isGranted) {
-                viewModel.onPermissionGranted()
-                Log.d("ASDF", "Permission is granted in callback")
-            } else {
-                Log.d("ASDF", "Permission is not granted")
-                viewModel.onPermissionGranted()
+                subscribeUI()
             }
         }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d("ASDC", "AllTracksFragment onAttach")
         (requireParentFragment() as MainTracksFragment).tracksComponent
                 .inject(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        checkReadStoragePermission()
+        allAudioAdapter.viewModel = viewModel
     }
 
     override fun onCreateView(
@@ -71,9 +60,7 @@ class AllTracksFragment: Fragment() {
     ): View? {
         _binding = AllTracksLayoutBinding.inflate(inflater, container, false)
         val view = binding.root
-        Log.d("ASDC", "AllTracksFragment onCreateView")
 
-        Log.d("QWE", "View created")
         return view
     }
 
@@ -82,71 +69,48 @@ class AllTracksFragment: Fragment() {
 
         binding.allTracksRecycler.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = allTracksAdapter
+            adapter = allAudioAdapter
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loadState.collect { loadState ->
-                    Log.d("ASDF", "launch $loadState")
-                    when (loadState) {
-                        is QueryResult.Success -> {
-                            allTracksAdapter.setTrackList(loadState.data)
-                            //Log.d("ASDF", "Success {${loadState.data}")
-                        }
-                        is QueryResult.Loading -> {
-                            if (loadState.isLoading) {
-                                Log.d("QWE", "Snack bar call")
-                                Snackbar.make(view, "Show Progress", Snackbar.LENGTH_SHORT).show()
-                            } else {
-                                Snackbar.make(view, "Hide progress", Snackbar.LENGTH_SHORT).show()
-                            }
-                        }
-                        is QueryResult.Error -> {
-                            Snackbar.make(view, "Error", Snackbar.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-
-        }
-
-        Log.d("ASDF", "All tracks viewModel - $viewModel")
-        Log.d("ASDC", "AllTracksFragment onViewCreated")
+        checkReadStoragePermission()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        Log.d("ASDC", "AllTracksFragment onDestroyView")
+    }
+
+    private fun subscribeUI() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.audioFlow.collect { audioList ->
+                    allAudioAdapter.submitList(audioList)
+                    Log.d("FlowLog", audioList.toString())
+                }
+            }
+        }
     }
 
     private fun checkReadStoragePermission() {
-        Log.d("QWE", "check permission")
         when {
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED -> {
-                Log.d("ASDF", "Granted in check")
-                viewModel.onPermissionGranted()
+                subscribeUI()
             }
+
             shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-                Log.d("ASDF", "Show permission rationale")
                 requestPermissionLauncher.launch(
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
             }
+
             else -> {
                 requestPermissionLauncher.launch(
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("ASDC", "AllTracksFragment onDestroy")
     }
 }

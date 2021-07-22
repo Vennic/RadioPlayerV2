@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.tracks.di
+package com.kuzheevadel.radioplayerv2.audio.di
 
 import javax.inject.Scope
 

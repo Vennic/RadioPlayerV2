@@ -6,14 +6,16 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import com.kuzheevadel.radioplayerv2.common.Constants
-import com.kuzheevadel.radioplayerv2.models.Track
+import com.kuzheevadel.radioplayerv2.models.Audio
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class TracksDataSource @Inject constructor(
-    private val context: Context): TracksDataSourceInterface {
+class AudioDataSource @Inject constructor(
+    private val context: Context): AudioDataSourceInterface {
 
-    override suspend fun getTracksFromStorage(): List<Track> {
-        val tracksList = mutableListOf<Track>()
+    override fun getAudioFlowFromStorage(): Flow<List<Audio>> = flow {
+        val audioList = mutableListOf<Audio>()
 
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -28,6 +30,9 @@ class TracksDataSource @Inject constructor(
             MediaStore.Audio.Media._ID,
             MediaStore.Audio.Media.DISPLAY_NAME,
             MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.ALBUM,
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.DURATION,
             MediaStore.Audio.Media.ALBUM_ID
         )
 
@@ -44,6 +49,15 @@ class TracksDataSource @Inject constructor(
             val titleColumn =
                 cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
 
+            val albumTitleColumn =
+                cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM)
+
+            val artistNameColumn =
+                cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
+
+            val durationColumn =
+                cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+
             val albumIdColumn =
                 cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
 
@@ -51,6 +65,9 @@ class TracksDataSource @Inject constructor(
                 val id = cursor.getLong(idColumn)
                 val name = cursor.getString(nameColumn)
                 val title = cursor.getString(titleColumn)
+                val albumTitle = cursor.getString(albumTitleColumn)
+                val artistName = cursor.getString(artistNameColumn)
+                val duration = cursor.getInt(durationColumn)
                 val albumId = cursor.getLong(albumIdColumn)
 
                 val contentUri: Uri = ContentUris.withAppendedId(
@@ -60,11 +77,10 @@ class TracksDataSource @Inject constructor(
 
                 val imageUri: Uri = ContentUris.withAppendedId(Uri.parse(Constants.BASE_ALBUMSART_URI), albumId)
 
-                tracksList += Track(contentUri, name, id, title, albumId, imageUri)
+                audioList += Audio(contentUri, name, id, title,artistName, albumTitle, duration, albumId, imageUri, isSelected = false, isPlaying = false)
             }
         }
-
-        return tracksList
+        emit(audioList)
     }
 
 }

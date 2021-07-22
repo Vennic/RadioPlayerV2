@@ -4,7 +4,7 @@ import android.content.Context
 import com.kuzheevadel.radioplayerv2.playback.PlaybackFragment
 import com.kuzheevadel.radioplayerv2.playback.di.PlaybackModule
 import com.kuzheevadel.radioplayerv2.radio.di.RadioComponent
-import com.kuzheevadel.radioplayerv2.tracks.di.TracksComponent
+import com.kuzheevadel.radioplayerv2.audio.di.TracksComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

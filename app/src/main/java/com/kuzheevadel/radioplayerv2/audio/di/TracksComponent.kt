@@ -1,8 +1,8 @@
-package com.kuzheevadel.radioplayerv2.tracks.di
+package com.kuzheevadel.radioplayerv2.audio.di
 
-import com.kuzheevadel.radioplayerv2.tracks.albums.AlbumsFragment
-import com.kuzheevadel.radioplayerv2.tracks.alltracks.AllTracksFragment
-import com.kuzheevadel.radioplayerv2.tracks.playlist.PlaylistFragment
+import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsFragment
+import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioFragment
+import com.kuzheevadel.radioplayerv2.audio.playlist.PlaylistFragment
 import dagger.Subcomponent
 
 @TracksFragmentScope
@@ -14,7 +14,7 @@ interface TracksComponent {
         fun create(): TracksComponent
     }
 
-    fun inject(fragment: AllTracksFragment)
+    fun inject(fragment: AllAudioFragment)
     fun inject(fragment: AlbumsFragment)
     fun inject(fragment: PlaylistFragment)
 }
