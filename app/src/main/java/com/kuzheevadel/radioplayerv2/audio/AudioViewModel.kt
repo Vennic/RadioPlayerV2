@@ -2,60 +2,41 @@ package com.kuzheevadel.radioplayerv2.audio
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
 import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
-import com.kuzheevadel.radioplayerv2.audio.di.TracksFragmentScope
+import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
+import com.kuzheevadel.radioplayerv2.common.MediaType
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
-@TracksFragmentScope
+@AudioFragmentScope
 class AudioViewModel @Inject constructor(
         private val audioRepo: AudioRepositoryInterface,
         private val playerMediaRepo: PlayerMediaRepositoryInterface
 ): ViewModel() {
 
-    private val currentMediaFlow = playerMediaRepo.getMutableCurrentMediaData()
-
-    val audioFlow: Flow<List<Audio>> = audioRepo.getAudioFlow()
-
     init {
-
+        Log.d("VBNM", "$this")
     }
 
-    private val _loadState =
-            MutableStateFlow<QueryResult<List<Audio>>>(QueryResult.Loading(false))
-    val loadState: StateFlow<QueryResult<List<Audio>>> = _loadState
+    private val currentMediaFlow = playerMediaRepo.getStateCurrentMediaData()
 
-    fun onPermissionGranted() {
-        viewModelScope.launch {
-            _loadState.value = QueryResult.Loading(true)
-
-            try {
-                audioRepo.loadTracksFromStorage()
-            } catch (error: Throwable) {
-                _loadState.value = QueryResult.Error(error)
-                _loadState.value = QueryResult.Loading(false)
+    @ExperimentalCoroutinesApi
+    val audioFlow: Flow<List<Audio>> = currentMediaFlow.flatMapLatest { mediaType ->
+        when (mediaType) {
+            is MediaType.Track -> {
+                audioRepo.getAudioFlowWithSetState(mediaType.track)
             }
-
-            _loadState.value = QueryResult.Loading(false)
-            _loadState.value = QueryResult.Success(audioRepo.getAllTracks())
+            else -> {
+                audioRepo.getAudioFlow()
+            }
         }
     }
 
-    fun onTrackClicked(position: Int) {
-        playerMediaRepo.setCurrentTrackMedia(position, audioRepo.getAllTracks())
-        Log.d("VBNM", "onTrackCLicked $position")
+    fun onTrackClicked(audio: Audio) {
+        playerMediaRepo.setCurrentAudioMedia(audio)
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("ASDC", "TracksViewModel onCleared")
-    }
-
 }

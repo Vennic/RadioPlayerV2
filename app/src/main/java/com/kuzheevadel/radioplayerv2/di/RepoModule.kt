@@ -14,10 +14,10 @@ abstract class RepoModule {
 
 
     @Binds
-    abstract fun provideTracksRepo(repo: AudioRepository): AudioRepositoryInterface
+    abstract fun provideAudioRepo(repo: AudioRepository): AudioRepositoryInterface
 
     @Binds
-    abstract fun provideTracksDataSource(dataSource: AudioDataSource): AudioDataSourceInterface
+    abstract fun provideAudioDataSource(dataSource: AudioDataSource): AudioDataSourceInterface
 
     @Binds
     abstract fun provideCurrentMediaRepo(repo: PlayerMediaRepository): PlayerMediaRepositoryInterface

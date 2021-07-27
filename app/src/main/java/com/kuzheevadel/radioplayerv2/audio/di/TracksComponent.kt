@@ -5,7 +5,7 @@ import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioFragment
 import com.kuzheevadel.radioplayerv2.audio.playlist.PlaylistFragment
 import dagger.Subcomponent
 
-@TracksFragmentScope
+@AudioFragmentScope
 @Subcomponent(modules = [TracksModule::class])
 interface TracksComponent {
 

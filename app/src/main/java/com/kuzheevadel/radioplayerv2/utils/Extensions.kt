@@ -2,7 +2,7 @@ package com.kuzheevadel.radioplayerv2.utils
 
 import com.kuzheevadel.radioplayerv2.models.Audio
 
-fun List<Audio>.setAudioState(audio: Audio) {
+fun List<Audio>.setAudioState(audio: Audio): List<Audio> {
     for (item in this) {
         if (item.id == audio.id) {
             item.apply {
@@ -14,4 +14,5 @@ fun List<Audio>.setAudioState(audio: Audio) {
             item.isPlaying = false
         }
     }
+    return this
 }

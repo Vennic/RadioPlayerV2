@@ -17,8 +17,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
-import com.kuzheevadel.radioplayerv2.common.QueryResult
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.audio.MainTracksFragment
 import com.kuzheevadel.radioplayerv2.audio.AudioViewModel
@@ -30,7 +28,9 @@ class AllAudioFragment: Fragment() {
 
     private var _binding: AllTracksLayoutBinding? = null
     private val binding get() = _binding!!
-    private val allAudioAdapter = AllAudioAdapter()
+
+    @Inject
+    lateinit var allAudioAdapter: AllAudioAdapter
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -60,18 +60,16 @@ class AllAudioFragment: Fragment() {
     ): View? {
         _binding = AllTracksLayoutBinding.inflate(inflater, container, false)
         val view = binding.root
+        binding.allTracksRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = allAudioAdapter
+        }
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.allTracksRecycler.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = allAudioAdapter
-        }
-
         checkReadStoragePermission()
     }
 
@@ -84,8 +82,8 @@ class AllAudioFragment: Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.audioFlow.collect { audioList ->
+                    Log.d("XCV", "collect $audioList")
                     allAudioAdapter.submitList(audioList)
-                    Log.d("FlowLog", audioList.toString())
                 }
             }
         }

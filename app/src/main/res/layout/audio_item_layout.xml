@@ -9,10 +9,12 @@
         <variable
             name="audio"
             type="com.kuzheevadel.radioplayerv2.models.Audio" />
+        <variable
+            name="viewModel"
+            type="com.kuzheevadel.radioplayerv2.audio.AudioViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
@@ -58,7 +60,7 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{audio.playing ? View.VISIBLE : View.GONE}"
+            android:visibility="@{audio.selected ? View.VISIBLE : View.INVISIBLE}"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:visibility="@{audio.selected ? View.VISIBLE : View.GONE}"
+            android:visibility="@{audio.playing ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent"

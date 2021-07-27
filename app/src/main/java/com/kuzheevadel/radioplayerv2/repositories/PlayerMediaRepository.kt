@@ -1,5 +1,6 @@
 package com.kuzheevadel.radioplayerv2.repositories
 
+
 import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
@@ -18,7 +19,28 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
 
     override fun getStateCurrentMediaData(): StateFlow<MediaType<Audio>> = currentMediaData
 
-    override fun setCurrentTrackMedia(position: Int, audioList: List<Audio>) {
+    override fun setCurrentAudioMedia(audio: Audio) {
+        val newAudio = with(audio) {
+            Audio(uri, name, id, title,artistName, albumTitle, duration, albumId, imageUri, isSelected, isPlaying)
+        }
+
+        when (val mediaType = _currentMediaData.value) {
+            is MediaType.Track -> {
+                if (mediaType.track.id == newAudio.id) {
+                    newAudio.isPlaying = !newAudio.isPlaying
+                    _currentMediaData.value = MediaType.Track(newAudio)
+                } else {
+                    newAudio.isPlaying = true
+                    newAudio.isSelected = true
+                    _currentMediaData.value = MediaType.Track(newAudio)
+                }
+            }
+            else -> {
+                newAudio.isPlaying = true
+                newAudio.isSelected = true
+                _currentMediaData.value = MediaType.Track(newAudio)
+            }
+        }
 
     }
 
