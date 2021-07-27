@@ -82,7 +82,6 @@ class AllAudioFragment: Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.audioFlow.collect { audioList ->
-                    Log.d("XCV", "collect $audioList")
                     allAudioAdapter.submitList(audioList)
                 }
             }

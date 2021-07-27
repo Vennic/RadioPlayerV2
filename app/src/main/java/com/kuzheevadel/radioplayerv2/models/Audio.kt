@@ -19,7 +19,7 @@ data class Audio(
         return "$artistName • ${getDurationInTimeFormat()}"
     }
 
-    
+    fun getFullName() = "$artistName - $title"
 
     fun getDurationInTimeFormat(): String {
         val d = duration / 1000

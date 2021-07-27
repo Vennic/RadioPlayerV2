@@ -2,6 +2,7 @@ package com.kuzheevadel.radioplayerv2.repositories
 
 
 import com.kuzheevadel.radioplayerv2.common.MediaType
+import com.kuzheevadel.radioplayerv2.common.PlayingState
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,9 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
 
     private var _currentMediaData = MutableStateFlow<MediaType<Audio>>(MediaType.None(false))
     private val currentMediaData: StateFlow<MediaType<Audio>> = _currentMediaData
+
+    private var _playingState = MutableStateFlow(PlayingState.STOP)
+    private val playingState: StateFlow<PlayingState> = _playingState
 
     override fun getMutableCurrentMediaData(): MutableStateFlow<MediaType<Audio>> = _currentMediaData
 
@@ -28,20 +32,34 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
             is MediaType.Track -> {
                 if (mediaType.track.id == newAudio.id) {
                     newAudio.isPlaying = !newAudio.isPlaying
+                    setPlayingState(newAudio.isPlaying)
                     _currentMediaData.value = MediaType.Track(newAudio)
+
                 } else {
                     newAudio.isPlaying = true
                     newAudio.isSelected = true
+
+                    _playingState.value = PlayingState.PLAY
                     _currentMediaData.value = MediaType.Track(newAudio)
                 }
             }
             else -> {
                 newAudio.isPlaying = true
                 newAudio.isSelected = true
+
+                _playingState.value = PlayingState.PLAY
                 _currentMediaData.value = MediaType.Track(newAudio)
             }
         }
 
+    }
+
+    private fun setPlayingState(isPlaying: Boolean) {
+        if (isPlaying) {
+            _playingState.value = PlayingState.PLAY
+        } else {
+            _playingState.value = PlayingState.STOP
+        }
     }
 
     override fun setCurrentMediaList() {
