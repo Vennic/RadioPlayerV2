@@ -42,7 +42,10 @@ class MainTracksFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.tracksViewPager
 
-        viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        with(viewPager) {
+            offscreenPageLimit = 3
+            adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        }
 
         val tabLayout = (requireActivity() as MainActivity).tabLayout
 

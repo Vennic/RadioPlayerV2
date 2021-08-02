@@ -1,13 +1,11 @@
 package com.kuzheevadel.radioplayerv2.audio.allaudio
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kuzheevadel.radioplayerv2.models.Audio
-import com.kuzheevadel.radioplayerv2.audio.AudioViewModel
 import com.kuzheevadel.radioplayerv2.databinding.AudioItemLayoutBinding
 import javax.inject.Inject
 
@@ -16,11 +14,7 @@ class AllAudioAdapter @Inject constructor(
         diffCallback: AudioDiffCallback):
         ListAdapter<Audio, RecyclerView.ViewHolder>(diffCallback) {
 
-    lateinit var viewModel: AudioViewModel
-
-    init {
-        Log.d("VBNM", "$this")
-    }
+    lateinit var viewModel: AllAudioViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AudioViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -33,7 +27,6 @@ class AllAudioAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val audio = getItem(position)
-        Log.d("XCV", "onBindViewHolder ")
         (holder as AudioViewHolder).apply {
             bind(audio)
 
@@ -54,10 +47,6 @@ class AllAudioAdapter @Inject constructor(
 }
 
 class AudioDiffCallback @Inject constructor() : DiffUtil.ItemCallback<Audio>() {
-
-    init {
-        Log.d("VBNM", "$this")
-    }
 
     override fun areItemsTheSame(oldItem: Audio, newItem: Audio): Boolean {
         return oldItem.id == newItem.id

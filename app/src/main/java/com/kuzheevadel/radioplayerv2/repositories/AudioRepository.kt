@@ -1,5 +1,8 @@
 package com.kuzheevadel.radioplayerv2.repositories
 
+import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
+import com.kuzheevadel.radioplayerv2.common.MediaType
+import com.kuzheevadel.radioplayerv2.models.Album
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSourceInterface
 import com.kuzheevadel.radioplayerv2.utils.setAudioState
@@ -7,32 +10,41 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
+@AudioFragmentScope
 class AudioRepository @Inject constructor(
         private val audioDataSource: AudioDataSourceInterface
     ): AudioRepositoryInterface {
 
-    var allAudioList = listOf<Audio>()
+    private var _allAudioList = listOf<Audio>()
+    private var albumsList = listOf<Album>()
+
+    private var _currentAlbumsData = MutableStateFlow<List<Album>>(listOf())
+    private val currentAlbumsData: StateFlow<List<Album>> = _currentAlbumsData
 
     //Dispatcher provide!!
     override fun getAudioFlow(): Flow<List<Audio>> =
             audioDataSource.getAudioFlowFromStorage()
                     .onEach {
-                        allAudioList = it
+                        _allAudioList = it
+                        _currentAlbumsData.value = createAlbumsList(it)
                     }
                     .flowOn(Dispatchers.Default)
                     .conflate()
 
     //Dispatcher provide!!
     override fun getAudioFlowWithSetState(audio: Audio): Flow<List<Audio>> {
-        return if (allAudioList.isNullOrEmpty()) {
+        return if (_allAudioList.isNullOrEmpty()) {
             audioDataSource.getAudioFlowFromStorage()
+                    .onEach { audioList ->
+                        _allAudioList = audioList
+                        _currentAlbumsData.value = createAlbumsList(audioList) }
                     .map { audioList ->
                         audioList.setAudioState(audio)
                     }
                     .flowOn(Dispatchers.Default)
                     .conflate()
         } else {
-            val newList = allAudioList.map { it.copy() }
+            val newList = _allAudioList.map { it.copy() }
 
             flow { emit(newList)}
                     .map { audioList ->
@@ -44,12 +56,37 @@ class AudioRepository @Inject constructor(
         }
     }
 
-    override suspend fun loadTracksFromStorage() {
+    override fun createAlbumsList(audioList: List<Audio>): List<Album> {
+        val albumsMap = mutableMapOf<String, MutableList<Audio>>()
+        val albumList = mutableListOf<Album>()
 
+        for (item in audioList) {
+            if (!albumsMap.containsKey(item.albumTitle)) {
+                albumsMap[item.albumTitle] = mutableListOf(item)
+            } else {
+                albumsMap.getValue(item.albumTitle).add(item)
+            }
+        }
+
+        for (item in albumsMap.entries) {
+            val album = Album(item.key, item.value)
+            albumList.add(album)
+        }
+
+        albumsList = albumList
+        return albumList
     }
 
-    override fun getTrack(position: Int): Audio = allAudioList[position]
+    override fun getAlbumAudioList(position: Int): List<Audio> {
+        return albumsList[position].audioList
+    }
 
-    override fun getAllTracks(): List<Audio> = allAudioList
+    override fun getAlbumsStateFlow(): StateFlow<List<Album>> {
+        return currentAlbumsData
+    }
+
+    override fun getAllAudio(): List<Audio> {
+        return _allAudioList
+    }
 
 }

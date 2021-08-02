@@ -4,14 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kuzheevadel.radioplayerv2.audio.AudioViewModel
+import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsAdapter
+import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsViewModel
+import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioViewModel
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
 import com.kuzheevadel.radioplayerv2.di.ViewModelKey
 import com.kuzheevadel.radioplayerv2.models.Audio
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSource
+import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSourceInterface
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
@@ -19,12 +24,26 @@ abstract class TracksModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AudioViewModel::class)
-    abstract fun bindViewModel(viewModel: AudioViewModel): ViewModel
+    @ViewModelKey(AllAudioViewModel::class)
+    abstract fun bindAllAudioViewModel(viewModel: AllAudioViewModel): ViewModel
 
     @Binds
-    abstract fun provideAdapter(adapter: AllAudioAdapter): ListAdapter<Audio, RecyclerView.ViewHolder>
+    @IntoMap
+    @ViewModelKey(AlbumsViewModel::class)
+    abstract fun bindAlbumsViewModel(viewModel: AlbumsViewModel): ViewModel
+
+    @Binds
+    abstract fun provideAllAudioAdapter(adapter: AllAudioAdapter): ListAdapter<Audio, RecyclerView.ViewHolder>
+
+    @Binds
+    abstract fun provideAlbumsAdapter(adapter: AlbumsAdapter): RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>
 
     @Binds
     abstract fun provideAudioDiffCallback(callback: AudioDiffCallback): DiffUtil.ItemCallback<Audio>
+
+    @Binds
+    abstract fun provideAudioRepo(repo: AudioRepository): AudioRepositoryInterface
+
+    @Binds
+    abstract fun provideAudioDataSource(dataSource: AudioDataSource): AudioDataSourceInterface
 }

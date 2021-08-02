@@ -11,7 +11,7 @@
             type="com.kuzheevadel.radioplayerv2.models.Audio" />
         <variable
             name="viewModel"
-            type="com.kuzheevadel.radioplayerv2.audio.AudioViewModel" />
+            type="com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

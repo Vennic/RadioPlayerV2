@@ -12,13 +12,6 @@ import dagger.Module
 @Module
 abstract class RepoModule {
 
-
-    @Binds
-    abstract fun provideAudioRepo(repo: AudioRepository): AudioRepositoryInterface
-
-    @Binds
-    abstract fun provideAudioDataSource(dataSource: AudioDataSource): AudioDataSourceInterface
-
     @Binds
     abstract fun provideCurrentMediaRepo(repo: PlayerMediaRepository): PlayerMediaRepositoryInterface
 }

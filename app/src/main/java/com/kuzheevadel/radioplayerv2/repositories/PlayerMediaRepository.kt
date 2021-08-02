@@ -30,7 +30,7 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
     override fun setCurrentAudioMedia(audioList: List<Audio>, position: Int) {
 
         if (currentAudioList != audioList) {
-            Log.d("DFGH", "setCurrentList")
+            Log.d("FGHJ", "setCurrentList")
             currentAudioList = audioList
         }
 

@@ -56,9 +56,9 @@ class PlaybackFragment: Fragment() {
     private fun subscribeUI() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.currentMediaFLow.collect {
-                    if (it is MediaType.Track) {
-                        binding.audio = it.track
+                viewModel.currentMediaFLow.collect { mediaType ->
+                    if (mediaType is MediaType.Track) {
+                        binding.audio = mediaType.track
                     }
                 }
             }
