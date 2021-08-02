@@ -17,6 +17,16 @@ fun setRoundedCornersImage(view: ImageView, uri: Uri?) {
             .into(view)
 }
 
+@BindingAdapter(value = ["app:large_url"])
+fun setLargeRoundedCornersImage(view: ImageView, uri: Uri?) {
+        Picasso.get()
+                .load(uri)
+                .fit()
+                .placeholder(R.drawable.album_art_default)
+                .transform(RoundedCornersTransformation(40, 6))
+                .into(view)
+}
+
 @BindingAdapter(value = ["app:album_url"])
 fun loadImage(view: ImageView, uri: Uri?) {
         val stringUri = uri.toString()

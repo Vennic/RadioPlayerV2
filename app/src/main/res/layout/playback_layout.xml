@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/include"
+            android:id="@+id/top_playback_layout"
             layout="@layout/top_playback_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +23,14 @@
             app:audio="@{audio}"/>
 
         <include
+            android:id="@+id/playback_controls_layout"
             layout="@layout/playback_controls_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include"
+            app:layout_constraintTop_toBottomOf="@+id/top_playback_layout"
             app:audio="@{audio}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

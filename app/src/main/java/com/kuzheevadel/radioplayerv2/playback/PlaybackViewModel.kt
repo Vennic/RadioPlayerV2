@@ -6,11 +6,17 @@ import javax.inject.Inject
 
 
 class PlaybackViewModel @Inject constructor(
-        private val repository: PlayerMediaRepositoryInterface): ViewModel()
-{
+        private val repository: PlayerMediaRepositoryInterface
+): ViewModel() {
 
-    fun getRepo(): String {
-        return repository.toString()
+    val currentMediaFLow = repository.getStateCurrentMediaData()
+
+    fun onNextAudio() {
+        repository.setNextAudio()
+    }
+
+    fun onPreviousAudio() {
+        repository.setPreviousAudio()
     }
 
 }

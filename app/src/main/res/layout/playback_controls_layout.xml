@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/imageView4"
+            android:id="@+id/previous_audio_button"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -38,13 +38,13 @@
             android:scaleType="centerCrop"
             android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView6"
+            app:layout_constraintEnd_toStartOf="@+id/next_audio_button"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/previous_audio_button"
             app:srcCompat="@drawable/ic_baseline_play_circle_filled_24" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/imageView6"
+            android:id="@+id/next_audio_button"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -79,7 +79,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:scaleType="centerCrop"
-            app:url="@{audio.imageUri}"
+            app:large_url="@{audio.imageUri}"
             app:layout_constraintBottom_toTopOf="@+id/progressBar2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,7 @@
 package com.kuzheevadel.radioplayerv2.repositories
 
 
+import android.util.Log
 import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.common.PlayingState
 import com.kuzheevadel.radioplayerv2.models.Audio
@@ -19,19 +20,31 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
     private var _playingState = MutableStateFlow(PlayingState.STOP)
     private val playingState: StateFlow<PlayingState> = _playingState
 
+    private var currentAudioIndex = 0
+    private var currentAudioList = listOf<Audio>()
+
     override fun getMutableCurrentMediaData(): MutableStateFlow<MediaType<Audio>> = _currentMediaData
 
     override fun getStateCurrentMediaData(): StateFlow<MediaType<Audio>> = currentMediaData
 
-    override fun setCurrentAudioMedia(audio: Audio) {
-        val newAudio = with(audio) {
+    override fun setCurrentAudioMedia(audioList: List<Audio>, position: Int) {
+
+        if (currentAudioList != audioList) {
+            Log.d("DFGH", "setCurrentList")
+            currentAudioList = audioList
+        }
+
+        currentAudioIndex = position
+
+        val newAudio = with(currentAudioList[currentAudioIndex]) {
             Audio(uri, name, id, title,artistName, albumTitle, duration, albumId, imageUri, isSelected, isPlaying)
         }
 
         when (val mediaType = _currentMediaData.value) {
             is MediaType.Track -> {
                 if (mediaType.track.id == newAudio.id) {
-                    newAudio.isPlaying = !newAudio.isPlaying
+                    newAudio.isSelected = true
+                    newAudio.isPlaying = !mediaType.track.isPlaying
                     setPlayingState(newAudio.isPlaying)
                     _currentMediaData.value = MediaType.Track(newAudio)
 
@@ -66,12 +79,24 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
         TODO("Not yet implemented")
     }
 
-    override fun getNextMedia(): Audio {
-        TODO("Not yet implemented")
+    override fun setNextAudio() {
+        if (currentAudioIndex == currentAudioList.size - 1) {
+            currentAudioIndex = 0
+            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
+        } else {
+            currentAudioIndex++
+            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
+        }
     }
 
-    override fun getPreviousMedia(): Audio {
-        TODO("Not yet implemented")
+    override fun setPreviousAudio() {
+        if (currentAudioIndex == 0) {
+            currentAudioIndex = currentAudioList.size - 1
+            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
+        } else {
+            currentAudioIndex--
+            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
+        }
     }
 
     override fun setRepeatMode(isEnabled: Boolean) {

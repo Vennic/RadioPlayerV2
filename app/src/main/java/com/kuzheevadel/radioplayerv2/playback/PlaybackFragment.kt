@@ -8,9 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.databinding.PlaybackLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PlaybackFragment: Fragment() {
@@ -38,6 +44,24 @@ class PlaybackFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("ZXCV", viewModel.getRepo())
+
+        with(binding.playbackControlsLayout) {
+            nextAudioButton.setOnClickListener { viewModel.onNextAudio() }
+            previousAudioButton.setOnClickListener { viewModel.onPreviousAudio() }
+        }
+
+        subscribeUI()
+    }
+
+    private fun subscribeUI() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentMediaFLow.collect {
+                    if (it is MediaType.Track) {
+                        binding.audio = it.track
+                    }
+                }
+            }
+        }
     }
 }

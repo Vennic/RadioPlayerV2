@@ -38,7 +38,7 @@ class AllAudioAdapter @Inject constructor(
             bind(audio)
 
             binding.root.setOnClickListener {
-                viewModel.onTrackClicked(audio)
+                viewModel.onTrackClicked(position)
             }
         }
     }
