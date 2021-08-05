@@ -19,27 +19,28 @@ class AllAudioAdapter @Inject constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AudioViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return AudioViewHolder(
+        val viewHolder = AudioViewHolder(
                 AudioItemLayoutBinding.inflate(
                         inflater, parent, false))
+
+        viewHolder.binding.root.setOnClickListener {
+            onSelect(viewHolder.adapterPosition)
+        }
+        return viewHolder
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val audio = getItem(position)
         (holder as AudioViewHolder).apply {
-            bind(audio, position, onSelect)
+            bind(audio)
         }
     }
 
     class AudioViewHolder(val binding: AudioItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Audio, position: Int, onSelect: (Int) -> Unit) {
+        fun bind(item: Audio) {
             binding.apply {
                 audio = item
-
-                root.setOnClickListener {
-                    onSelect(position)
-                }
                 executePendingBindings()
             }
         }

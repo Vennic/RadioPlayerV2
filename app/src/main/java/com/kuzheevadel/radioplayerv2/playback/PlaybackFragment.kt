@@ -36,9 +36,8 @@ class PlaybackFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = PlaybackLayoutBinding.inflate(inflater, container, false)
-        val view = binding.root
 
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,6 +46,7 @@ class PlaybackFragment: Fragment() {
         with(binding.playbackControlsLayout) {
             nextAudioButton.setOnClickListener { viewModel.onNextAudio() }
             previousAudioButton.setOnClickListener { viewModel.onPreviousAudio() }
+            playbackAudioTitle.isSelected = true
         }
 
         subscribeUI()
@@ -62,5 +62,10 @@ class PlaybackFragment: Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -34,7 +34,7 @@ class AlbumsAdapter @Inject constructor(): RecyclerView.Adapter<AlbumsAdapter.Al
     override fun onBindViewHolder(holder: AlbumsViewHolder, position: Int) {
         val album = albumsList[position]
 
-        (holder as AlbumsViewHolder).apply {
+        holder.apply {
             bind(album)
             binding.root.setOnClickListener {
                 val action = MainAudioFragmentDirections.toDetailedAlbumFragment(position, albumTitle = album.name)

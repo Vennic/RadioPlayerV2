@@ -15,31 +15,30 @@ class DetailedAlbumAudioAdapter @Inject constructor(
     lateinit var onSelect: (Int) -> Unit
 
     class AudioViewHolder(val binding: AlbumAudioItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Audio, itemPosition: Int, onSelect: (Int) -> Unit) {
+        fun bind(item: Audio, itemPosition: Int) {
             binding.apply {
                 audio = item
                 position = itemPosition + 1
                 executePendingBindings()
-
-                root.setOnClickListener {
-                    onSelect(itemPosition)
-                }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AudioViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
-        return AudioViewHolder(
+        val viewHolder = AudioViewHolder(
                 AlbumAudioItemBinding.inflate(inflater, parent, false)
         )
+
+        viewHolder.binding.root.setOnClickListener {
+            onSelect(viewHolder.adapterPosition)
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: AudioViewHolder, position: Int) {
         val audio = audioList[position]
-
-        holder.bind(audio, position, onSelect)
+        holder.bind(audio, position)
     }
 
     override fun getItemCount() = audioList.size
