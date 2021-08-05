@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerAdapter
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerRadioAdapter
@@ -42,11 +46,18 @@ class MainRadioFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.radioViewPager
-        //viewPager.isSaveEnabled = false
+        val tabLayout = binding.mainRadioTabLayout
+        val navController = findNavController()
 
-        viewPager.adapter = ViewPagerRadioAdapter(childFragmentManager, lifecycle)
+        val drawerLayout = (requireActivity() as MainActivity).drawerLayout
 
-        val tabLayout = (requireActivity() as MainActivity).tabLayout
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
+        binding.mainRadioToolbar.setupWithNavController(navController, appBarConfiguration)
+
+        with(viewPager) {
+            offscreenPageLimit = 3
+            adapter = ViewPagerRadioAdapter(childFragmentManager, lifecycle)
+        }
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {

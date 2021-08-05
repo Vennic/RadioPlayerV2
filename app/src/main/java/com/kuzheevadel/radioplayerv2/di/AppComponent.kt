@@ -4,7 +4,7 @@ import android.content.Context
 import com.kuzheevadel.radioplayerv2.playback.PlaybackFragment
 import com.kuzheevadel.radioplayerv2.playback.di.PlaybackModule
 import com.kuzheevadel.radioplayerv2.radio.di.RadioComponent
-import com.kuzheevadel.radioplayerv2.audio.di.TracksComponent
+import com.kuzheevadel.radioplayerv2.audio.di.AudioComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -22,7 +22,7 @@ interface AppComponent {
         fun create(@BindsInstance appContext: Context): AppComponent
     }
 
-    fun getTracksComponent(): TracksComponent.Factory
+    fun getTracksComponent(): AudioComponent.Factory
     fun getRadioComponent(): RadioComponent.Factory
     fun inject(fragment: PlaybackFragment)
 }

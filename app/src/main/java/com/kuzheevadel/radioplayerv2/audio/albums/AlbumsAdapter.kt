@@ -2,7 +2,9 @@ package com.kuzheevadel.radioplayerv2.audio.albums
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import com.kuzheevadel.radioplayerv2.audio.MainTracksFragmentDirections
 import com.kuzheevadel.radioplayerv2.databinding.AlbumItemLayoutBinding
 import com.kuzheevadel.radioplayerv2.models.Album
 import javax.inject.Inject
@@ -10,6 +12,7 @@ import javax.inject.Inject
 class AlbumsAdapter @Inject constructor(): RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>() {
 
     private var albumsList = listOf<Album>()
+    lateinit var navController: NavController
 
     class AlbumsViewHolder(val binding: AlbumItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Album) {
@@ -33,6 +36,10 @@ class AlbumsAdapter @Inject constructor(): RecyclerView.Adapter<AlbumsAdapter.Al
 
         (holder as AlbumsViewHolder).apply {
             bind(album)
+            binding.root.setOnClickListener {
+                val action = MainTracksFragmentDirections.toDetailedAlbumFragment()
+                navController.navigate(action)
+            }
         }
     }
 

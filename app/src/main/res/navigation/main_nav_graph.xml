@@ -7,10 +7,22 @@
 
     <fragment
         android:id="@+id/mainTracksFragment"
-        android:name="com.kuzheevadel.radioplayerv2.audio.MainTracksFragment"
-        android:label="Music" />
+        android:name="com.kuzheevadel.radioplayerv2.audio.MainAudioFragment"
+        android:label="Music" >
+        <action
+            android:id="@+id/to_detailed_album_fragment"
+            app:destination="@id/detailedAlbumFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/mainRadioFragment"
         android:name="com.kuzheevadel.radioplayerv2.radio.MainRadioFragment"
         android:label="Radio" />
+    <fragment
+        android:id="@+id/detailedAlbumFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumFragment"
+        android:label="DetailedAlbumFragment" />
 </navigation>

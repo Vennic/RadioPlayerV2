@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
-import com.kuzheevadel.radioplayerv2.audio.MainTracksFragment
+import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,7 +46,7 @@ class AllAudioFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireParentFragment() as MainTracksFragment).tracksComponent
+        (requireParentFragment() as MainAudioFragment).audioComponent
                 .inject(this)
         allAudioAdapter.viewModel = viewModel
     }

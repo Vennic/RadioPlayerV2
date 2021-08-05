@@ -7,24 +7,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerAdapter
 import com.kuzheevadel.radioplayerv2.databinding.MainTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
-import com.kuzheevadel.radioplayerv2.audio.di.TracksComponent
+import com.kuzheevadel.radioplayerv2.audio.di.AudioComponent
 
-class MainTracksFragment: Fragment() {
+class MainAudioFragment: Fragment() {
 
     private var _binding: MainTracksLayoutBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var tracksComponent: TracksComponent
+    lateinit var audioComponent: AudioComponent
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        tracksComponent = (requireActivity().application as PlayerApplication).appComponent
+        audioComponent = (requireActivity().application as PlayerApplication).appComponent
                 .getTracksComponent()
                 .create()
     }
@@ -40,16 +44,30 @@ class MainTracksFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewPager = binding.tracksViewPager
+        /*val navHostFragment = requireActivity().supportFragmentManager
+                .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment*/
+
+        val navController = findNavController()
+
+        Log.d("NavTest", "MainTracksFragment - $navController")
+
+        val drawerLayout = (requireActivity() as MainActivity).drawerLayout
+
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
+        binding.mainAudioToolbar.setupWithNavController(navController, appBarConfiguration)
+
+        val viewPager = binding.audioViewPager
 
         with(viewPager) {
             offscreenPageLimit = 3
             adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         }
 
-        val tabLayout = (requireActivity() as MainActivity).tabLayout
+        //val tabLayout = (requireActivity() as MainActivity).tabLayout
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+
+
+        TabLayoutMediator(binding.mainAudioTabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "All tracks"
                 1 -> tab.text = "Albums"
@@ -62,4 +80,5 @@ class MainTracksFragment: Fragment() {
         super.onDestroy()
         Log.d("ASDC", "MainTracksFragment onDestroy")
     }
+
 }

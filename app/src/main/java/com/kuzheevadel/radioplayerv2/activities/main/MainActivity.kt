@@ -1,6 +1,7 @@
 package com.kuzheevadel.radioplayerv2.activities.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -15,11 +16,11 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 class MainActivity: AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var drawerLayout: DrawerLayout
+    lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var slidingPanel: SlidingUpPanelLayout
-    lateinit var tabLayout: TabLayout
+    //lateinit var tabLayout: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,22 +29,24 @@ class MainActivity: AppCompatActivity(){
         setContentView(view)
 
         with(binding) {
-            tabLayout = mainPlayer.tabLayout
+            //tabLayout = mainPlayer.tabLayout
             drawerLayout = mainDrawerLayout
         }
         slidingPanel = binding.mainPlayer.root
 
-        val toolbar = binding.mainPlayer.playerToolbar
+        //val toolbar = binding.mainPlayer.playerToolbar
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
 
         navController = navHostFragment.navController
 
+        Log.d("NavTest", "mainActivity - $navController")
+
         val navMenu = binding.navMenu
 
-        appBarConfig = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
+        //appBarConfig = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
 
-        toolbar.setupWithNavController(navController, appBarConfig)
+        //toolbar.setupWithNavController(navController, appBarConfig)
 
         navMenu.setupWithNavController(navController)
 
@@ -52,10 +55,22 @@ class MainActivity: AppCompatActivity(){
     // Collapse panel when back button pressed if panel expanded
     override fun onBackPressed() {
         when (slidingPanel.panelState) {
-            SlidingUpPanelLayout.PanelState.EXPANDED -> slidingPanel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            else -> super.onBackPressed()
+            SlidingUpPanelLayout.PanelState.EXPANDED -> {
+                slidingPanel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                return
+            }
+            else -> {
+                if (navController.currentDestination?.label == "DetailedAlbumFragment") {
+                    navController.popBackStack()
+                    return
+                }
+            }
         }
+
+        super.onBackPressed()
     }
+
+
 
 }
 

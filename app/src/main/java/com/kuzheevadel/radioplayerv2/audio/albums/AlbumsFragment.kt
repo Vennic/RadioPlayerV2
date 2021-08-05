@@ -2,7 +2,6 @@ package com.kuzheevadel.radioplayerv2.audio.albums
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.R
-import com.kuzheevadel.radioplayerv2.audio.MainTracksFragment
-import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioViewModel
+import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
 import com.kuzheevadel.radioplayerv2.databinding.AlbumsLayoutBinding
-import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,8 +36,17 @@ class AlbumsFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        (requireParentFragment() as MainTracksFragment).tracksComponent
+        (requireParentFragment() as MainAudioFragment).audioComponent
                 .inject(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val navHostFragment = requireActivity().supportFragmentManager
+                .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+
+        val navController = navHostFragment.navController
+        albumsAdapter.navController = navController
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

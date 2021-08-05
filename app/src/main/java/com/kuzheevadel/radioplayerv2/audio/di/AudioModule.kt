@@ -9,6 +9,7 @@ import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsViewModel
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioViewModel
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
+import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumViewModel
 import com.kuzheevadel.radioplayerv2.di.ViewModelKey
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
@@ -20,7 +21,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class TracksModule {
+abstract class AudioModule {
 
     @Binds
     @IntoMap
@@ -31,6 +32,11 @@ abstract class TracksModule {
     @IntoMap
     @ViewModelKey(AlbumsViewModel::class)
     abstract fun bindAlbumsViewModel(viewModel: AlbumsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailedAlbumViewModel::class)
+    abstract fun bindDetailAlbumViewModel(viewModel: DetailedAlbumViewModel): ViewModel
 
     @Binds
     abstract fun provideAllAudioAdapter(adapter: AllAudioAdapter): ListAdapter<Audio, RecyclerView.ViewHolder>
