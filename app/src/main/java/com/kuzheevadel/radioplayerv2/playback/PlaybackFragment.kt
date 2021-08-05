@@ -2,7 +2,6 @@ package com.kuzheevadel.radioplayerv2.playback
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,8 +56,8 @@ class PlaybackFragment: Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.currentMediaFLow.collect { mediaType ->
-                    if (mediaType is MediaType.Track) {
-                        binding.audio = mediaType.track
+                    if (mediaType is MediaType.Audio) {
+                        binding.audio = mediaType.audio
                     }
                 }
             }

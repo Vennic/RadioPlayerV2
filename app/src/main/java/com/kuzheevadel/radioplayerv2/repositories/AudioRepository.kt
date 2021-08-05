@@ -1,5 +1,6 @@
 package com.kuzheevadel.radioplayerv2.repositories
 
+import android.util.Log
 import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
 import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.models.Album
@@ -27,6 +28,7 @@ class AudioRepository @Inject constructor(
                     .onEach {
                         _allAudioList = it
                         _currentAlbumsData.value = createAlbumsList(it)
+                        Log.d("TYUI", "getFlow - $albumsList")
                     }
                     .flowOn(Dispatchers.Default)
                     .conflate()
@@ -37,7 +39,8 @@ class AudioRepository @Inject constructor(
             audioDataSource.getAudioFlowFromStorage()
                     .onEach { audioList ->
                         _allAudioList = audioList
-                        _currentAlbumsData.value = createAlbumsList(audioList) }
+                        _currentAlbumsData.value = createAlbumsList(audioList)
+                        Log.d("TYUI", "getFlowWithSelected - $albumsList")}
                     .map { audioList ->
                         audioList.setAudioState(audio)
                     }
@@ -78,6 +81,7 @@ class AudioRepository @Inject constructor(
     }
 
     override fun getAlbumAudioList(position: Int): List<Audio> {
+        Log.d("TYUI", "getAlbumAudioList - $albumsList")
         return albumsList[position].audioList
     }
 

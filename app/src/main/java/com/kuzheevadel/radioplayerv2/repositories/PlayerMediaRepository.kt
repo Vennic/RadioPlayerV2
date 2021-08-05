@@ -41,19 +41,19 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
         }
 
         when (val mediaType = _currentMediaData.value) {
-            is MediaType.Track -> {
-                if (mediaType.track.id == newAudio.id) {
+            is MediaType.Audio -> {
+                if (mediaType.audio.id == newAudio.id) {
                     newAudio.isSelected = true
-                    newAudio.isPlaying = !mediaType.track.isPlaying
+                    newAudio.isPlaying = !mediaType.audio.isPlaying
                     setPlayingState(newAudio.isPlaying)
-                    _currentMediaData.value = MediaType.Track(newAudio)
+                    _currentMediaData.value = MediaType.Audio(newAudio)
 
                 } else {
                     newAudio.isPlaying = true
                     newAudio.isSelected = true
 
                     _playingState.value = PlayingState.PLAY
-                    _currentMediaData.value = MediaType.Track(newAudio)
+                    _currentMediaData.value = MediaType.Audio(newAudio)
                 }
             }
             else -> {
@@ -61,7 +61,7 @@ class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterfac
                 newAudio.isSelected = true
 
                 _playingState.value = PlayingState.PLAY
-                _currentMediaData.value = MediaType.Track(newAudio)
+                _currentMediaData.value = MediaType.Audio(newAudio)
             }
         }
 

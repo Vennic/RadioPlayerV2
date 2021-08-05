@@ -12,7 +12,7 @@
     tools:context=".activities.main.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment"
         android:id="@+id/main_nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

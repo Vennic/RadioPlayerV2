@@ -28,9 +28,7 @@ class MainAudioFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        audioComponent = (requireActivity().application as PlayerApplication).appComponent
-                .getTracksComponent()
-                .create()
+        audioComponent = (requireParentFragment() as AudioNavHostFragment).audioComponent
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -53,7 +51,7 @@ class MainAudioFragment: Fragment() {
 
         val drawerLayout = (requireActivity() as MainActivity).drawerLayout
 
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.mainAudioFragment, R.id.mainRadioFragment), drawerLayout)
         binding.mainAudioToolbar.setupWithNavController(navController, appBarConfiguration)
 
         val viewPager = binding.audioViewPager

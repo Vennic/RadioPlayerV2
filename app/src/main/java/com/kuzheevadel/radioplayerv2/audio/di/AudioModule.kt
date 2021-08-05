@@ -9,6 +9,7 @@ import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsViewModel
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioViewModel
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
+import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumViewModel
 import com.kuzheevadel.radioplayerv2.di.ViewModelKey
 import com.kuzheevadel.radioplayerv2.models.Audio
@@ -43,6 +44,9 @@ abstract class AudioModule {
 
     @Binds
     abstract fun provideAlbumsAdapter(adapter: AlbumsAdapter): RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>
+
+    @Binds
+    abstract fun provideDetailedAlbumAdapter(adapter: DetailedAlbumAudioAdapter): RecyclerView.Adapter<DetailedAlbumAudioAdapter.AudioViewHolder>
 
     @Binds
     abstract fun provideAudioDiffCallback(callback: AudioDiffCallback): DiffUtil.ItemCallback<Audio>

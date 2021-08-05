@@ -12,10 +12,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
-import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerAdapter
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerRadioAdapter
 import com.kuzheevadel.radioplayerv2.databinding.MainRadioLayoutBinding
-import com.kuzheevadel.radioplayerv2.databinding.MainTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.di.PlayerApplication
 import com.kuzheevadel.radioplayerv2.radio.di.RadioComponent
 
@@ -51,7 +49,7 @@ class MainRadioFragment: Fragment() {
 
         val drawerLayout = (requireActivity() as MainActivity).drawerLayout
 
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.mainAudioFragment, R.id.mainRadioFragment), drawerLayout)
         binding.mainRadioToolbar.setupWithNavController(navController, appBarConfiguration)
 
         with(viewPager) {

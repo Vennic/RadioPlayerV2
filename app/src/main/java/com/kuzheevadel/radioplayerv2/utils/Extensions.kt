@@ -16,3 +16,13 @@ fun List<Audio>.setAudioState(audio: Audio): List<Audio> {
     }
     return this
 }
+
+fun List<Audio>.setAllAudioUnselected(): List<Audio> {
+    for (item in this) {
+        item.apply {
+            isPlaying = false
+            isSelected = false
+        }
+    }
+    return this
+}

@@ -1,5 +1,6 @@
 package com.kuzheevadel.radioplayerv2.audio.allaudio
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
@@ -15,13 +16,17 @@ class AllAudioViewModel @Inject constructor(
         private val playerMediaRepo: PlayerMediaRepositoryInterface
 ): ViewModel() {
 
+    init {
+        Log.d("TYUI", "all audio - $audioRepo")
+    }
+
     private val currentMediaFlow = playerMediaRepo.getStateCurrentMediaData()
 
     @ExperimentalCoroutinesApi
     val audioFlow: Flow<List<Audio>> = currentMediaFlow.flatMapLatest { mediaType ->
         when (mediaType) {
-            is MediaType.Track -> {
-                audioRepo.getAudioFlowWithSetState(mediaType.track)
+            is MediaType.Audio -> {
+                audioRepo.getAudioFlowWithSetState(mediaType.audio)
             }
             else -> {
                 audioRepo.getAudioFlow()

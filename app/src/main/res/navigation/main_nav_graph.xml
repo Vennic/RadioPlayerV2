@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainTracksFragment">
+    app:startDestination="@id/mainAudioFragment">
 
     <fragment
-        android:id="@+id/mainTracksFragment"
+        android:id="@+id/mainAudioFragment"
         android:name="com.kuzheevadel.radioplayerv2.audio.MainAudioFragment"
         android:label="Music" >
         <action
@@ -24,5 +24,10 @@
     <fragment
         android:id="@+id/detailedAlbumFragment"
         android:name="com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumFragment"
-        android:label="DetailedAlbumFragment" />
+        android:label="DetailedAlbumFragment" >
+        <argument
+            android:name="albumPosition"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
