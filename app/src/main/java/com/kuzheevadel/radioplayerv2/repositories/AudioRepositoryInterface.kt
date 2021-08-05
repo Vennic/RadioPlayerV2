@@ -12,4 +12,5 @@ interface AudioRepositoryInterface {
     fun createAlbumsList(audioList: List<Audio>): List<Album>
     fun getAlbumsStateFlow(): StateFlow<List<Album>>
     fun getAlbumAudioList(position: Int): List<Audio>
+    fun getAlbum(position: Int): Album
 }

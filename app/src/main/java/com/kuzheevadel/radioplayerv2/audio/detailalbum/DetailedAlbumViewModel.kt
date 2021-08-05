@@ -1,8 +1,8 @@
 package com.kuzheevadel.radioplayerv2.audio.detailalbum
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.kuzheevadel.radioplayerv2.common.MediaType
+import com.kuzheevadel.radioplayerv2.models.Album
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
 import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
@@ -19,12 +19,9 @@ class DetailedAlbumViewModel @Inject constructor(
 
 ): ViewModel() {
 
-    init {
-        Log.d("TYUI", "detailed album - $audioRepo")
-    }
-
-    lateinit var audioList: List<Audio>
+    private lateinit var audioList: List<Audio>
     private val currentMediaFlow = playerRepo.getStateCurrentMediaData()
+    private var albumPos = 0
 
     @ExperimentalCoroutinesApi
     val audioFLow: Flow<List<Audio>> = currentMediaFlow.flatMapLatest {
@@ -39,8 +36,17 @@ class DetailedAlbumViewModel @Inject constructor(
         }
     }
 
-    fun prepareFlow(position: Int) {
-        Log.d("TYUI", "prepareFlow - ${audioRepo.getAlbumAudioList(position)}")
-        audioList = audioRepo.getAlbumAudioList(position)
+    fun onAudioClicked(audioPosition: Int) {
+        val audioList = audioRepo.getAlbumAudioList(albumPos)
+        playerRepo.setCurrentAudioMedia(audioList, audioPosition)
+    }
+
+    fun init(albumPosition: Int) {
+        albumPos = albumPosition
+        audioList = audioRepo.getAlbumAudioList(albumPosition)
+    }
+
+    fun getAlbum(): Album {
+        return audioRepo.getAlbum(albumPos)
     }
 }

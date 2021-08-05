@@ -18,9 +18,7 @@ class MainActivity: AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
-    private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var slidingPanel: SlidingUpPanelLayout
-    //lateinit var tabLayout: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,24 +27,16 @@ class MainActivity: AppCompatActivity(){
         setContentView(view)
 
         with(binding) {
-            //tabLayout = mainPlayer.tabLayout
             drawerLayout = mainDrawerLayout
         }
         slidingPanel = binding.mainPlayer.root
 
-        //val toolbar = binding.mainPlayer.playerToolbar
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
 
         navController = navHostFragment.navController
 
-        Log.d("NavTest", "mainActivity - $navController")
-
         val navMenu = binding.navMenu
-
-        //appBarConfig = AppBarConfiguration(setOf(R.id.mainTracksFragment, R.id.mainRadioFragment), drawerLayout)
-
-        //toolbar.setupWithNavController(navController, appBarConfig)
 
         navMenu.setupWithNavController(navController)
 
@@ -60,7 +50,7 @@ class MainActivity: AppCompatActivity(){
                 return
             }
             else -> {
-                if (navController.currentDestination?.label == "DetailedAlbumFragment") {
+                if (navController.currentDestination?.label == "Album") {
                     navController.popBackStack()
                     return
                 }

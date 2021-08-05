@@ -7,16 +7,23 @@ import com.kuzheevadel.radioplayerv2.databinding.AlbumAudioItemBinding
 import com.kuzheevadel.radioplayerv2.models.Audio
 import javax.inject.Inject
 
-class DetailedAlbumAudioAdapter @Inject constructor(): RecyclerView.Adapter<DetailedAlbumAudioAdapter.AudioViewHolder>() {
+class DetailedAlbumAudioAdapter @Inject constructor(
+): RecyclerView.Adapter<DetailedAlbumAudioAdapter.AudioViewHolder>() {
 
     private var audioList = listOf<Audio>()
 
+    lateinit var onSelect: (Int) -> Unit
+
     class AudioViewHolder(val binding: AlbumAudioItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Audio, itemPosition: Int) {
+        fun bind(item: Audio, itemPosition: Int, onSelect: (Int) -> Unit) {
             binding.apply {
                 audio = item
-                position = itemPosition
+                position = itemPosition + 1
                 executePendingBindings()
+
+                root.setOnClickListener {
+                    onSelect(itemPosition)
+                }
             }
         }
     }
@@ -32,12 +39,7 @@ class DetailedAlbumAudioAdapter @Inject constructor(): RecyclerView.Adapter<Deta
     override fun onBindViewHolder(holder: AudioViewHolder, position: Int) {
         val audio = audioList[position]
 
-        holder.apply {
-            bind(audio, position + 1)
-            binding.root.setOnClickListener {
-
-            }
-        }
+        holder.bind(audio, position, onSelect)
     }
 
     override fun getItemCount() = audioList.size

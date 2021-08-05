@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import com.kuzheevadel.radioplayerv2.audio.MainTracksFragmentDirections
+import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
 import com.kuzheevadel.radioplayerv2.databinding.AlbumItemLayoutBinding
 import com.kuzheevadel.radioplayerv2.models.Album
 import javax.inject.Inject
@@ -37,7 +37,7 @@ class AlbumsAdapter @Inject constructor(): RecyclerView.Adapter<AlbumsAdapter.Al
         (holder as AlbumsViewHolder).apply {
             bind(album)
             binding.root.setOnClickListener {
-                val action = MainTracksFragmentDirections.toDetailedAlbumFragment()
+                val action = MainAudioFragmentDirections.toDetailedAlbumFragment(position, albumTitle = album.name)
                 navController.navigate(action)
             }
         }

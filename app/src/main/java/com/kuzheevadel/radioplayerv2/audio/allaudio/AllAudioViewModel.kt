@@ -34,7 +34,7 @@ class AllAudioViewModel @Inject constructor(
         }
     }
 
-    fun onTrackClicked(position: Int) {
+    fun onAudioClicked(position: Int) {
         playerMediaRepo.setCurrentAudioMedia(audioRepo.getAllAudio(), position)
     }
 }

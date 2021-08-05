@@ -2,7 +2,6 @@ package com.kuzheevadel.radioplayerv2.audio.detailalbum
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,20 +16,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment
-import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
 import com.kuzheevadel.radioplayerv2.databinding.DetailAlbumBinding
-import com.kuzheevadel.radioplayerv2.di.PlayerApplication
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailedAlbumFragment: Fragment() {
-
-    init {
-        Log.d("ZXCV", "Detailed init")
-    }
 
     @Inject
     lateinit var audioAdapter: DetailedAlbumAudioAdapter
@@ -54,7 +46,7 @@ class DetailedAlbumFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DetailAlbumBinding.inflate(inflater, container, false)
 
-        viewModel.prepareFlow(args.albumPosition)
+        viewModel.init(args.albumPosition)
 
         return binding.root
     }
@@ -62,22 +54,24 @@ class DetailedAlbumFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.collapsingToolbarLayout.apply {
-            title = "Reise Reise"
-            setContentScrimColor(android.graphics.Color.BLUE)
-        }
-
         val navController = findNavController()
-
-        Log.d("NavTest", "DetailedAlbumFragment - $navController, \n id - ${navController.currentDestination?.id}, " +
-                "navigatorName - ${navController.currentDestination?.navigatorName}, lable - ${navController.currentDestination?.label}")
         val appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        binding.detailAlbumToolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.album = viewModel.getAlbum()
+
+        binding.collapsingToolbarLayout
+                .setContentScrimColor(android.graphics.Color.BLUE)
+
+        binding.detailAlbumToolbar
+                .setupWithNavController(navController, appBarConfiguration)
 
         binding.detailAlbumRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = audioAdapter
+        }
+
+        audioAdapter.onSelect = { position ->
+            viewModel.onAudioClicked(position)
         }
 
         subscribeUI()
@@ -91,5 +85,10 @@ class DetailedAlbumFragment: Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

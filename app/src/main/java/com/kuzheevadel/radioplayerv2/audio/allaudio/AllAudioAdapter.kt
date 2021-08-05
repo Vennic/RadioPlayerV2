@@ -14,7 +14,7 @@ class AllAudioAdapter @Inject constructor(
         diffCallback: AudioDiffCallback):
         ListAdapter<Audio, RecyclerView.ViewHolder>(diffCallback) {
 
-    lateinit var viewModel: AllAudioViewModel
+    lateinit var onSelect: (Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AudioViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,18 +28,18 @@ class AllAudioAdapter @Inject constructor(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val audio = getItem(position)
         (holder as AudioViewHolder).apply {
-            bind(audio)
-
-            binding.root.setOnClickListener {
-                viewModel.onTrackClicked(position)
-            }
+            bind(audio, position, onSelect)
         }
     }
 
-    inner class AudioViewHolder(val binding: AudioItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Audio) {
+    class AudioViewHolder(val binding: AudioItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Audio, position: Int, onSelect: (Int) -> Unit) {
             binding.apply {
                 audio = item
+
+                root.setOnClickListener {
+                    onSelect(position)
+                }
                 executePendingBindings()
             }
         }

@@ -93,4 +93,8 @@ class AudioRepository @Inject constructor(
         return _allAudioList
     }
 
+    override fun getAlbum(position: Int): Album {
+       return albumsList[position]
+    }
+
 }

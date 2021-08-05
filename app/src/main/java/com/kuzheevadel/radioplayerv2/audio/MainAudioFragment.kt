@@ -42,12 +42,8 @@ class MainAudioFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val navHostFragment = requireActivity().supportFragmentManager
-                .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment*/
 
         val navController = findNavController()
-
-        Log.d("NavTest", "MainTracksFragment - $navController")
 
         val drawerLayout = (requireActivity() as MainActivity).drawerLayout
 
@@ -60,10 +56,6 @@ class MainAudioFragment: Fragment() {
             offscreenPageLimit = 3
             adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         }
-
-        //val tabLayout = (requireActivity() as MainActivity).tabLayout
-
-
 
         TabLayoutMediator(binding.mainAudioTabLayout, viewPager) { tab, position ->
             when (position) {

@@ -48,7 +48,6 @@ class AllAudioFragment: Fragment() {
         super.onAttach(context)
         (requireParentFragment() as MainAudioFragment).audioComponent
                 .inject(this)
-        allAudioAdapter.viewModel = viewModel
     }
 
     override fun onCreateView(
@@ -68,6 +67,10 @@ class AllAudioFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        allAudioAdapter.onSelect = { position ->
+            viewModel.onAudioClicked(position)
+        }
+
         checkReadStoragePermission()
     }
 

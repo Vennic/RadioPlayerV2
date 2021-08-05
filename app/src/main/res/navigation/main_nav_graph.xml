@@ -12,10 +12,10 @@
         <action
             android:id="@+id/to_detailed_album_fragment"
             app:destination="@id/detailedAlbumFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/mainRadioFragment"
@@ -24,10 +24,14 @@
     <fragment
         android:id="@+id/detailedAlbumFragment"
         android:name="com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumFragment"
-        android:label="DetailedAlbumFragment" >
+        android:label="Album" >
         <argument
             android:name="albumPosition"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="albumTitle"
+            app:argType="string"
+            android:defaultValue="Album" />
     </fragment>
 </navigation>
