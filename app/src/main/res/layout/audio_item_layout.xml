@@ -19,13 +19,18 @@
         android:layout_height="60dp">
 
         <TextView
-            android:id="@+id/track_title_text"
-            android:layout_width="wrap_content"
+            android:id="@+id/audio_title_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:gravity="start"
             android:text="@{audio.title}"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Mann gegen Mann" />
@@ -45,15 +50,17 @@
             android:contentDescription="@string/track_description" />
 
         <TextView
-            android:id="@+id/track_info_text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/audio_info_text_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:gravity="start"
             android:text="@{audio.nameAndDuration}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/track_title_text"
+            app:layout_constraintTop_toBottomOf="@+id/audio_title_text"
             tools:text="Rammstein" />
 
         <ImageView

@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 
 class AllAudioAdapter @Inject constructor(
-        diffCallback: AudioDiffCallback):
-        ListAdapter<Audio, RecyclerView.ViewHolder>(diffCallback) {
+        diffCallback: AudioDiffCallback
+): ListAdapter<Audio, RecyclerView.ViewHolder>(diffCallback) {
 
     lateinit var onSelect: (Int) -> Unit
 
@@ -26,14 +26,15 @@ class AllAudioAdapter @Inject constructor(
         viewHolder.binding.root.setOnClickListener {
             onSelect(viewHolder.adapterPosition)
         }
-        return viewHolder
 
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val audio = getItem(position)
         (holder as AudioViewHolder).apply {
             bind(audio)
+            holder.binding.audioTitleText.isSelected = audio.isSelected
         }
     }
 

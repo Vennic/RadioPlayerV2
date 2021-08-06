@@ -4,14 +4,14 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
 import javax.inject.Inject
 
 
 class PlayerService : Service() {
 
     @Inject
-    lateinit var playerRepo: PlayerMediaRepositoryInterface
+    lateinit var playerRepo: PlayerMediaRepository
 
     private lateinit var exoPlayer: SimpleExoPlayer
 

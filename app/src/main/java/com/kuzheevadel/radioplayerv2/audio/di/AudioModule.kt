@@ -11,12 +11,13 @@ import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumViewModel
+import com.kuzheevadel.radioplayerv2.audio.playlist.PlaylistViewModel
 import com.kuzheevadel.radioplayerv2.di.ViewModelKey
 import com.kuzheevadel.radioplayerv2.models.Audio
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryImp
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
-import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSourceImp
 import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSource
-import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSourceInterface
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -36,6 +37,11 @@ abstract class AudioModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(PlaylistViewModel::class)
+    abstract fun bindPlaylistViewModel(viewModel: PlaylistViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(DetailedAlbumViewModel::class)
     abstract fun bindDetailAlbumViewModel(viewModel: DetailedAlbumViewModel): ViewModel
 
@@ -52,8 +58,8 @@ abstract class AudioModule {
     abstract fun provideAudioDiffCallback(callback: AudioDiffCallback): DiffUtil.ItemCallback<Audio>
 
     @Binds
-    abstract fun provideAudioRepo(repo: AudioRepository): AudioRepositoryInterface
+    abstract fun provideAudioRepo(repo: AudioRepositoryImp): AudioRepository
 
     @Binds
-    abstract fun provideAudioDataSource(dataSource: AudioDataSource): AudioDataSourceInterface
+    abstract fun provideAudioDataSource(dataSourceImp: AudioDataSourceImp): AudioDataSource
 }

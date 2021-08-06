@@ -2,11 +2,11 @@ package com.kuzheevadel.radioplayerv2.audio.albums
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
 import javax.inject.Inject
 
 class AlbumsViewModel @Inject constructor(
-        private val audioRepo: AudioRepositoryInterface
+        private val audioRepo: AudioRepository
 ): ViewModel() {
 
     init {

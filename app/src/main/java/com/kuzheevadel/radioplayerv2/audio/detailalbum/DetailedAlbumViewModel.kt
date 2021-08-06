@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.models.Album
 import com.kuzheevadel.radioplayerv2.models.Audio
-import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
-import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
+import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
 import com.kuzheevadel.radioplayerv2.utils.setAllAudioUnselected
 import com.kuzheevadel.radioplayerv2.utils.setAudioState
 import kotlinx.coroutines.Dispatchers
@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class DetailedAlbumViewModel @Inject constructor(
-    private val audioRepo: AudioRepositoryInterface,
-    private val playerRepo: PlayerMediaRepositoryInterface
+        private val audioRepo: AudioRepository,
+        private val playerRepo: PlayerMediaRepository
 
 ): ViewModel() {
 

@@ -7,8 +7,8 @@ import com.kuzheevadel.radioplayerv2.databinding.AlbumAudioItemBinding
 import com.kuzheevadel.radioplayerv2.models.Audio
 import javax.inject.Inject
 
-class DetailedAlbumAudioAdapter @Inject constructor(
-): RecyclerView.Adapter<DetailedAlbumAudioAdapter.AudioViewHolder>() {
+class DetailedAlbumAudioAdapter @Inject constructor()
+    : RecyclerView.Adapter<DetailedAlbumAudioAdapter.AudioViewHolder>() {
 
     private var audioList = listOf<Audio>()
 

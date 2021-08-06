@@ -14,7 +14,7 @@ import javax.inject.Singleton
     ViewModelBuilderModule::class,
     PlaybackModule::class,
     AppSubcomponents::class,
-    RepoModule::class])
+    AppModule::class])
 interface AppComponent {
 
     @Component.Factory

@@ -1,10 +1,9 @@
 package com.kuzheevadel.radioplayerv2.audio.allaudio
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.kuzheevadel.radioplayerv2.models.Audio
-import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryInterface
-import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
+import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
+import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
 import com.kuzheevadel.radioplayerv2.common.MediaType
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -12,13 +11,9 @@ import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 class AllAudioViewModel @Inject constructor(
-        private val audioRepo: AudioRepositoryInterface,
-        private val playerMediaRepo: PlayerMediaRepositoryInterface
+        private val audioRepo: AudioRepository,
+        private val playerMediaRepo: PlayerMediaRepository
 ): ViewModel() {
-
-    init {
-        Log.d("TYUI", "all audio - $audioRepo")
-    }
 
     private val currentMediaFlow = playerMediaRepo.getStateCurrentMediaData()
 

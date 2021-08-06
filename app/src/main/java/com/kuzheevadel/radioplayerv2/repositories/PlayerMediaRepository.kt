@@ -1,109 +1,20 @@
 package com.kuzheevadel.radioplayerv2.repositories
 
-
-import android.util.Log
 import com.kuzheevadel.radioplayerv2.common.MediaType
-import com.kuzheevadel.radioplayerv2.common.PlayingState
 import com.kuzheevadel.radioplayerv2.models.Audio
-import com.kuzheevadel.radioplayerv2.repositories.datasource.PlayerMediaRepositoryInterface
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class PlayerMediaRepository @Inject constructor(): PlayerMediaRepositoryInterface {
+interface PlayerMediaRepository {
 
-    private var _currentMediaData = MutableStateFlow<MediaType<Audio>>(MediaType.None(false))
-    private val currentMediaData: StateFlow<MediaType<Audio>> = _currentMediaData
-
-    private var _playingState = MutableStateFlow(PlayingState.STOP)
-    private val playingState: StateFlow<PlayingState> = _playingState
-
-    private var currentAudioIndex = 0
-    private var currentAudioList = listOf<Audio>()
-
-    override fun getMutableCurrentMediaData(): MutableStateFlow<MediaType<Audio>> = _currentMediaData
-
-    override fun getStateCurrentMediaData(): StateFlow<MediaType<Audio>> = currentMediaData
-
-    override fun setCurrentAudioMedia(audioList: List<Audio>, position: Int) {
-
-        if (currentAudioList != audioList) {
-            Log.d("FGHJ", "setCurrentList")
-            currentAudioList = audioList
-        }
-
-        currentAudioIndex = position
-
-        val newAudio = with(currentAudioList[currentAudioIndex]) {
-            Audio(uri, name, id, title,artistName, albumTitle, duration, albumId, imageUri, isSelected, isPlaying)
-        }
-
-        when (val mediaType = _currentMediaData.value) {
-            is MediaType.Audio -> {
-                if (mediaType.audio.id == newAudio.id) {
-                    newAudio.isSelected = true
-                    newAudio.isPlaying = !mediaType.audio.isPlaying
-                    setPlayingState(newAudio.isPlaying)
-                    _currentMediaData.value = MediaType.Audio(newAudio)
-
-                } else {
-                    newAudio.isPlaying = true
-                    newAudio.isSelected = true
-
-                    _playingState.value = PlayingState.PLAY
-                    _currentMediaData.value = MediaType.Audio(newAudio)
-                }
-            }
-            else -> {
-                newAudio.isPlaying = true
-                newAudio.isSelected = true
-
-                _playingState.value = PlayingState.PLAY
-                _currentMediaData.value = MediaType.Audio(newAudio)
-            }
-        }
-
-    }
-
-    private fun setPlayingState(isPlaying: Boolean) {
-        if (isPlaying) {
-            _playingState.value = PlayingState.PLAY
-        } else {
-            _playingState.value = PlayingState.STOP
-        }
-    }
-
-    override fun setCurrentMediaList() {
-        TODO("Not yet implemented")
-    }
-
-    override fun setNextAudio() {
-        if (currentAudioIndex == currentAudioList.size - 1) {
-            currentAudioIndex = 0
-            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
-        } else {
-            currentAudioIndex++
-            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
-        }
-    }
-
-    override fun setPreviousAudio() {
-        if (currentAudioIndex == 0) {
-            currentAudioIndex = currentAudioList.size - 1
-            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
-        } else {
-            currentAudioIndex--
-            setCurrentAudioMedia(currentAudioList, currentAudioIndex)
-        }
-    }
-
-    override fun setRepeatMode(isEnabled: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    override fun setShuffleMode(isEnabled: Boolean) {
-        TODO("Not yet implemented")
-    }
+    fun getMutableCurrentMediaData(): MutableStateFlow<MediaType<Audio>>
+    fun getStateCurrentMediaData(): StateFlow<MediaType<Audio>>
+    fun setCurrentAudioMedia(audioList: List<Audio>, position: Int)
+    fun setCurrentMediaList()
+    fun setNextAudio()
+    fun setPreviousAudio()
+    fun setRepeatMode(isEnabled: Boolean)
+    fun setShuffleMode(isEnabled: Boolean)
 }
