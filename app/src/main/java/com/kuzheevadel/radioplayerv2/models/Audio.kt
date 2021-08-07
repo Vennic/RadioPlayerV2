@@ -1,19 +1,24 @@
 package com.kuzheevadel.radioplayerv2.models
 
 import android.net.Uri
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 
+@Entity
 data class Audio(
-    val uri: Uri,
+    @Ignore val uri: Uri,
     val name: String,
-    val id: Long,
+    @PrimaryKey val id: Long,
     val title: String,
-    val artistName: String,
-    val albumTitle: String,
+    @ColumnInfo(name = "artist_name") val artistName: String,
+    @ColumnInfo(name = "album_title") val albumTitle: String,
     val duration: Int,
-    val albumId: Long,
-    val imageUri: Uri,
-    var isSelected: Boolean,
-    var isPlaying: Boolean) {
+    @ColumnInfo(name = "album_id") val albumId: Long,
+    @Ignore val imageUri: Uri,
+    @Ignore var isSelected: Boolean,
+    @Ignore var isPlaying: Boolean) {
 
     fun getNameAndDuration(): String {
         return "$artistName • ${getDurationInTimeFormat()}"
