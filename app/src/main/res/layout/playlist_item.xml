@@ -18,11 +18,11 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_marginStart="8dp"
-            app:url="@{playlist.imageUri}"
+            
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/album_art_default" />
+            android:src="@drawable/album_art_default" />
 
         <TextView
             android:id="@+id/playlist_name_textView"

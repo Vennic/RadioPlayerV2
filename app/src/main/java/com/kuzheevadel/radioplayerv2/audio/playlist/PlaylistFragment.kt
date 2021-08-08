@@ -7,10 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
 import com.kuzheevadel.radioplayerv2.databinding.PlaylistFragmentBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 class PlaylistFragment: Fragment() {
 
@@ -21,6 +28,8 @@ class PlaylistFragment: Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by viewModels<PlaylistViewModel> { viewModelFactory }
+
+    private val adapterAS = PlaylistAdapter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,6 +46,27 @@ class PlaylistFragment: Fragment() {
         val view = binding.root
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.createPlaylistImageButton.setOnClickListener {
+            viewModel.createNewPlaylist("Adel ${Random(1000)}")
+        }
+
+        binding.playlistRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = adapterAS
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.playlistData.collect {
+                    binding.playlistsCountTextView.text = it.size.toString()
+                    adapterAS.setPlaylistList(it)
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

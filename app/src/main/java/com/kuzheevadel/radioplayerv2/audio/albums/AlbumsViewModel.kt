@@ -13,5 +13,5 @@ class AlbumsViewModel @Inject constructor(
         Log.d("TYUI", "albums - $audioRepo")
     }
 
-    var albumsData = audioRepo.getAlbumsStateFlow()
+    val albumsData = audioRepo.getAlbumsStateFlow()
 }

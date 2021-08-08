@@ -42,7 +42,7 @@ class PlaylistAdapter () : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHold
 
     override fun getItemCount() = playlistList.size
 
-    fun setAlbumsList(list: List<Playlist>) {
+    fun setPlaylistList(list: List<Playlist>) {
         playlistList = list
         notifyDataSetChanged()
     }
