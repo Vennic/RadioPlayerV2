@@ -13,6 +13,7 @@ import com.kuzheevadel.radioplayerv2.utils.mapToAudioEntity
 import com.kuzheevadel.radioplayerv2.utils.setAudioState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
+import java.util.*
 import javax.inject.Inject
 
 @AudioFragmentScope
@@ -127,7 +128,7 @@ class AudioRepositoryImp @Inject constructor(
                         }
                     }
 
-                    playlistList.add(Playlist(playlistInfo.name, audioList))
+                    playlistList.add(Playlist(playlistInfo.id, playlistInfo.name, audioList))
                 }
 
                 _playlistList = playlistList
@@ -137,8 +138,13 @@ class AudioRepositoryImp @Inject constructor(
     }
 
     override suspend fun createPlaylist(name: String) {
-        val playlistInfo = PlaylistInfo(name, listOf())
+        val playlistInfo = PlaylistInfo(generateId(), name, listOf())
         playlistAudioDao.insertPlaylistInfo(playlistInfo)
+    }
+
+    override suspend fun renamePlaylist(newName: String, playlistInfo: PlaylistInfo) {
+        val renamedPlaylistInfo = PlaylistInfo(newName, playlistInfo.name, playlistInfo.audioIdList)
+        playlistAudioDao.updatePlaylistInfo(renamedPlaylistInfo)
     }
 
     override suspend fun deletePlaylist(name: String) {
@@ -147,11 +153,13 @@ class AudioRepositoryImp @Inject constructor(
 
     override suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist) {
 
-        val audioIdList = playlist.audioList.map { it.id.toString() }.toMutableList()
-        audioIdList.add(audio.id.toString())
-        val playlistInfo = PlaylistInfo(playlist.name, audioIdList)
+        if (!playlist.audioList.contains(audio)) {
+            val audioIdList = playlist.audioList.map { it.id.toString() }.toMutableList()
+            audioIdList.add(audio.id.toString())
+            val playlistInfo = PlaylistInfo(playlist.id, playlist.name, audioIdList)
 
-        playlistAudioDao.updatePlaylistInfo(playlistInfo)
+            playlistAudioDao.updatePlaylistInfo(playlistInfo)
+        }
     }
 
     override fun getPlaylistByPosition(position: Int): Playlist =

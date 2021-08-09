@@ -12,8 +12,8 @@ interface PlaylistAudioDao {
     @Query("SELECT * FROM playlistinfo ORDER BY name")
     fun getPlaylists(): Flow<List<PlaylistInfo>>
 
-    @Query("SELECT * FROM playlistinfo WHERE name = :playlistName")
-    fun getPlaylist(playlistName: String): Flow<PlaylistInfo>
+    @Query("SELECT * FROM playlistinfo WHERE name = :id")
+    fun getPlaylist(id: String): Flow<PlaylistInfo>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertPlaylistInfo(playlistInfo: PlaylistInfo)
@@ -21,8 +21,8 @@ interface PlaylistAudioDao {
     @Update
     suspend fun updatePlaylistInfo(playlistInfo: PlaylistInfo)
 
-    @Query("DELETE FROM playlistinfo WHERE name = :playlistName")
-    suspend fun deletePlaylistInfo(playlistName: String)
+    @Query("DELETE FROM playlistinfo WHERE name = :id")
+    suspend fun deletePlaylistInfo(id: String)
 
     @Query("SELECT * FROM audioentity WHERE id = :audioId")
     suspend fun getAudio(audioId: Int): AudioEntity

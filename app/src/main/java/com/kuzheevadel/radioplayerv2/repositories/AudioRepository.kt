@@ -3,6 +3,7 @@ package com.kuzheevadel.radioplayerv2.repositories
 import com.kuzheevadel.radioplayerv2.models.Album
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.models.Playlist
+import com.kuzheevadel.radioplayerv2.models.PlaylistInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -18,6 +19,7 @@ interface AudioRepository {
     fun getPlaylistByPosition(position: Int): Playlist
     fun getAllPlaylists(): List<Playlist>
     suspend fun createPlaylist(name: String)
+    suspend fun renamePlaylist(newName: String, playlistInfo: PlaylistInfo)
     suspend fun deletePlaylist(name: String)
     suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist)
 }
