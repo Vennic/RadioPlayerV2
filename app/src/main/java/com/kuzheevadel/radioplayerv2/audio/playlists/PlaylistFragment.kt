@@ -11,13 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
+import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
 import com.kuzheevadel.radioplayerv2.databinding.PlaylistFragmentBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.random.Random
 
 class PlaylistFragment: Fragment() {
 
@@ -52,7 +53,8 @@ class PlaylistFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             createPlaylistImageButton.setOnClickListener {
-                viewModel.onCreateNewPlaylist("Adel ${Random(1000)}")
+                val action = MainAudioFragmentDirections.toCreatePlaylistDialogFragment()
+                findNavController().navigate(action)
             }
         }
 
@@ -65,14 +67,19 @@ class PlaylistFragment: Fragment() {
             adapter = adapterAS
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.playlistData.collect {
                     binding.playlistsCountTextView.text = it.size.toString()
                     adapterAS.setPlaylistList(it)
                 }
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("result")
+            ?.observe(viewLifecycleOwner){ result ->
+                viewModel.onCreateNewPlaylist(result)
+            }
     }
 
     override fun onDestroy() {

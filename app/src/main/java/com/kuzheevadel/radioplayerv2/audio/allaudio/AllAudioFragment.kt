@@ -81,7 +81,7 @@ class AllAudioFragment: Fragment() {
 
     private fun subscribeUI() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.audioFlow.collect { audioList ->
                     allAudioAdapter.submitList(audioList)
                 }

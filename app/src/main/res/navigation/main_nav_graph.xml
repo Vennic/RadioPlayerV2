@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainAudioFragment">
+
+    <dialog
+        android:id="@+id/createPlaylistDialogFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.CreatePlaylistDialogFragment"
+        android:label="CreatePlaylistDialogFragment" />
 
     <fragment
         android:id="@+id/mainAudioFragment"
@@ -16,6 +21,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/to_createPlaylistDialogFragment"
+            app:destination="@id/createPlaylistDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainRadioFragment"
@@ -34,4 +42,5 @@
             app:argType="string"
             android:defaultValue="Album" />
     </fragment>
+
 </navigation>

@@ -6,4 +6,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="playlists_count">Playlists</string>
+    <string name="create_playlist_create">CREATE</string>
+    <string name="create_playlist_cancel">CANCEL</string>
+    <string name="playlist_name">Playlist name</string>
 </resources>

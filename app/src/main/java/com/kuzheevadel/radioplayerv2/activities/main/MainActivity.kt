@@ -1,14 +1,11 @@
 package com.kuzheevadel.radioplayerv2.activities.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.tabs.TabLayout
 import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.ActivityMainBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout

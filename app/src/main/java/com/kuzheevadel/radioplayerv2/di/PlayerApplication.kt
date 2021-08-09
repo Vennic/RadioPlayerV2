@@ -8,7 +8,7 @@ class PlayerApplication: Application() {
         initializeComponent()
     }
 
-    open fun initializeComponent(): AppComponent {
+    fun initializeComponent(): AppComponent {
         return DaggerAppComponent.factory().create(applicationContext)
     }
 }
