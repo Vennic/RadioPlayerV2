@@ -1,8 +1,7 @@
 package com.kuzheevadel.radioplayerv2.database
 
 import androidx.room.TypeConverter
-
-const val EMPTY_LIST = "Empty"
+import com.kuzheevadel.radioplayerv2.common.Constants.EMPTY_LIST
 
 class PlaylistInfoConverter {
 

@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
+import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.databinding.PlaylistFragmentBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -30,7 +31,10 @@ class PlaylistFragment: Fragment() {
 
     private val viewModel by viewModels<PlaylistViewModel> { viewModelFactory }
 
-    private val adapterAS = PlaylistAdapter()
+    @Inject
+    lateinit var playlistAdapter: PlaylistAdapter
+
+    private var clickedPos = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,47 +43,61 @@ class PlaylistFragment: Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         _binding = PlaylistFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
 
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             createPlaylistImageButton.setOnClickListener {
-                val action = MainAudioFragmentDirections.toCreatePlaylistDialogFragment()
+                val action = MainAudioFragmentDirections.toCreatePlaylistDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
                 findNavController().navigate(action)
             }
         }
 
-        adapterAS.onSelect = { playlist ->
-            viewModel.onDeletePlaylist(playlist.name)
+        playlistAdapter.apply {
+            onPlaylistSelect = { playlist ->
+                viewModel.onDeletePlaylist(playlist.id)
+            }
+            onRenameButtonClicked = { position ->
+                clickedPos = position
+                val action = MainAudioFragmentDirections.toCreatePlaylistDialogFragment(Constants.RENAME_PLAYLIST_RESULT)
+                findNavController().navigate(action)
+            }
         }
 
         binding.playlistRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = adapterAS
+            adapter = playlistAdapter
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.playlistData.collect {
                     binding.playlistsCountTextView.text = it.size.toString()
-                    adapterAS.setPlaylistList(it)
+                    playlistAdapter.submitList(it)
                 }
             }
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("result")
-            ?.observe(viewLifecycleOwner){ result ->
-                viewModel.onCreateNewPlaylist(result)
-            }
+        findNavController().currentBackStackEntry?.savedStateHandle?.apply {
+            getLiveData<String>(Constants.CREATE_PLAYLIST_RESULT)
+                .observe(viewLifecycleOwner){ result ->
+                    viewModel.onCreateNewPlaylist(result)
+                }
+
+            getLiveData<String>(Constants.RENAME_PLAYLIST_RESULT)
+                .observe(viewLifecycleOwner){ result ->
+                    viewModel.onRenamePlaylist(result, clickedPos)
+                }
+        }
+
     }
 
     override fun onDestroy() {

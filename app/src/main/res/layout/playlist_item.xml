@@ -7,7 +7,8 @@
             type="com.kuzheevadel.radioplayerv2.models.Playlist" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:layout_marginEnd="16dp"
             android:textSize="18sp"
             android:text="@{playlist.name}"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton6"
+            app:layout_constraintEnd_toStartOf="@+id/playlist_menu_imageButton"
             app:layout_constraintStart_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Favorite" />
@@ -47,13 +48,13 @@
             android:textSize="12sp"
             android:text="@{playlist.audioCount}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton6"
+            app:layout_constraintEnd_toStartOf="@+id/playlist_menu_imageButton"
             app:layout_constraintStart_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toBottomOf="@+id/playlist_name_textView"
             tools:text="16 songs" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/imageButton6"
+            android:id="@+id/playlist_menu_imageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="8dp"

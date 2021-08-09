@@ -24,10 +24,18 @@ class PlaylistViewModel @Inject constructor(
         }
     }
 
-    fun onDeletePlaylist(name: String) {
+    fun onRenamePlaylist(name: String, position: Int) {
         viewModelScope.launch {
             withContext(defDispatcher) {
-                audioRepo.deletePlaylist(name)
+                audioRepo.renamePlaylist(name, position)
+            }
+        }
+    }
+
+    fun onDeletePlaylist(playlistId: String) {
+        viewModelScope.launch {
+            withContext(defDispatcher) {
+                audioRepo.deletePlaylist(playlistId)
             }
         }
     }

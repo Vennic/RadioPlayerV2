@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainAudioFragment">
 
     <dialog
         android:id="@+id/createPlaylistDialogFragment"
         android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.CreatePlaylistDialogFragment"
-        android:label="CreatePlaylistDialogFragment" />
+        android:label="CreatePlaylistDialogFragment" >
+        <argument
+            android:name="resultType"
+            app:argType="string"
+            android:defaultValue="" />
+    </dialog>
 
     <fragment
         android:id="@+id/mainAudioFragment"

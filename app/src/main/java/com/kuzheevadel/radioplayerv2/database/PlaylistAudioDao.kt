@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PlaylistAudioDao {
 
-    @Query("SELECT * FROM playlistinfo ORDER BY name")
+    @Query("SELECT * FROM playlistinfo")
     fun getPlaylists(): Flow<List<PlaylistInfo>>
 
     @Query("SELECT * FROM playlistinfo WHERE name = :id")
@@ -21,8 +21,8 @@ interface PlaylistAudioDao {
     @Update
     suspend fun updatePlaylistInfo(playlistInfo: PlaylistInfo)
 
-    @Query("DELETE FROM playlistinfo WHERE name = :id")
-    suspend fun deletePlaylistInfo(id: String)
+    @Query("DELETE FROM playlistinfo WHERE id = :playlistId")
+    suspend fun deletePlaylistInfo(playlistId: String)
 
     @Query("SELECT * FROM audioentity WHERE id = :audioId")
     suspend fun getAudio(audioId: Int): AudioEntity

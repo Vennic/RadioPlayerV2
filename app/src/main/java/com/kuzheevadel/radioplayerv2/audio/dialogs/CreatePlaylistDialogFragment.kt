@@ -6,11 +6,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.databinding.CreatePlaylistDialogBinding
 
 class CreatePlaylistDialogFragment: DialogFragment() {
 
     private lateinit var binding: CreatePlaylistDialogBinding
+
+    private val args: CreatePlaylistDialogFragmentArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -29,7 +33,7 @@ class CreatePlaylistDialogFragment: DialogFragment() {
 
                     if (playlistName.isNotEmpty()) {
                         findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                            "result",
+                            args.resultType,
                             playlistName
                         )
                         dialog?.cancel()

@@ -13,7 +13,6 @@ import com.kuzheevadel.radioplayerv2.utils.mapToAudioEntity
 import com.kuzheevadel.radioplayerv2.utils.setAudioState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
-import java.util.*
 import javax.inject.Inject
 
 @AudioFragmentScope
@@ -26,6 +25,7 @@ class AudioRepositoryImp @Inject constructor(
     private var _allAudioList = emptyList<Audio>()
     private var albumsList = emptyList<Album>()
     private var _playlistList = emptyList<Playlist>()
+    private var _playlistInfoList = emptyList<PlaylistInfo>()
 
     private var _currentAlbumsData = MutableStateFlow<List<Album>>(listOf())
     private val currentAlbumsData: StateFlow<List<Album>> = _currentAlbumsData
@@ -88,6 +88,7 @@ class AudioRepositoryImp @Inject constructor(
     override fun getPlaylistsFlow(): Flow<List<Playlist>> {
         return playlistAudioDao.getPlaylists()
             .map {
+                _playlistInfoList = it
                 val playlistList = mutableListOf<Playlist>()
 
                 it.onEach { playlistInfo ->
@@ -142,13 +143,16 @@ class AudioRepositoryImp @Inject constructor(
         playlistAudioDao.insertPlaylistInfo(playlistInfo)
     }
 
-    override suspend fun renamePlaylist(newName: String, playlistInfo: PlaylistInfo) {
-        val renamedPlaylistInfo = PlaylistInfo(newName, playlistInfo.name, playlistInfo.audioIdList)
+    override suspend fun renamePlaylist(newName: String, position: Int) {
+        val renamedPlaylistInfo = with(_playlistInfoList[position]) {
+            PlaylistInfo(id, newName, audioIdList)
+        }
+
         playlistAudioDao.updatePlaylistInfo(renamedPlaylistInfo)
     }
 
-    override suspend fun deletePlaylist(name: String) {
-        playlistAudioDao.deletePlaylistInfo(name)
+    override suspend fun deletePlaylist(playlistId: String) {
+        playlistAudioDao.deletePlaylistInfo(playlistId)
     }
 
     override suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist) {

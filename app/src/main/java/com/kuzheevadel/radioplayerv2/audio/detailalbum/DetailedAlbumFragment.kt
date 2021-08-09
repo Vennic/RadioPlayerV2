@@ -79,7 +79,7 @@ class DetailedAlbumFragment: Fragment() {
 
     private fun subscribeUI() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.audioFLow.collect { albumList ->
                     audioAdapter.setAlbumsList(albumList)
                 }

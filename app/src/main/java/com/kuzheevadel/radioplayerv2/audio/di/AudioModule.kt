@@ -11,9 +11,12 @@ import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumViewModel
+import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistAdapter
+import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.radioplayerv2.di.ViewModelKey
 import com.kuzheevadel.radioplayerv2.models.Audio
+import com.kuzheevadel.radioplayerv2.models.Playlist
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryImp
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
 import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSourceImp
@@ -62,5 +65,11 @@ abstract class AudioModule {
 
     @Binds
     abstract fun provideAudioDataSource(dataSourceImp: AudioDataSourceImp): AudioDataSource
+
+    @Binds
+    abstract fun providePlaylistAdapter(adapter: PlaylistAdapter): ListAdapter<Playlist, RecyclerView.ViewHolder>
+
+    @Binds
+    abstract fun providePlaylistDiffCallback(callback: PlaylistDiffCallback): DiffUtil.ItemCallback<Playlist>
 
 }

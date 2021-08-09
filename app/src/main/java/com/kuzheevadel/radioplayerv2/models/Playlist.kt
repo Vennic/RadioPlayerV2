@@ -12,7 +12,7 @@ data class Playlist(
     val name: String,
     val audioList: List<Audio>
 ) {
-    fun getAudioCount() = audioList.size
+    fun getAudioCount() = audioList.size.toString()
 }
 
 @Entity

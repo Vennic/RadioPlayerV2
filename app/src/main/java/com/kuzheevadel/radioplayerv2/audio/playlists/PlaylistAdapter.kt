@@ -2,15 +2,19 @@ package com.kuzheevadel.radioplayerv2.audio.playlists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kuzheevadel.radioplayerv2.databinding.PlaylistItemBinding
 import com.kuzheevadel.radioplayerv2.models.Playlist
+import javax.inject.Inject
 
-class PlaylistAdapter: RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
+class PlaylistAdapter @Inject constructor(
+    diffCallback: PlaylistDiffCallback
+): ListAdapter<Playlist, RecyclerView.ViewHolder>(diffCallback) {
 
-    private var playlistList = listOf<Playlist>()
-
-    lateinit var onSelect: (Playlist) -> Unit
+    lateinit var onPlaylistSelect: (Playlist) -> Unit
+    lateinit var onRenameButtonClicked: (Int) -> Unit
 
     class PlaylistViewHolder(val binding: PlaylistItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Playlist) {
@@ -23,25 +27,41 @@ class PlaylistAdapter: RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+
         val viewHolder = PlaylistViewHolder(
-                PlaylistItemBinding.inflate(inflater, parent, false)
+            PlaylistItemBinding.inflate(
+                inflater, parent, false
+            )
         )
 
         viewHolder.binding.root.setOnClickListener {
-            onSelect(playlistList[viewHolder.adapterPosition])
+            onPlaylistSelect(currentList[viewHolder.adapterPosition])
+
+        }
+
+        viewHolder.binding.playlistMenuImageButton.setOnClickListener {
+            onRenameButtonClicked(viewHolder.adapterPosition)
         }
         return viewHolder
+
     }
 
-    override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
-        val playlist = playlistList[position]
-        holder.bind(playlist)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val playlist = getItem(position)
+        (holder as PlaylistViewHolder).apply {
+            bind(playlist)
+        }
+    }
+}
+
+class PlaylistDiffCallback @Inject constructor() : DiffUtil.ItemCallback<Playlist>() {
+    override fun areItemsTheSame(oldItem: Playlist, newItem: Playlist): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun getItemCount() = playlistList.size
-
-    fun setPlaylistList(list: List<Playlist>) {
-        playlistList = list
-        notifyDataSetChanged()
+    override fun areContentsTheSame(oldItem: Playlist, newItem: Playlist): Boolean {
+        return oldItem == newItem
     }
+
+
 }
