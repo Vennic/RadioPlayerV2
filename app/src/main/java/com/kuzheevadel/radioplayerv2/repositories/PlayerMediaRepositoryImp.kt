@@ -78,6 +78,10 @@ class PlayerMediaRepositoryImp @Inject constructor(): PlayerMediaRepository {
         TODO("Not yet implemented")
     }
 
+    override fun getCurrentAudio(): Audio =
+        currentAudioList[currentAudioIndex]
+
+
     override fun setNextAudio() {
         if (currentAudioIndex == currentAudioList.size - 1) {
             currentAudioIndex = 0

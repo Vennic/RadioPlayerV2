@@ -1,18 +1,16 @@
-package com.kuzheevadel.radioplayerv2.audio.playlist
+package com.kuzheevadel.radioplayerv2.audio.playlists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kuzheevadel.radioplayerv2.databinding.AlbumAudioItemBinding
 import com.kuzheevadel.radioplayerv2.databinding.PlaylistItemBinding
-import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.models.Playlist
 
-class PlaylistAdapter () : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
+class PlaylistAdapter: RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 
     private var playlistList = listOf<Playlist>()
 
-    lateinit var onSelect: (Int) -> Unit
+    lateinit var onSelect: (Playlist) -> Unit
 
     class PlaylistViewHolder(val binding: PlaylistItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Playlist) {
@@ -30,7 +28,7 @@ class PlaylistAdapter () : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHold
         )
 
         viewHolder.binding.root.setOnClickListener {
-            onSelect(viewHolder.adapterPosition)
+            onSelect(playlistList[viewHolder.adapterPosition])
         }
         return viewHolder
     }

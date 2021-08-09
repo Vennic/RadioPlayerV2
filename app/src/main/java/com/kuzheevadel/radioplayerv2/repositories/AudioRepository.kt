@@ -14,6 +14,10 @@ interface AudioRepository {
     fun getAlbumsStateFlow(): StateFlow<List<Album>>
     fun getAlbumAudioList(position: Int): List<Audio>
     fun getAlbum(position: Int): Album
-    fun getPlaylists(): Flow<List<Playlist>>
+    fun getPlaylistsFlow(): Flow<List<Playlist>>
+    fun getPlaylistByPosition(position: Int): Playlist
+    fun getAllPlaylists(): List<Playlist>
     suspend fun createPlaylist(name: String)
+    suspend fun deletePlaylist(name: String)
+    suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist)
 }

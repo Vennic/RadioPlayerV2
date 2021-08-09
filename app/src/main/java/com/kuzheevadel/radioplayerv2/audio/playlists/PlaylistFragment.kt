@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.audio.playlist
+package com.kuzheevadel.radioplayerv2.audio.playlists
 
 import android.content.Context
 import android.os.Bundle
@@ -50,8 +50,14 @@ class PlaylistFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.createPlaylistImageButton.setOnClickListener {
-            viewModel.createNewPlaylist("Adel ${Random(1000)}")
+        binding.apply {
+            createPlaylistImageButton.setOnClickListener {
+                viewModel.onCreateNewPlaylist("Adel ${Random(1000)}")
+            }
+        }
+
+        adapterAS.onSelect = { playlist ->
+            viewModel.onDeletePlaylist(playlist.name)
         }
 
         binding.playlistRecycler.apply {

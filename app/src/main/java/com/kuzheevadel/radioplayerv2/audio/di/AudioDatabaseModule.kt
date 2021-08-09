@@ -1,8 +1,7 @@
 package com.kuzheevadel.radioplayerv2.audio.di
 
 import com.kuzheevadel.radioplayerv2.database.AppDatabase
-import com.kuzheevadel.radioplayerv2.database.AudioDao
-import com.kuzheevadel.radioplayerv2.database.PlaylistInfoDao
+import com.kuzheevadel.radioplayerv2.database.PlaylistAudioDao
 import dagger.Module
 import dagger.Provides
 
@@ -10,12 +9,7 @@ import dagger.Provides
 class AudioDatabaseModule {
 
     @Provides
-    fun provideAudioDao(appDatabase: AppDatabase): AudioDao {
-        return appDatabase.audioDao()
-    }
-
-    @Provides
-    fun providePlaylistDao(appDatabase: AppDatabase): PlaylistInfoDao {
+    fun providePlaylistDao(appDatabase: AppDatabase): PlaylistAudioDao {
         return appDatabase.playlistDao()
     }
 }

@@ -3,7 +3,7 @@ package com.kuzheevadel.radioplayerv2.audio.di
 import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsFragment
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioFragment
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumFragment
-import com.kuzheevadel.radioplayerv2.audio.playlist.PlaylistFragment
+import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistFragment
 import dagger.Subcomponent
 
 @AudioFragmentScope

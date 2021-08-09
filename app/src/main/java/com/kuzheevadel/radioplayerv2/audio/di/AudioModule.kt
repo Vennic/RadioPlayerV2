@@ -11,7 +11,7 @@ import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumViewModel
-import com.kuzheevadel.radioplayerv2.audio.playlist.PlaylistViewModel
+import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.radioplayerv2.di.ViewModelKey
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryImp

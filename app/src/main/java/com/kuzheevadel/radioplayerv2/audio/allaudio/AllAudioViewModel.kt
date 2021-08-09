@@ -1,6 +1,7 @@
 package com.kuzheevadel.radioplayerv2.audio.allaudio
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
 import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
@@ -8,6 +9,7 @@ import com.kuzheevadel.radioplayerv2.common.MediaType
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AllAudioViewModel @Inject constructor(
@@ -31,5 +33,12 @@ class AllAudioViewModel @Inject constructor(
 
     fun onAudioClicked(position: Int) {
         playerMediaRepo.setCurrentAudioMedia(audioRepo.getAllAudio(), position)
+        addInPlaylistButtonClicked(position)
+    }
+
+    fun addInPlaylistButtonClicked(position: Int) {
+        viewModelScope.launch {
+            audioRepo.addAudioInPlaylist(audioRepo.getAllAudio()[position], audioRepo.getPlaylistByPosition(0))
+        }
     }
 }

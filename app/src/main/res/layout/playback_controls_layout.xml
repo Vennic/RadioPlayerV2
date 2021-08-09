@@ -123,7 +123,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/textView7"
             app:layout_constraintEnd_toStartOf="@+id/imageButton5"
-            app:layout_constraintStart_toEndOf="@+id/imageButton4"
+            app:layout_constraintStart_toEndOf="@+id/add_in_database_imageButton"
             tools:text="Mann gegen Mann" />
 
         <TextView
@@ -169,7 +169,7 @@
             app:layout_constraintTop_toTopOf="@+id/next_audio_button" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/add_in_database_imageButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="?attr/selectableItemBackgroundBorderless"

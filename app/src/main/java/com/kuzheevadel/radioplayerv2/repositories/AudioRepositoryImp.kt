@@ -6,54 +6,50 @@ import android.provider.MediaStore
 import android.util.Log
 import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
 import com.kuzheevadel.radioplayerv2.common.Constants
-import com.kuzheevadel.radioplayerv2.database.AudioDao
-import com.kuzheevadel.radioplayerv2.database.PlaylistInfoDao
-import com.kuzheevadel.radioplayerv2.models.Album
-import com.kuzheevadel.radioplayerv2.models.Audio
-import com.kuzheevadel.radioplayerv2.models.Playlist
-import com.kuzheevadel.radioplayerv2.models.PlaylistInfo
+import com.kuzheevadel.radioplayerv2.database.PlaylistAudioDao
+import com.kuzheevadel.radioplayerv2.models.*
 import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSource
+import com.kuzheevadel.radioplayerv2.utils.mapToAudioEntity
 import com.kuzheevadel.radioplayerv2.utils.setAudioState
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @AudioFragmentScope
 class AudioRepositoryImp @Inject constructor(
-        private val audioDataSource: AudioDataSource,
-        private val audioDao: AudioDao,
-        private val playlistInfoDao: PlaylistInfoDao
+    private val audioDataSource: AudioDataSource,
+    private val playlistAudioDao: PlaylistAudioDao,
+    private val defDispatcher: CoroutineDispatcher
     ): AudioRepository {
 
-    private var _allAudioList = listOf<Audio>()
-    private var albumsList = listOf<Album>()
+    private var _allAudioList = emptyList<Audio>()
+    private var albumsList = emptyList<Album>()
+    private var _playlistList = emptyList<Playlist>()
 
     private var _currentAlbumsData = MutableStateFlow<List<Album>>(listOf())
     private val currentAlbumsData: StateFlow<List<Album>> = _currentAlbumsData
 
-    //Dispatcher provide!!
     override fun getAudioFlow(): Flow<List<Audio>> =
             audioDataSource.getAudioFlowFromStorage()
                     .onEach {
                         _allAudioList = it
                         _currentAlbumsData.value = createAlbumsList(it)
-                        Log.d("TYUI", "getFlow - $albumsList")
+                        playlistAudioDao.deleteAndInsertAudio(_allAudioList.mapToAudioEntity())
                     }
-                    .flowOn(Dispatchers.Default)
+                    .flowOn(defDispatcher)
                     .conflate()
 
-    //Dispatcher provide!!
     override fun getAudioFlowWithSetState(audio: Audio): Flow<List<Audio>> {
         return if (_allAudioList.isNullOrEmpty()) {
             audioDataSource.getAudioFlowFromStorage()
                     .onEach { audioList ->
                         _allAudioList = audioList
                         _currentAlbumsData.value = createAlbumsList(audioList)
-                        Log.d("TYUI", "getFlowWithSelected - $albumsList")}
+                    }
                     .map { audioList ->
                         audioList.setAudioState(audio)
                     }
-                    .flowOn(Dispatchers.Default)
+                    .flowOn(defDispatcher)
                     .conflate()
         } else {
             val newList = _allAudioList.map { it.copy() }
@@ -62,7 +58,7 @@ class AudioRepositoryImp @Inject constructor(
                     .map { audioList ->
                         audioList.setAudioState(audio)
                     }
-                    .flowOn(Dispatchers.Default)
+                    .flowOn(defDispatcher)
                     .conflate()
         }
     }
@@ -88,21 +84,22 @@ class AudioRepositoryImp @Inject constructor(
         return albumList
     }
 
-    override fun getPlaylists(): Flow<List<Playlist>> {
-        return playlistInfoDao.getPlaylists()
+    override fun getPlaylistsFlow(): Flow<List<Playlist>> {
+        return playlistAudioDao.getPlaylists()
             .map {
                 val playlistList = mutableListOf<Playlist>()
 
-                Log.d("DATATEST", "$it")
-
                 it.onEach { playlistInfo ->
                     val audioList = mutableListOf<Audio>()
-
-                    Log.d("DATATEST", "audioIDlist emty - ${playlistInfo.audioIdList.isNotEmpty()} \n listSize - ${playlistInfo.audioIdList.size}")
+                    Log.d("DATATEST", "playlistInfo - $playlistInfo")
 
                     if (playlistInfo.audioIdList.isNotEmpty()) {
+                        Log.d("DATATEST", "audioIDlist - ${playlistInfo.audioIdList}")
                         playlistInfo.audioIdList.onEach { audioId ->
-                            val audioInfo = audioDao.getAudio(audioId.toInt())
+                            Log.d("DATATEST", "audioID - $audioId")
+                            val audioInfo = playlistAudioDao.getAudio(audioId.toInt())
+
+                            Log.d("DATATEST", "audioInfo - $audioInfo")
                             val contentUri: Uri = ContentUris.withAppendedId(
                                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                                 audioInfo.id
@@ -132,20 +129,38 @@ class AudioRepositoryImp @Inject constructor(
 
                     playlistList.add(Playlist(playlistInfo.name, audioList))
                 }
-                Log.d("DATATEST", "playlistList - $playlistList")
+
+                _playlistList = playlistList
                 playlistList
             }
-            .flowOn(Dispatchers.Default)
+            .flowOn(defDispatcher)
     }
 
     override suspend fun createPlaylist(name: String) {
         val playlistInfo = PlaylistInfo(name, listOf())
-        playlistInfoDao.insertPlaylistInfo(playlistInfo)
+        playlistAudioDao.insertPlaylistInfo(playlistInfo)
     }
+
+    override suspend fun deletePlaylist(name: String) {
+        playlistAudioDao.deletePlaylistInfo(name)
+    }
+
+    override suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist) {
+
+        val audioIdList = playlist.audioList.map { it.id.toString() }.toMutableList()
+        audioIdList.add(audio.id.toString())
+        val playlistInfo = PlaylistInfo(playlist.name, audioIdList)
+
+        playlistAudioDao.updatePlaylistInfo(playlistInfo)
+    }
+
+    override fun getPlaylistByPosition(position: Int): Playlist =
+        _playlistList[position]
+
+    override fun getAllPlaylists(): List<Playlist> = _playlistList
 
     override fun getAlbumAudioList(position: Int): List<Audio> =
         albumsList[position].audioList
-
 
     override fun getAlbumsStateFlow(): StateFlow<List<Album>> =
         currentAlbumsData

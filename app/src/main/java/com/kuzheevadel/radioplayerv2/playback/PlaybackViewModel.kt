@@ -19,4 +19,7 @@ class PlaybackViewModel @Inject constructor(
         repository.setPreviousAudio()
     }
 
+    fun addOnPlaylist() {
+
+    }
 }

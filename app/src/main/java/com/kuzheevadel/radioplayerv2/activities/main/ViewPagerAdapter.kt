@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsFragment
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioFragment
-import com.kuzheevadel.radioplayerv2.audio.playlist.PlaylistFragment
+import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistFragment
 
 class ViewPagerAdapter(fm: FragmentManager, lf: Lifecycle): FragmentStateAdapter(fm, lf) {
     override fun getItemCount(): Int = 3

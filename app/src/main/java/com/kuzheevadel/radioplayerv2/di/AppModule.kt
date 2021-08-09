@@ -1,18 +1,16 @@
 package com.kuzheevadel.radioplayerv2.di
 
-import android.content.Context
-import androidx.room.Room
-import com.kuzheevadel.radioplayerv2.database.AppDatabase
-import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepositoryImp
-import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
-@Module
-abstract class AppModule {
+@Module(includes = [AppRepoModule::class, AppDatabaseModule::class])
+class AppModule {
 
-    @Binds
-    abstract fun providePlayerMediaRepo(repo: PlayerMediaRepositoryImp): PlayerMediaRepository
 
+    @Provides
+    fun provideDefDispatcher(): CoroutineDispatcher {
+        return Dispatchers.Default
+    }
 }

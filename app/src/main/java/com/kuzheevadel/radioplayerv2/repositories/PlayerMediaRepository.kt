@@ -11,6 +11,7 @@ interface PlayerMediaRepository {
 
     fun getMutableCurrentMediaData(): MutableStateFlow<MediaType<Audio>>
     fun getStateCurrentMediaData(): StateFlow<MediaType<Audio>>
+    fun getCurrentAudio(): Audio
     fun setCurrentAudioMedia(audioList: List<Audio>, position: Int)
     fun setCurrentMediaList()
     fun setNextAudio()

@@ -13,7 +13,6 @@ class PlaylistInfoConverter {
         } else {
             list.joinToString(",")
         }
-
     }
 
     @TypeConverter

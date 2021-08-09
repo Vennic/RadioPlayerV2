@@ -1,6 +1,7 @@
 package com.kuzheevadel.radioplayerv2.utils
 
 import com.kuzheevadel.radioplayerv2.models.Audio
+import com.kuzheevadel.radioplayerv2.models.AudioEntity
 
 fun List<Audio>.setAudioState(audio: Audio): List<Audio> {
     for (item in this) {
@@ -25,4 +26,12 @@ fun List<Audio>.setAllAudioUnselected(): List<Audio> {
         }
     }
     return this
+}
+
+fun List<Audio>.mapToAudioEntity(): List<AudioEntity> {
+    return this.map { audio ->
+        with(audio) {
+            AudioEntity(name,id,title,artistName,albumTitle,duration,albumId)
+        }
+    }
 }
