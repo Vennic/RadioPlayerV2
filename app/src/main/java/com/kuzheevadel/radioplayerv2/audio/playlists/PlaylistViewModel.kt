@@ -1,13 +1,14 @@
 package com.kuzheevadel.radioplayerv2.audio.playlists
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
+@AudioFragmentScope
 class PlaylistViewModel @Inject constructor(
     private val audioRepo: AudioRepository,
     private val defDispatcher: CoroutineDispatcher

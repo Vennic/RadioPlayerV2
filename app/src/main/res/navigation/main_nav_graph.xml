@@ -12,6 +12,10 @@
             android:name="resultType"
             app:argType="string"
             android:defaultValue="" />
+        <argument
+            android:name="playlistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
     </dialog>
 
     <fragment
@@ -28,6 +32,9 @@
         <action
             android:id="@+id/to_createPlaylistDialogFragment"
             app:destination="@id/createPlaylistDialogFragment" />
+        <action
+            android:id="@+id/to_audioBottomDialogFragment"
+            app:destination="@id/audioBottomDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainRadioFragment"
@@ -46,5 +53,9 @@
             app:argType="string"
             android:defaultValue="Album" />
     </fragment>
+    <dialog
+        android:id="@+id/audioBottomDialogFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.AudioBottomDialogFragment"
+        android:label="AudioBottomDialogFragment" />
 
 </navigation>

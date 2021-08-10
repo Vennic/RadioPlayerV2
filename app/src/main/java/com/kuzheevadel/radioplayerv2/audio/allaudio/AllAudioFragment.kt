@@ -15,9 +15,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
+import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -67,8 +69,15 @@ class AllAudioFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        allAudioAdapter.onSelect = { position ->
-            viewModel.onAudioClicked(position)
+        allAudioAdapter.apply {
+            onSelect = { position ->
+                viewModel.onAudioClicked(position)
+            }
+
+            onMenuButtonClick = {
+                val action = MainAudioFragmentDirections.toAudioBottomDialogFragment()
+                findNavController().navigate(action)
+            }
         }
 
         checkReadStoragePermission()

@@ -93,15 +93,11 @@ class AudioRepositoryImp @Inject constructor(
 
                 it.onEach { playlistInfo ->
                     val audioList = mutableListOf<Audio>()
-                    Log.d("DATATEST", "playlistInfo - $playlistInfo")
 
                     if (playlistInfo.audioIdList.isNotEmpty()) {
-                        Log.d("DATATEST", "audioIDlist - ${playlistInfo.audioIdList}")
                         playlistInfo.audioIdList.onEach { audioId ->
-                            Log.d("DATATEST", "audioID - $audioId")
                             val audioInfo = playlistAudioDao.getAudio(audioId.toInt())
 
-                            Log.d("DATATEST", "audioInfo - $audioInfo")
                             val contentUri: Uri = ContentUris.withAppendedId(
                                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                                 audioInfo.id
@@ -147,7 +143,6 @@ class AudioRepositoryImp @Inject constructor(
         val renamedPlaylistInfo = with(_playlistInfoList[position]) {
             PlaylistInfo(id, newName, audioIdList)
         }
-
         playlistAudioDao.updatePlaylistInfo(renamedPlaylistInfo)
     }
 

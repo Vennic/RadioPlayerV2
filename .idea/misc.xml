@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/layout/audio_bottom_dialog.xml" value="0.4" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/layout/audio_item_layout.xml" value="0.4" />
         <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/layout/create_playlist_dialog.xml" value="0.536" />
         <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/layout/main_player_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/layout/playback_controls_layout.xml" value="0.25025641025641027" />

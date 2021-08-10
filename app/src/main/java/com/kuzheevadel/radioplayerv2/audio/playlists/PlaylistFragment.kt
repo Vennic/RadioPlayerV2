@@ -1,7 +1,9 @@
 package com.kuzheevadel.radioplayerv2.audio.playlists
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,12 +31,10 @@ class PlaylistFragment: Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<PlaylistViewModel> { viewModelFactory }
+    private val viewModel by viewModels<PlaylistViewModel>{viewModelFactory}
 
     @Inject
     lateinit var playlistAdapter: PlaylistAdapter
-
-    private var clickedPos = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,7 +48,7 @@ class PlaylistFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = PlaylistFragmentBinding.inflate(inflater, container, false)
-
+        Color.BLACK
         return binding.root
     }
 
@@ -56,7 +56,9 @@ class PlaylistFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             createPlaylistImageButton.setOnClickListener {
-                val action = MainAudioFragmentDirections.toCreatePlaylistDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
+                val action = MainAudioFragmentDirections
+                    .toCreatePlaylistDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
+
                 findNavController().navigate(action)
             }
         }
@@ -66,8 +68,9 @@ class PlaylistFragment: Fragment() {
                 viewModel.onDeletePlaylist(playlist.id)
             }
             onRenameButtonClicked = { position ->
-                clickedPos = position
-                val action = MainAudioFragmentDirections.toCreatePlaylistDialogFragment(Constants.RENAME_PLAYLIST_RESULT)
+                val action = MainAudioFragmentDirections
+                        .toCreatePlaylistDialogFragment(Constants.RENAME_PLAYLIST_RESULT, playlistPos = position)
+
                 findNavController().navigate(action)
             }
         }
@@ -85,19 +88,6 @@ class PlaylistFragment: Fragment() {
                 }
             }
         }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.apply {
-            getLiveData<String>(Constants.CREATE_PLAYLIST_RESULT)
-                .observe(viewLifecycleOwner){ result ->
-                    viewModel.onCreateNewPlaylist(result)
-                }
-
-            getLiveData<String>(Constants.RENAME_PLAYLIST_RESULT)
-                .observe(viewLifecycleOwner){ result ->
-                    viewModel.onRenamePlaylist(result, clickedPos)
-                }
-        }
-
     }
 
     override fun onDestroy() {

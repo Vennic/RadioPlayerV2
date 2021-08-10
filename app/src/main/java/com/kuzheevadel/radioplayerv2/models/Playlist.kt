@@ -1,5 +1,6 @@
 package com.kuzheevadel.radioplayerv2.models
 
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,6 +14,14 @@ data class Playlist(
     val audioList: List<Audio>
 ) {
     fun getAudioCount() = audioList.size.toString()
+
+    fun getImageUri(): Uri {
+        return if (audioList.isNotEmpty()) {
+            audioList[0].imageUri
+        } else {
+            Uri.EMPTY
+        }
+    }
 }
 
 @Entity

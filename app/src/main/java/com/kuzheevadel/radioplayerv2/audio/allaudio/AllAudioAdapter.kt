@@ -15,6 +15,7 @@ class AllAudioAdapter @Inject constructor(
 ): ListAdapter<Audio, RecyclerView.ViewHolder>(diffCallback) {
 
     lateinit var onSelect: (Int) -> Unit
+    lateinit var onMenuButtonClick: (Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AudioViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,6 +26,10 @@ class AllAudioAdapter @Inject constructor(
 
         viewHolder.binding.root.setOnClickListener {
             onSelect(viewHolder.adapterPosition)
+        }
+
+        viewHolder.binding.audioMenuImageButton.setOnClickListener {
+            onMenuButtonClick(viewHolder.adapterPosition)
         }
 
         return viewHolder

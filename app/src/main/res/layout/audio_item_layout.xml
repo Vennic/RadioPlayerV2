@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="android.graphics.Color"/>
         <variable
             name="audio"
             type="com.kuzheevadel.radioplayerv2.models.Audio" />
@@ -24,13 +25,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="start"
-            android:text="@{audio.title}"
+            android:layout_marginEnd="24dp"
             android:ellipsize="marquee"
+            android:gravity="start"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            android:text="@{audio.title}"
+            android:textColor="@{audio.selected ? Color.BLUE : Color.GRAY}"
+            app:layout_constraintEnd_toStartOf="@+id/playing_state_imageView"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Mann gegen Mann" />
@@ -54,36 +56,39 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             android:gravity="start"
             android:text="@{audio.nameAndDuration}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintEnd_toStartOf="@+id/playing_state_imageView"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/audio_title_text"
             tools:text="Rammstein" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{audio.selected ? View.VISIBLE : View.INVISIBLE}"
-            android:layout_marginEnd="8dp"
+        <ImageButton
+            android:id="@+id/audio_menu_imageButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_radio_24" />
+            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/playing_state_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:visibility="@{audio.playing ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/audio_menu_imageButton"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_storage_24" />
+            app:srcCompat="@drawable/ic_baseline_play_circle_filled_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
