@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kuzheevadel.radioplayerv2.MainNavGraphDirections
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
 import com.kuzheevadel.radioplayerv2.common.Constants
@@ -55,8 +56,8 @@ class PlaylistFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             createPlaylistImageButton.setOnClickListener {
-                val action = MainAudioFragmentDirections
-                    .toPlaylistNameDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
+                val action = MainNavGraphDirections
+                    .actionGlobalPlaylistNameDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
 
                 findNavController().navigate(action)
             }
@@ -76,12 +77,13 @@ class PlaylistFragment: Fragment() {
             adapter = playlistAdapter
         }
 
+        //!!!opened dialogs recreated - FIX
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.renamePlaylistData.collect { position ->
                     if (position != null) {
-                        val action = MainAudioFragmentDirections
-                            .toPlaylistNameDialogFragment(Constants.RENAME_PLAYLIST_RESULT, position)
+                        val action = MainNavGraphDirections
+                            .actionGlobalPlaylistNameDialogFragment(Constants.RENAME_PLAYLIST_RESULT, position)
 
                         findNavController().navigate(action)
                     }

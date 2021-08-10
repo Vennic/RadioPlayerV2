@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
+    android:id="@+id/main_nav_graph"
     app:startDestination="@id/mainAudioFragment">
 
     <dialog
@@ -44,14 +45,8 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
         <action
-            android:id="@+id/to_audioBottomDialogFragment"
-            app:destination="@id/audioBottomDialogFragment" />
-        <action
             android:id="@+id/to_playlistBottomDialogFragment"
             app:destination="@id/playlistBottomDialogFragment" />
-        <action
-            android:id="@+id/to_playlistNameDialogFragment"
-            app:destination="@id/playlistNameDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainRadioFragment"
@@ -70,10 +65,37 @@
             app:argType="string"
             android:defaultValue="Album" />
     </fragment>
+
     <dialog
         android:id="@+id/audioBottomDialogFragment"
         android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.AudioBottomDialogFragment"
-        android:label="AudioBottomDialogFragment" />
+        android:label="AudioBottomDialogFragment">
+        <argument
+            android:name="audioPosition"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+
+    <action
+        android:id="@+id/action_global_playlistNameDialogFragment"
+        app:destination="@id/playlistNameDialogFragment" />
+
+    <dialog
+        android:id="@+id/chosePlaylistBottomDialogFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.ChosePlaylistBottomDialogFragment"
+        android:label="ChosePlaylistBottomDialogFragment">
+        <argument
+            android:name="audioPosition"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+
+    <action
+        android:id="@+id/action_global_chosePlaylistBottomDialogFragment"
+        app:destination="@id/chosePlaylistBottomDialogFragment" />
+
+    <action android:id="@+id/action_global_audioBottomDialogFragment"
+        app:destination="@id/audioBottomDialogFragment" />
 
 
 </navigation>

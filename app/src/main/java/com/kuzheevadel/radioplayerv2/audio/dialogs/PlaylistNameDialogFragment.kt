@@ -49,7 +49,6 @@ class PlaylistNameDialogFragment: DialogFragment() {
 
                     if (playlistName.isNotEmpty()) {
                         createOrUpdatePlaylist(playlistName, args.playlistPos)
-                        viewModel.setPlaylistData(null)
                         dialog?.cancel()
                     } else {
                         binding.playlistTextInput.error = "Playlist name cannot be empty"
@@ -57,7 +56,6 @@ class PlaylistNameDialogFragment: DialogFragment() {
                 }
 
                 cancelTextButton.setOnClickListener {
-                    viewModel.setPlaylistData(null)
                     dialog?.cancel()
                 }
             }
@@ -72,5 +70,10 @@ class PlaylistNameDialogFragment: DialogFragment() {
             Constants.CREATE_PLAYLIST_RESULT -> { viewModel.onCreateNewPlaylist(name)}
             Constants.RENAME_PLAYLIST_POSITION -> { viewModel.onRenamePlaylist(name, position)}
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.setPlaylistData(null)
     }
 }

@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kuzheevadel.radioplayerv2.MainNavGraphDirections
 import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
@@ -74,8 +75,8 @@ class AllAudioFragment: Fragment() {
                 viewModel.onAudioClicked(position)
             }
 
-            onMenuButtonClick = {
-                val action = MainAudioFragmentDirections.toAudioBottomDialogFragment()
+            onMenuButtonClick = { audioPosition ->
+                val action = MainNavGraphDirections.actionGlobalAudioBottomDialogFragment(audioPosition)
                 findNavController().navigate(action)
             }
         }

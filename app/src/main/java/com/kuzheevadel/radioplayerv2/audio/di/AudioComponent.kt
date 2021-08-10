@@ -3,6 +3,7 @@ package com.kuzheevadel.radioplayerv2.audio.di
 import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsFragment
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioFragment
 import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumFragment
+import com.kuzheevadel.radioplayerv2.audio.dialogs.ChosePlaylistBottomDialogFragment
 import com.kuzheevadel.radioplayerv2.audio.dialogs.PlaylistBottomDialogFragment
 import com.kuzheevadel.radioplayerv2.audio.dialogs.PlaylistNameDialogFragment
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistFragment
@@ -23,4 +24,5 @@ interface AudioComponent {
     fun inject(fragment: DetailedAlbumFragment)
     fun inject(nameDialogFragment: PlaylistNameDialogFragment)
     fun inject(playlistBottomDialog: PlaylistBottomDialogFragment)
+    fun inject(choseBottomDialogFragmentFragment: ChosePlaylistBottomDialogFragment)
 }
