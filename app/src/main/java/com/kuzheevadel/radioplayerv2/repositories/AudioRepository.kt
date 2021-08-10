@@ -20,6 +20,6 @@ interface AudioRepository {
     fun getAllPlaylists(): List<Playlist>
     suspend fun createPlaylist(name: String)
     suspend fun renamePlaylist(newName: String, position: Int)
-    suspend fun deletePlaylist(playlistId: String)
+    suspend fun deletePlaylist(position: Int)
     suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist)
 }

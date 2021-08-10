@@ -3,7 +3,6 @@ package com.kuzheevadel.radioplayerv2.repositories
 import android.content.ContentUris
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
 import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.database.PlaylistAudioDao
@@ -146,8 +145,9 @@ class AudioRepositoryImp @Inject constructor(
         playlistAudioDao.updatePlaylistInfo(renamedPlaylistInfo)
     }
 
-    override suspend fun deletePlaylist(playlistId: String) {
-        playlistAudioDao.deletePlaylistInfo(playlistId)
+    override suspend fun deletePlaylist(position: Int) {
+        val id = _playlistInfoList[position].id
+        playlistAudioDao.deletePlaylistInfo(id)
     }
 
     override suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist) {

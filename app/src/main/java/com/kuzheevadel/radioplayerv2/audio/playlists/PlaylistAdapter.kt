@@ -14,7 +14,7 @@ class PlaylistAdapter @Inject constructor(
 ): ListAdapter<Playlist, RecyclerView.ViewHolder>(diffCallback) {
 
     lateinit var onPlaylistSelect: (Playlist) -> Unit
-    lateinit var onRenameButtonClicked: (Int) -> Unit
+    lateinit var onItemMenuButtonClicked: (Int, String) -> Unit
 
     class PlaylistViewHolder(val binding: PlaylistItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Playlist) {
@@ -40,10 +40,11 @@ class PlaylistAdapter @Inject constructor(
         }
 
         viewHolder.binding.playlistMenuImageButton.setOnClickListener {
-            onRenameButtonClicked(viewHolder.adapterPosition)
+            val position = viewHolder.adapterPosition
+            onItemMenuButtonClicked(position, currentList[position].name)
         }
-        return viewHolder
 
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

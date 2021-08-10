@@ -5,11 +5,25 @@
     app:startDestination="@id/mainAudioFragment">
 
     <dialog
-        android:id="@+id/createPlaylistDialogFragment"
-        android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.CreatePlaylistDialogFragment"
+        android:id="@+id/playlistNameDialogFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.PlaylistNameDialogFragment"
         android:label="CreatePlaylistDialogFragment" >
         <argument
             android:name="resultType"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="playlistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/playlistBottomDialogFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.PlaylistBottomDialogFragment"
+        android:label="PlaylistBottomDialogFragment">
+        <argument
+            android:name="playlistName"
             app:argType="string"
             android:defaultValue="" />
         <argument
@@ -30,11 +44,14 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
         <action
-            android:id="@+id/to_createPlaylistDialogFragment"
-            app:destination="@id/createPlaylistDialogFragment" />
-        <action
             android:id="@+id/to_audioBottomDialogFragment"
             app:destination="@id/audioBottomDialogFragment" />
+        <action
+            android:id="@+id/to_playlistBottomDialogFragment"
+            app:destination="@id/playlistBottomDialogFragment" />
+        <action
+            android:id="@+id/to_playlistNameDialogFragment"
+            app:destination="@id/playlistNameDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainRadioFragment"
@@ -57,5 +74,6 @@
         android:id="@+id/audioBottomDialogFragment"
         android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.AudioBottomDialogFragment"
         android:label="AudioBottomDialogFragment" />
+
 
 </navigation>

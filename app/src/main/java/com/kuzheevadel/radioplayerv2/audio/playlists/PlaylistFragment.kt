@@ -3,7 +3,6 @@ package com.kuzheevadel.radioplayerv2.audio.playlists
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,19 +56,16 @@ class PlaylistFragment: Fragment() {
         binding.apply {
             createPlaylistImageButton.setOnClickListener {
                 val action = MainAudioFragmentDirections
-                    .toCreatePlaylistDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
+                    .toPlaylistNameDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
 
                 findNavController().navigate(action)
             }
         }
 
         playlistAdapter.apply {
-            onPlaylistSelect = { playlist ->
-                viewModel.onDeletePlaylist(playlist.id)
-            }
-            onRenameButtonClicked = { position ->
+            onItemMenuButtonClicked = { position, playlistName ->
                 val action = MainAudioFragmentDirections
-                        .toCreatePlaylistDialogFragment(Constants.RENAME_PLAYLIST_RESULT, playlistPos = position)
+                        .toPlaylistBottomDialogFragment(playlistName, position)
 
                 findNavController().navigate(action)
             }
@@ -80,7 +76,20 @@ class PlaylistFragment: Fragment() {
             adapter = playlistAdapter
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.renamePlaylistData.collect { position ->
+                    if (position != null) {
+                        val action = MainAudioFragmentDirections
+                            .toPlaylistNameDialogFragment(Constants.RENAME_PLAYLIST_RESULT, position)
+
+                        findNavController().navigate(action)
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.playlistData.collect {
                     binding.playlistsCountTextView.text = it.size.toString()

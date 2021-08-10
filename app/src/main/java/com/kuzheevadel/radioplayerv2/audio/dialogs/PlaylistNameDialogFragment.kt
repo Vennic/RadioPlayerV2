@@ -3,7 +3,6 @@ package com.kuzheevadel.radioplayerv2.audio.dialogs
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
@@ -16,7 +15,7 @@ import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.databinding.CreatePlaylistDialogBinding
 import javax.inject.Inject
 
-class CreatePlaylistDialogFragment: DialogFragment() {
+class PlaylistNameDialogFragment: DialogFragment() {
 
     private lateinit var binding: CreatePlaylistDialogBinding
 
@@ -31,7 +30,7 @@ class CreatePlaylistDialogFragment: DialogFragment() {
             .inject(this)
     }
 
-    private val args: CreatePlaylistDialogFragmentArgs by navArgs()
+    private val args: PlaylistNameDialogFragmentArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -50,6 +49,7 @@ class CreatePlaylistDialogFragment: DialogFragment() {
 
                     if (playlistName.isNotEmpty()) {
                         createOrUpdatePlaylist(playlistName, args.playlistPos)
+                        viewModel.setPlaylistData(null)
                         dialog?.cancel()
                     } else {
                         binding.playlistTextInput.error = "Playlist name cannot be empty"
@@ -57,6 +57,7 @@ class CreatePlaylistDialogFragment: DialogFragment() {
                 }
 
                 cancelTextButton.setOnClickListener {
+                    viewModel.setPlaylistData(null)
                     dialog?.cancel()
                 }
             }
