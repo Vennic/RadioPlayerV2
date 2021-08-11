@@ -14,13 +14,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.activities.main.MainActivity
 import com.kuzheevadel.radioplayerv2.activities.main.ViewPagerAdapter
-import com.kuzheevadel.radioplayerv2.databinding.MainTracksLayoutBinding
-import com.kuzheevadel.radioplayerv2.di.PlayerApplication
 import com.kuzheevadel.radioplayerv2.audio.di.AudioComponent
+import com.kuzheevadel.radioplayerv2.databinding.MainAudioLayoutBinding
 
 class MainAudioFragment: Fragment() {
 
-    private var _binding: MainTracksLayoutBinding? = null
+    private var _binding: MainAudioLayoutBinding? = null
     private val binding get() = _binding!!
 
     lateinit var audioComponent: AudioComponent
@@ -34,7 +33,7 @@ class MainAudioFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        _binding = MainTracksLayoutBinding.inflate(inflater, container, false)
+        _binding = MainAudioLayoutBinding.inflate(inflater, container, false)
         val view = binding.root
 
         return view

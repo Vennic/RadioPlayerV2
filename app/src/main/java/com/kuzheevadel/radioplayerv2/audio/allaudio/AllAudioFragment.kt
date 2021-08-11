@@ -18,16 +18,15 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.MainNavGraphDirections
-import com.kuzheevadel.radioplayerv2.databinding.AllTracksLayoutBinding
 import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
-import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
+import com.kuzheevadel.radioplayerv2.databinding.AllAudioLayoutBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AllAudioFragment: Fragment() {
 
-    private var _binding: AllTracksLayoutBinding? = null
+    private var _binding: AllAudioLayoutBinding? = null
     private val binding get() = _binding!!
 
     @Inject
@@ -58,7 +57,7 @@ class AllAudioFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = AllTracksLayoutBinding.inflate(inflater, container, false)
+        _binding = AllAudioLayoutBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.allTracksRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())

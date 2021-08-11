@@ -6,6 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="android.graphics.Color"/>
         <variable
             name="audio"
             type="com.kuzheevadel.radioplayerv2.models.Audio" />
@@ -22,11 +23,11 @@
             android:id="@+id/audio_position_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
+            android:text="@{position.toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{position.toString()}"
             tools:text="1" />
 
         <TextView
@@ -34,34 +35,38 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="24dp"
             android:text="@{audio.fullName}"
-            tools:text="Rammstein - Mann gegen Mann"
+            android:textColor="@{audio.selected ? Color.BLUE : Color.GRAY}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView6"
             app:layout_constraintStart_toEndOf="@+id/audio_position_textView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rammstein - Mann gegen Mann" />
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:visibility="@{audio.selected ? View.VISIBLE : View.INVISIBLE}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_more_vert_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_baseline_play_circle_filled_24" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_baseline_play_circle_filled_24"
             android:visibility="@{audio.playing ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_baseline_radio_24" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
