@@ -37,7 +37,7 @@ class AlbumsAdapter @Inject constructor(): RecyclerView.Adapter<AlbumsAdapter.Al
         holder.apply {
             bind(album)
             binding.root.setOnClickListener {
-                val action = MainAudioFragmentDirections.toDetailedAlbumFragment(position, albumTitle = album.name)
+                val action = MainAudioFragmentDirections.toDetailedAlbumFragment(position, album.name)
                 navController.navigate(action)
             }
         }

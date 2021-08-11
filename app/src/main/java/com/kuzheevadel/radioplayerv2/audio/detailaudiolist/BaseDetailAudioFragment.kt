@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.audio.detailalbum
+package com.kuzheevadel.radioplayerv2.audio.detailaudiolist
 
 import android.content.Context
 import android.os.Bundle
@@ -6,47 +6,44 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment
-import com.kuzheevadel.radioplayerv2.databinding.DetailAlbumBinding
+import com.kuzheevadel.radioplayerv2.databinding.DetailAudioListFragmentBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DetailedAlbumFragment: Fragment() {
-
-    @Inject
-    lateinit var audioAdapter: DetailedAlbumAudioAdapter
+open class BaseDetailAudioFragment: Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<DetailedAlbumViewModel> { viewModelFactory }
+    @Inject
+    lateinit var audioAdapter: DetailAudioAdapter
 
-    private var _binding: DetailAlbumBinding? = null
+    private lateinit var _viewModel: BaseDetailAudioViewModel
+
+    private var _position: Int = 0
+
+    private var _title = ""
+
+    private var _binding: DetailAudioListFragmentBinding? = null
     private val binding get() = _binding!!
-
-    private val args: DetailedAlbumFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireParentFragment() as AudioNavHostFragment).audioComponent
-                .inject(this)
+            .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = DetailAlbumBinding.inflate(inflater, container, false)
+        _binding = DetailAudioListFragmentBinding.inflate(inflater, container, false)
 
-        viewModel.init(args.albumPosition)
+        _viewModel.init(_position)
 
         return binding.root
     }
@@ -57,13 +54,13 @@ class DetailedAlbumFragment: Fragment() {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        binding.album = viewModel.getAlbum()
+        binding.item = _viewModel.getDetailItem()
 
         binding.collapsingToolbarLayout
-                .setContentScrimColor(android.graphics.Color.BLUE)
+            .setContentScrimColor(android.graphics.Color.BLUE)
 
         binding.detailAlbumToolbar
-                .setupWithNavController(navController, appBarConfiguration)
+            .setupWithNavController(navController, appBarConfiguration)
 
         binding.detailAlbumRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -71,7 +68,7 @@ class DetailedAlbumFragment: Fragment() {
         }
 
         audioAdapter.onSelect = { position ->
-            viewModel.onAudioClicked(position)
+            _viewModel.onAudioClicked(position)
         }
 
         subscribeUI()
@@ -80,8 +77,8 @@ class DetailedAlbumFragment: Fragment() {
     private fun subscribeUI() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.audioFLow.collect { albumList ->
-                    audioAdapter.setAlbumsList(albumList)
+                _viewModel.audioFlow.collect {
+                    audioAdapter.setAlbumsList(it)
                 }
             }
         }
@@ -91,4 +88,11 @@ class DetailedAlbumFragment: Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    fun init(position: Int, title: String, viewModel: BaseDetailAudioViewModel) {
+        _position = position
+        _title = title
+        _viewModel = viewModel
+    }
+
 }

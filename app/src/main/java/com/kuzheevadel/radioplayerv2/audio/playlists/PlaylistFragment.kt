@@ -1,7 +1,6 @@
 package com.kuzheevadel.radioplayerv2.audio.playlists
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +47,7 @@ class PlaylistFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = PlaylistFragmentBinding.inflate(inflater, container, false)
-        Color.BLACK
+
         return binding.root
     }
 
@@ -70,6 +69,12 @@ class PlaylistFragment: Fragment() {
 
                 findNavController().navigate(action)
             }
+
+            onPlaylistSelect = { position, playlistName ->
+                val action = MainAudioFragmentDirections
+                    .actionMainAudioFragmentToDetailPlaylistFragment(position, playlistName)
+                findNavController().navigate(action)
+            }
         }
 
         binding.playlistRecycler.apply {
@@ -77,7 +82,10 @@ class PlaylistFragment: Fragment() {
             adapter = playlistAdapter
         }
 
-        //!!!opened dialogs recreated - FIX
+        subscribeObservers()
+    }
+
+    private fun subscribeObservers() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.renamePlaylistData.collect { position ->

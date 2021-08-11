@@ -47,7 +47,8 @@ class MainActivity: AppCompatActivity(){
                 return
             }
             else -> {
-                if (navController.currentDestination?.label == "Album") {
+                val label = navController.currentDestination?.label
+                if ( label == "Album" || label == "Playlist") {
                     navController.popBackStack()
                     return
                 }

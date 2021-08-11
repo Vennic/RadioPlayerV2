@@ -47,6 +47,13 @@
         <action
             android:id="@+id/to_playlistBottomDialogFragment"
             app:destination="@id/playlistBottomDialogFragment" />
+        <action
+            android:id="@+id/action_mainAudioFragment_to_detailPlaylistFragment"
+            app:destination="@id/detailPlaylistFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/mainRadioFragment"
@@ -54,16 +61,16 @@
         android:label="Radio" />
     <fragment
         android:id="@+id/detailedAlbumFragment"
-        android:name="com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.detailaudiolist.album.DetailAlbumFragment"
         android:label="Album" >
         <argument
-            android:name="albumPosition"
+            android:name="position"
             app:argType="integer"
             android:defaultValue="0" />
         <argument
-            android:name="albumTitle"
+            android:name="title"
             app:argType="string"
-            android:defaultValue="Album" />
+            android:defaultValue=" " />
     </fragment>
 
     <dialog
@@ -96,6 +103,20 @@
 
     <action android:id="@+id/action_global_audioBottomDialogFragment"
         app:destination="@id/audioBottomDialogFragment" />
+
+    <fragment
+        android:id="@+id/detailPlaylistFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.DetailPlaylistFragment"
+        android:label="Playlist" >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue=" " />
+    </fragment>
 
 
 </navigation>

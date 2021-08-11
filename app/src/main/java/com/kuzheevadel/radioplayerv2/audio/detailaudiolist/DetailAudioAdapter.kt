@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.audio.detailalbum
+package com.kuzheevadel.radioplayerv2.audio.detailaudiolist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import com.kuzheevadel.radioplayerv2.databinding.AlbumAudioItemBinding
 import com.kuzheevadel.radioplayerv2.models.Audio
 import javax.inject.Inject
 
-class DetailedAlbumAudioAdapter @Inject constructor()
-    : RecyclerView.Adapter<DetailedAlbumAudioAdapter.AudioViewHolder>() {
+class DetailAudioAdapter @Inject constructor()
+    : RecyclerView.Adapter<DetailAudioAdapter.AudioViewHolder>() {
 
     private var audioList = listOf<Audio>()
 

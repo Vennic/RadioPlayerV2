@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="album"
-            type="com.kuzheevadel.radioplayerv2.models.Album" />
+            name="item"
+            type="com.kuzheevadel.radioplayerv2.common.DetailAudioItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -29,7 +29,7 @@
                 android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:title="@{album.name}"
+                app:title="@{item.name}"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleGravity="bottom"
                 app:expandedTitleMarginStart="32dp"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:scaleType="centerCrop"
-                    app:album_url="@{album.imageUri}"
+                    app:album_url="@{item.imageUri}"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.4"/>
 

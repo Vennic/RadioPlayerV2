@@ -9,8 +9,9 @@ import com.kuzheevadel.radioplayerv2.audio.albums.AlbumsViewModel
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioViewModel
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
-import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumAudioAdapter
-import com.kuzheevadel.radioplayerv2.audio.detailalbum.DetailedAlbumViewModel
+import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.album.DetailAlbumAudioViewModel
+import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.DetailAudioAdapter
+import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.DetailPlaylistViewModel
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistAdapter
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistViewModel
@@ -45,8 +46,13 @@ abstract class AudioModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(DetailedAlbumViewModel::class)
-    abstract fun bindDetailAlbumViewModel(viewModel: DetailedAlbumViewModel): ViewModel
+    @ViewModelKey(DetailAlbumAudioViewModel::class)
+    abstract fun bindDetailAlbumViewModel(viewModelAlbum: DetailAlbumAudioViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailPlaylistViewModel::class)
+    abstract fun bindDetailPlaylistViewModel(viewModel: DetailPlaylistViewModel): ViewModel
 
     @Binds
     abstract fun provideAllAudioAdapter(adapter: AllAudioAdapter): ListAdapter<Audio, RecyclerView.ViewHolder>
@@ -55,7 +61,7 @@ abstract class AudioModule {
     abstract fun provideAlbumsAdapter(adapter: AlbumsAdapter): RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>
 
     @Binds
-    abstract fun provideDetailedAlbumAdapter(adapter: DetailedAlbumAudioAdapter): RecyclerView.Adapter<DetailedAlbumAudioAdapter.AudioViewHolder>
+    abstract fun provideDetailedAlbumAdapter(adapter: DetailAudioAdapter): RecyclerView.Adapter<DetailAudioAdapter.AudioViewHolder>
 
     @Binds
     abstract fun provideAudioDiffCallback(callback: AudioDiffCallback): DiffUtil.ItemCallback<Audio>
