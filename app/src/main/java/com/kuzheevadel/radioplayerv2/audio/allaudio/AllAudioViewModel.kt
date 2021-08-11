@@ -35,6 +35,10 @@ class AllAudioViewModel @Inject constructor(
         playerMediaRepo.setCurrentAudioMedia(audioRepo.getAllAudio(), position)
     }
 
+    fun getAudioByPos(position: Int): Audio {
+        return audioRepo.getAllAudio()[position]
+    }
+
     fun addInPlaylistButtonClicked(audioPosition: Int, playlistPos: Int) {
         viewModelScope.launch {
             audioRepo.addAudioInPlaylist(audioRepo.getAllAudio()[audioPosition], audioRepo.getPlaylistByPosition(playlistPos))

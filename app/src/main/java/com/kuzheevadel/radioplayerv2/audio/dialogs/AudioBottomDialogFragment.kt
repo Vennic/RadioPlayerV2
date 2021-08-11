@@ -6,11 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kuzheevadel.radioplayerv2.MainNavGraphDirections
-import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.AudioBottomDialogBinding
 
 class AudioBottomDialogFragment: BaseBottomSheetDialogFragment() {
@@ -30,6 +26,13 @@ class AudioBottomDialogFragment: BaseBottomSheetDialogFragment() {
             addAudioInPlaylistTextView.setOnClickListener {
                 val action = MainNavGraphDirections
                     .actionGlobalChosePlaylistBottomDialogFragment(args.audioPosition)
+                findNavController().navigateUp()
+                findNavController().navigate(action)
+            }
+
+            audioInfoTextView.setOnClickListener {
+                val action = MainNavGraphDirections
+                    .actionGlobalAudioInfoDialogFragment(args.audioPosition)
                 findNavController().navigateUp()
                 findNavController().navigate(action)
             }

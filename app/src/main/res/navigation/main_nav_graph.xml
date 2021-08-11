@@ -118,5 +118,19 @@
             android:defaultValue=" " />
     </fragment>
 
+    <dialog
+        android:id="@+id/audioInfoDialogFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.dialogs.AudioInfoDialogFragment"
+        android:label="AudioInfoDialogFragment">
+        <argument
+            android:name="audioPosition"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </dialog>
+
+    <action
+        android:id="@+id/action_global_audioInfoDialogFragment"
+        app:destination="@id/audioInfoDialogFragment"/>
+
 
 </navigation>
