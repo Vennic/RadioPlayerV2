@@ -5,6 +5,7 @@ import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.kuzheevadel.radioplayerv2.R
 
 open class BaseBottomSheetDialogFragment: BottomSheetDialogFragment() {
 

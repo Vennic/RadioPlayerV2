@@ -12,12 +12,12 @@ import androidx.navigation.fragment.navArgs
 import com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.radioplayerv2.common.Constants
-import com.kuzheevadel.radioplayerv2.databinding.CreatePlaylistDialogBinding
+import com.kuzheevadel.radioplayerv2.databinding.PlaylistNameDialogBinding
 import javax.inject.Inject
 
 class PlaylistNameDialogFragment: DialogFragment() {
 
-    private lateinit var binding: CreatePlaylistDialogBinding
+    private lateinit var binding: PlaylistNameDialogBinding
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -37,7 +37,7 @@ class PlaylistNameDialogFragment: DialogFragment() {
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
 
-            binding = CreatePlaylistDialogBinding.inflate(inflater, null, false)
+            binding = PlaylistNameDialogBinding.inflate(inflater, null, false)
 
             binding.apply {
                 playlistName.doAfterTextChanged {

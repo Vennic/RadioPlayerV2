@@ -16,7 +16,7 @@ import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.databinding.PlaylistBottomDialogBinding
 import javax.inject.Inject
 
-class PlaylistBottomDialogFragment: BottomSheetDialogFragment() {
+class PlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
 
     private val args: PlaylistBottomDialogFragmentArgs by navArgs()
     private lateinit var binding: PlaylistBottomDialogBinding

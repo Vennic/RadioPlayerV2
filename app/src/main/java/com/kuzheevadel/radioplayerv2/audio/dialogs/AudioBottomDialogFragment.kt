@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kuzheevadel.radioplayerv2.MainNavGraphDirections
+import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.AudioBottomDialogBinding
 
 class AudioBottomDialogFragment: BaseBottomSheetDialogFragment() {
