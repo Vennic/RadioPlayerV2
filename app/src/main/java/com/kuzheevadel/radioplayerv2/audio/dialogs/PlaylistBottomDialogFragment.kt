@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment
+import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
+import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.databinding.PlaylistBottomDialogBinding
@@ -45,6 +47,9 @@ class PlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
             renamePlaylistTextView.setOnClickListener {
                 findNavController().navigateUp()
                 viewModel.setPlaylistData(args.playlistPos)
+            }
+
+            editPlaylistTextView.setOnClickListener {
             }
 
             deletePlaylistTextView.setOnClickListener {

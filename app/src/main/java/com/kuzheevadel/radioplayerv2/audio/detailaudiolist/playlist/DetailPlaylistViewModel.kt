@@ -1,5 +1,6 @@
 package com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist
 
+import android.util.Log
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.BaseDetailAudioViewModel
 import com.kuzheevadel.radioplayerv2.common.DetailAudioItem
 import com.kuzheevadel.radioplayerv2.common.MediaType
@@ -52,6 +53,4 @@ class DetailPlaylistViewModel @Inject constructor(
     override fun getAudioList(): List<Audio> {
         return _audioList
     }
-
-
 }

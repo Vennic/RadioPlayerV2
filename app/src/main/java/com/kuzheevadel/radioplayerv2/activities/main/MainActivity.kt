@@ -48,7 +48,7 @@ class MainActivity: AppCompatActivity(){
             }
             else -> {
                 val label = navController.currentDestination?.label
-                if ( label == "Album" || label == "Playlist") {
+                if ( label != "Music") {
                     navController.navigateUp()
                     return
                 }

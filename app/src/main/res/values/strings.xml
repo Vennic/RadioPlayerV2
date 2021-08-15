@@ -9,4 +9,6 @@
     <string name="create_playlist_ok">OK</string>
     <string name="create_playlist_cancel">CANCEL</string>
     <string name="playlist_name">Playlist name</string>
+    <string name="add_songs">Add songs</string>
+    <string name="edit_playlist">Edit playlist</string>
 </resources>

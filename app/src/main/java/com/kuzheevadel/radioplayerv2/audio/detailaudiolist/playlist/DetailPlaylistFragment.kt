@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.BaseDetailAudioFragment
+import com.kuzheevadel.radioplayerv2.common.DestinationType
 
 class DetailPlaylistFragment: BaseDetailAudioFragment() {
 
@@ -13,6 +14,6 @@ class DetailPlaylistFragment: BaseDetailAudioFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        init(args.position, args.title, viewModel)
+        init(args.position, args.title, viewModel, DestinationType.PLAYLIST)
     }
 }

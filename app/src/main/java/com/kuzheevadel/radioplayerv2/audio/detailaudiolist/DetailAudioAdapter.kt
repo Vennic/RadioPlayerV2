@@ -13,6 +13,7 @@ class DetailAudioAdapter @Inject constructor()
     private var audioList = listOf<Audio>()
 
     lateinit var onSelect: (Int) -> Unit
+    lateinit var onMenuButtonClick: (Int) -> Unit
 
     class AudioViewHolder(val binding: AlbumAudioItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Audio, itemPosition: Int) {
@@ -33,6 +34,10 @@ class DetailAudioAdapter @Inject constructor()
         viewHolder.binding.root.setOnClickListener {
             onSelect(viewHolder.adapterPosition)
         }
+        viewHolder.binding.menuButtonImageView.setOnClickListener {
+            onMenuButtonClick(viewHolder.adapterPosition)
+        }
+
         return viewHolder
     }
 

@@ -49,6 +49,7 @@
                     android:id="@+id/detail_album_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    app:menu="@menu/edit_playlist_menu"
                     app:layout_collapseMode="pin"/>
 
 
