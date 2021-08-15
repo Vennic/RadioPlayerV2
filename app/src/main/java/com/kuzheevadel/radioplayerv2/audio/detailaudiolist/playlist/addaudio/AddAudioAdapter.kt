@@ -9,6 +9,7 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.AddAudioItemBinding
 import com.kuzheevadel.radioplayerv2.models.Audio
 import javax.inject.Inject
@@ -51,7 +52,11 @@ class AddAudioAdapter @Inject constructor(
             binding.apply {
                 audio = item
 
-                binding.audioSelectedImage.isVisible = isActivated
+                val image =
+                    if (isActivated) R.drawable.ic_baseline_check_circle_outline_24
+                    else R.drawable.ic_baseline_radio_button_unchecked_24
+
+                binding.audioSelectedImage.setImageResource(image)
 
                 executePendingBindings()
             }

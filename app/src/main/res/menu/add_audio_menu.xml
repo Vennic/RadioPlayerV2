@@ -6,6 +6,7 @@
     <item android:id="@+id/apply_add_audio"
         android:icon="@drawable/ic_baseline_check_24"
         android:title="@string/edit_playlist"
+        android:visible="false"
         app:showAsAction="always"/>
 
 </menu>

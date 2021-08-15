@@ -32,10 +32,10 @@ class DetailAudioAdapter @Inject constructor()
         )
 
         viewHolder.binding.root.setOnClickListener {
-            onSelect(viewHolder.adapterPosition)
+            onSelect(viewHolder.bindingAdapterPosition)
         }
         viewHolder.binding.menuButtonImageView.setOnClickListener {
-            onMenuButtonClick(viewHolder.adapterPosition)
+            onMenuButtonClick(viewHolder.bindingAdapterPosition)
         }
 
         return viewHolder

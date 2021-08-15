@@ -5,11 +5,13 @@ import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.models.Playlist
 import com.kuzheevadel.radioplayerv2.models.PlaylistInfo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 interface AudioRepository {
     fun getAudioFlow(): Flow<List<Audio>>
     fun getAudioFlowWithSetState(audio: Audio): Flow<List<Audio>>
+    fun getUpdateListState(): MutableStateFlow<Boolean>
     fun getAllAudio(): List<Audio>
     fun createAlbumsList(audioList: List<Audio>): List<Album>
     fun getAlbumsStateFlow(): StateFlow<List<Album>>
@@ -22,4 +24,5 @@ interface AudioRepository {
     suspend fun renamePlaylist(newName: String, position: Int)
     suspend fun deletePlaylist(position: Int)
     suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist)
+    suspend fun addAudioListInPlaylist(audioList: List<Long>, playlistPos: Int)
 }

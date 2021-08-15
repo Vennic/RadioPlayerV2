@@ -17,15 +17,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="68dp"
         android:clickable="true"
-        android:focusable="true"
-        android:layout_height="68dp">
+        android:focusable="true">
 
         <TextView
             android:id="@+id/audio_title_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:ellipsize="marquee"
             android:gravity="start"
@@ -34,7 +35,7 @@
             android:text="@{audio.title}"
             android:textColor="@{audio.selected ? Color.BLUE : Color.BLACK}"
             app:layout_constraintBottom_toTopOf="@+id/audio_info_text_view"
-            app:layout_constraintEnd_toStartOf="@+id/audio_selected_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             tools:text="Mann gegen Mann" />
 
@@ -42,14 +43,14 @@
             android:id="@+id/imageView"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/audio_description"
-            app:glide_url="@{audio.imageUri}"
             android:scaleType="centerCrop"
+            app:glide_url="@{audio.imageUri}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/audio_selected_image"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/circleCornersSmallImageViewStyle"
             tools:srcCompat="@tools:sample/avatars" />
@@ -59,12 +60,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="4dp"
             android:gravity="start"
             android:text="@{audio.nameAndDuration}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toStartOf="@+id/audio_selected_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             tools:text="Rammstein" />
 
@@ -72,12 +74,12 @@
             android:id="@+id/audio_selected_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_check_circle_outline_24" />
+            app:srcCompat="@drawable/ic_baseline_radio_button_unchecked_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

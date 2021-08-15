@@ -3,6 +3,7 @@ package com.kuzheevadel.radioplayerv2.repositories
 import android.content.ContentUris
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
 import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.database.PlaylistAudioDao
@@ -28,6 +29,11 @@ class AudioRepositoryImp @Inject constructor(
 
     private var _currentAlbumsData = MutableStateFlow<List<Album>>(listOf())
     private val currentAlbumsData: StateFlow<List<Album>> = _currentAlbumsData
+
+    private val _updateAudioListState = MutableStateFlow(false)
+    val updateAudioList: StateFlow<Boolean> = _updateAudioListState
+
+    override fun getUpdateListState(): MutableStateFlow<Boolean> = _updateAudioListState
 
     override fun getAudioFlow(): Flow<List<Audio>> =
             audioDataSource.getAudioFlowFromStorage()
@@ -159,6 +165,21 @@ class AudioRepositoryImp @Inject constructor(
 
             playlistAudioDao.updatePlaylistInfo(playlistInfo)
         }
+    }
+
+    override suspend fun addAudioListInPlaylist(audioList: List<Long>, playlistPos: Int) {
+        Log.d("ASDFG", "AddAudioInPlaylist")
+        val idList = audioList.map { it.toString() }
+        val playlist = _playlistInfoList[playlistPos]
+        val currentIdList = playlist.audioIdList.toMutableList()
+        for (item in idList) {
+            if (!currentIdList.contains(item))
+                currentIdList.add(item)
+        }
+        val playlistInfo = PlaylistInfo(playlist.id, playlist.name, currentIdList)
+
+        playlistAudioDao.updatePlaylistInfo(playlistInfo)
+
     }
 
     override fun getPlaylistByPosition(position: Int): Playlist =

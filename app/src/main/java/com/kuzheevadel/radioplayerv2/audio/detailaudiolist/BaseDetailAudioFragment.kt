@@ -92,7 +92,18 @@ open class BaseDetailAudioFragment: Fragment() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 _viewModel.audioFlow.collect {
+                    Log.d("ASDFG", "Collect Audio")
                     audioAdapter.setAlbumsList(it)
+                }
+            }
+        }
+
+        if (_destinationType == DestinationType.PLAYLIST) {
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    _viewModel.playlistFlow.collect {
+                        audioAdapter.setAlbumsList(_viewModel.updateList(it[_position].audioList))
+                    }
                 }
             }
         }

@@ -29,7 +29,6 @@ class PlayerMediaRepositoryImp @Inject constructor(): PlayerMediaRepository {
     override fun setCurrentAudioMedia(audioList: List<Audio>, position: Int) {
 
         if (currentAudioList != audioList) {
-            Log.d("FGHJ", "setCurrentList")
             currentAudioList = audioList
         }
 
@@ -74,8 +73,8 @@ class PlayerMediaRepositoryImp @Inject constructor(): PlayerMediaRepository {
         }
     }
 
-    override fun setCurrentMediaList() {
-        TODO("Not yet implemented")
+    override fun updateAudioList(audioList: List<Audio>) {
+        currentAudioList = audioList
     }
 
     override fun getCurrentAudio(): Audio =

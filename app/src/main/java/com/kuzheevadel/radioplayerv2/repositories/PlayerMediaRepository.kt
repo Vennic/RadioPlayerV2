@@ -13,9 +13,10 @@ interface PlayerMediaRepository {
     fun getStateCurrentMediaData(): StateFlow<MediaType<Audio>>
     fun getCurrentAudio(): Audio
     fun setCurrentAudioMedia(audioList: List<Audio>, position: Int)
-    fun setCurrentMediaList()
+    fun updateAudioList(audioList: List<Audio>)
     fun setNextAudio()
     fun setPreviousAudio()
     fun setRepeatMode(isEnabled: Boolean)
     fun setShuffleMode(isEnabled: Boolean)
+
 }

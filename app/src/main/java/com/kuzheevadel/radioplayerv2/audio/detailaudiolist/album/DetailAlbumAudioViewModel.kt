@@ -56,4 +56,8 @@ class DetailAlbumAudioViewModel @Inject constructor(
     override fun getAudioList(): List<Audio> {
         return _audioList
     }
+
+    override fun updateList(audioList: List<Audio>): List<Audio> {
+        return emptyList()
+    }
 }
