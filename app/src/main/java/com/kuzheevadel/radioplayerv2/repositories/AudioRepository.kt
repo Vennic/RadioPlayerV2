@@ -11,14 +11,11 @@ import kotlinx.coroutines.flow.StateFlow
 interface AudioRepository {
     fun getAudioFlow(): Flow<List<Audio>>
     fun getAudioFlowWithSetState(audio: Audio): Flow<List<Audio>>
-    fun getUpdateListState(): MutableStateFlow<Boolean>
     fun getAllAudio(): List<Audio>
     fun createAlbumsList(audioList: List<Audio>): List<Album>
     fun getAlbumsStateFlow(): StateFlow<List<Album>>
-    fun getAlbumAudioList(position: Int): List<Audio>
-    fun getAlbum(position: Int): Album
+    fun getAllAlbumsList(): List<Album>
     fun getPlaylistsFlow(): Flow<List<Playlist>>
-    fun getPlaylistByPosition(position: Int): Playlist
     fun getAllPlaylists(): List<Playlist>
     suspend fun createPlaylist(name: String)
     suspend fun renamePlaylist(newName: String, position: Int)

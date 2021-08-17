@@ -2,23 +2,24 @@ package com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.addaudio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
+import com.kuzheevadel.radioplayerv2.usecases.FetchAudioUseCase
+import com.kuzheevadel.radioplayerv2.usecases.SaveAudioDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AddAudioViewModel @Inject constructor(
-    private val audioRepo: AudioRepository
+    private val fetchAudioUseCase: FetchAudioUseCase,
+    private val saveAudioDataUseCase: SaveAudioDataUseCase
 ): ViewModel() {
 
-    val audioFlow = audioRepo.getAudioFlow()
+    val audioFlow = fetchAudioUseCase.getAllAudioFlow()
 
-    fun addAudioInPlaylist(audioIdList: List<Long>, playlistPos: Int) {
+    fun addAudioListInPlaylist(audioIdList: List<Long>, playlistPos: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
-                audioRepo.addAudioListInPlaylist(audioIdList, playlistPos)
-                audioRepo.getUpdateListState().value = true
+                saveAudioDataUseCase.addAudioListInPlaylist(audioIdList, playlistPos)
             }
         }
     }

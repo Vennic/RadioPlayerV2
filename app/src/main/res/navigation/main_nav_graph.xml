@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_detailPlaylistFragment_to_addAudioFragment"
             app:destination="@id/addAudioFragment" />
+        <action
+            android:id="@+id/action_detailPlaylistFragment_to_editPlaylistFragment"
+            app:destination="@id/editPlaylistFragment" />
     </fragment>
 
     <dialog
@@ -140,6 +143,14 @@
         android:label="AddAudioFragment" >
         <argument
             android:name="playlistPosition"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPlaylistFragment"
+        android:name="com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.editplaylist.EditPlaylistFragment"
+        android:label="EditPlaylistFragment" >
+        <argument
+            android:name="playlistPos"
             app:argType="integer" />
     </fragment>
 

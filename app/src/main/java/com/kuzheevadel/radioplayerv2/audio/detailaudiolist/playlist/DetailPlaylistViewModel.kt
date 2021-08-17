@@ -1,23 +1,25 @@
 package com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist
 
-import android.util.Log
-import androidx.lifecycle.viewModelScope
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.BaseDetailAudioViewModel
+import com.kuzheevadel.radioplayerv2.common.AudioDataType
 import com.kuzheevadel.radioplayerv2.common.DetailAudioItem
 import com.kuzheevadel.radioplayerv2.common.MediaType
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.models.Playlist
-import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
 import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
+import com.kuzheevadel.radioplayerv2.usecases.FetchAudioUseCase
+import com.kuzheevadel.radioplayerv2.usecases.SaveAudioDataUseCase
+import com.kuzheevadel.radioplayerv2.usecases.SetAudioDataUseCase
 import com.kuzheevadel.radioplayerv2.utils.setAllAudioUnselected
 import com.kuzheevadel.radioplayerv2.utils.setAudioState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailPlaylistViewModel @Inject constructor(
-    private val audioRepo: AudioRepository,
+    private val fetchAudioUseCase: FetchAudioUseCase,
+    private val setAudioDataUseCase: SetAudioDataUseCase,
+    private val saveAudioDataUseCase: SaveAudioDataUseCase,
     private val playerRepo: PlayerMediaRepository
 ): BaseDetailAudioViewModel() {
 
@@ -34,10 +36,9 @@ class DetailPlaylistViewModel @Inject constructor(
 
     override fun init(position: Int) {
         _playlistPos = position
-        _playlist = audioRepo.getPlaylistByPosition(position)
+        _playlist = fetchAudioUseCase.getPlaylistByPosition(position)
         _audioList = _playlist.audioList
-        updateListFlow = audioRepo.getUpdateListState()
-        playlistFlow = audioRepo.getPlaylistsFlow()
+        playlistFlow = fetchAudioUseCase.getPlayListsFlow()
 
         audioFlow = _currentMediaFlow.flatMapLatest {
             if (it is MediaType.Audio) {
@@ -56,7 +57,7 @@ class DetailPlaylistViewModel @Inject constructor(
 
     override fun updateList(audioList: List<Audio>): List<Audio> {
         _audioList = audioList
-        playerRepo.updateAudioList(audioList)
+
         return if (currentAudio != null) {
             _audioList.setAudioState(currentAudio!!)
         } else {
@@ -65,7 +66,7 @@ class DetailPlaylistViewModel @Inject constructor(
     }
 
     override fun onAudioClicked(position: Int) {
-        playerRepo.setCurrentAudioMedia(_audioList, position)
+        setAudioDataUseCase.setCurrentAudioData(AudioDataType.PLAYLIST, position, _playlistPos)
     }
 
     override fun getAudioList(): List<Audio> {

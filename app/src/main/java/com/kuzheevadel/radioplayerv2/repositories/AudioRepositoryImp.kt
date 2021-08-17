@@ -3,7 +3,6 @@ package com.kuzheevadel.radioplayerv2.repositories
 import android.content.ContentUris
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 import com.kuzheevadel.radioplayerv2.audio.di.AudioFragmentScope
 import com.kuzheevadel.radioplayerv2.common.Constants
 import com.kuzheevadel.radioplayerv2.database.PlaylistAudioDao
@@ -30,16 +29,12 @@ class AudioRepositoryImp @Inject constructor(
     private var _currentAlbumsData = MutableStateFlow<List<Album>>(listOf())
     private val currentAlbumsData: StateFlow<List<Album>> = _currentAlbumsData
 
-    private val _updateAudioListState = MutableStateFlow(false)
-    val updateAudioList: StateFlow<Boolean> = _updateAudioListState
-
-    override fun getUpdateListState(): MutableStateFlow<Boolean> = _updateAudioListState
-
     override fun getAudioFlow(): Flow<List<Audio>> =
             audioDataSource.getAudioFlowFromStorage()
-                    .onEach {
-                        _allAudioList = it
-                        _currentAlbumsData.value = createAlbumsList(it)
+                    .onEach { audioList ->
+                        _allAudioList = audioList
+                        albumsList = createAlbumsList(audioList)
+                        _currentAlbumsData.value = albumsList
                         playlistAudioDao.deleteAndInsertAudio(_allAudioList.mapToAudioEntity())
                     }
                     .flowOn(defDispatcher)
@@ -50,7 +45,8 @@ class AudioRepositoryImp @Inject constructor(
             audioDataSource.getAudioFlowFromStorage()
                     .onEach { audioList ->
                         _allAudioList = audioList
-                        _currentAlbumsData.value = createAlbumsList(audioList)
+                        albumsList = createAlbumsList(audioList)
+                        _currentAlbumsData.value = albumsList
                     }
                     .map { audioList ->
                         audioList.setAudioState(audio)
@@ -86,9 +82,10 @@ class AudioRepositoryImp @Inject constructor(
             albumList.add(album)
         }
 
-        albumsList = albumList
         return albumList
     }
+
+    override fun getAllAlbumsList(): List<Album> = albumsList
 
     override fun getPlaylistsFlow(): Flow<List<Playlist>> {
         return playlistAudioDao.getPlaylists()
@@ -168,7 +165,6 @@ class AudioRepositoryImp @Inject constructor(
     }
 
     override suspend fun addAudioListInPlaylist(audioList: List<Long>, playlistPos: Int) {
-        Log.d("ASDFG", "AddAudioInPlaylist")
         val idList = audioList.map { it.toString() }
         val playlist = _playlistInfoList[playlistPos]
         val currentIdList = playlist.audioIdList.toMutableList()
@@ -182,19 +178,12 @@ class AudioRepositoryImp @Inject constructor(
 
     }
 
-    override fun getPlaylistByPosition(position: Int): Playlist =
-        _playlistList[position]
-
     override fun getAllPlaylists(): List<Playlist> = _playlistList
-
-    override fun getAlbumAudioList(position: Int): List<Audio> =
-        albumsList[position].audioList
 
     override fun getAlbumsStateFlow(): StateFlow<List<Album>> =
         currentAlbumsData
 
     override fun getAllAudio(): List<Audio> = _allAudioList
 
-    override fun getAlbum(position: Int): Album = albumsList[position]
 
 }

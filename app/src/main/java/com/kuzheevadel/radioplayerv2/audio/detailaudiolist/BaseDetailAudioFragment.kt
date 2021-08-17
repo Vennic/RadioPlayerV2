@@ -92,7 +92,6 @@ open class BaseDetailAudioFragment: Fragment() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 _viewModel.audioFlow.collect {
-                    Log.d("ASDFG", "Collect Audio")
                     audioAdapter.setAlbumsList(it)
                 }
             }
@@ -142,6 +141,12 @@ open class BaseDetailAudioFragment: Fragment() {
                         findNavController().navigate(action)
                         true
                 }
+                    R.id.edit_playlist -> {
+                        val action = DetailPlaylistFragmentDirections
+                            .actionDetailPlaylistFragmentToEditPlaylistFragment(_position)
+                        findNavController().navigate(action)
+                        true
+                    }
                     else -> false
                 }
             }

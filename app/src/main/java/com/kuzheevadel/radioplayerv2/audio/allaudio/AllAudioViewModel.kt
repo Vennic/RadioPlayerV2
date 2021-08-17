@@ -2,48 +2,37 @@ package com.kuzheevadel.radioplayerv2.audio.allaudio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kuzheevadel.radioplayerv2.common.AudioDataType
 import com.kuzheevadel.radioplayerv2.models.Audio
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
 import com.kuzheevadel.radioplayerv2.repositories.PlayerMediaRepository
-import com.kuzheevadel.radioplayerv2.common.MediaType
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
+import com.kuzheevadel.radioplayerv2.usecases.FetchAudioUseCase
+import com.kuzheevadel.radioplayerv2.usecases.SaveAudioDataUseCase
+import com.kuzheevadel.radioplayerv2.usecases.SetAudioDataUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AllAudioViewModel @Inject constructor(
-        private val audioRepo: AudioRepository,
-        private val playerMediaRepo: PlayerMediaRepository
+    private val fetchAudioDataUseCase: FetchAudioUseCase,
+    private val setAudioDataUseCase: SetAudioDataUseCase,
+    private val saveAudioDataUseCase: SaveAudioDataUseCase,
 ): ViewModel() {
 
-    private val currentMediaFlow = playerMediaRepo.getStateCurrentMediaData()
-
-    @ExperimentalCoroutinesApi
-    val audioFlow: Flow<List<Audio>> = currentMediaFlow.flatMapLatest { mediaType ->
-        when (mediaType) {
-            is MediaType.Audio -> {
-                audioRepo.getAudioFlowWithSetState(mediaType.audio)
-            }
-            else -> {
-                audioRepo.getAudioFlow()
-            }
-        }
-    }
+    val audioFlow = fetchAudioDataUseCase.getAllAudioFlow()
 
     fun onAudioClicked(position: Int) {
-        playerMediaRepo.setCurrentAudioMedia(audioRepo.getAllAudio(), position)
+        setAudioDataUseCase.setCurrentAudioData(AudioDataType.ALL_AUDIO, audioPosition = position)
     }
 
     fun getAudioByPos(position: Int): Audio {
-        return audioRepo.getAllAudio()[position]
+        return fetchAudioDataUseCase.getAudioByPosFromAllAudio(position)
     }
 
     fun addInPlaylistButtonClicked(audioPosition: Int, playlistPos: Int) {
         viewModelScope.launch {
-            audioRepo.addAudioInPlaylist(audioRepo.getAllAudio()[audioPosition], audioRepo.getPlaylistByPosition(playlistPos))
+            saveAudioDataUseCase.addAudioInPlaylist(audioPosition, playlistPos)
         }
     }
 
-    fun getPlaylists() = audioRepo.getAllPlaylists()
+    fun getPlaylists() = fetchAudioDataUseCase.getAllPlaylistsList()
 }

@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kuzheevadel.radioplayerv2.R
+import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
 import com.kuzheevadel.radioplayerv2.databinding.AddAudioItemBinding
 import com.kuzheevadel.radioplayerv2.models.Audio
 import javax.inject.Inject
 
 class AddAudioAdapter @Inject constructor(
-    diffCallback: AddAudioDiffCallback
+    diffCallback: AudioDiffCallback
 ): ListAdapter<Audio, RecyclerView.ViewHolder>(diffCallback) {
 
     var tracker: SelectionTracker<Long>? = null
@@ -78,15 +79,5 @@ class AddAudioAdapter @Inject constructor(
     }
 }
 
-class AddAudioDiffCallback @Inject constructor() : DiffUtil.ItemCallback<Audio>() {
-
-    override fun areItemsTheSame(oldItem: Audio, newItem: Audio): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Audio, newItem: Audio): Boolean {
-        return oldItem == newItem
-    }
-}
 
 

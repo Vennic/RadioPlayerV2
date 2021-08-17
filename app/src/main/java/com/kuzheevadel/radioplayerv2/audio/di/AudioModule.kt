@@ -13,8 +13,8 @@ import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.album.DetailAlbumAudi
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.DetailAudioAdapter
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.DetailPlaylistViewModel
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.addaudio.AddAudioAdapter
-import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.addaudio.AddAudioDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.addaudio.AddAudioViewModel
+import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.editplaylist.EditPlaylistViewModel
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistAdapter
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistViewModel
@@ -25,6 +25,7 @@ import com.kuzheevadel.radioplayerv2.repositories.AudioRepositoryImp
 import com.kuzheevadel.radioplayerv2.repositories.AudioRepository
 import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSourceImp
 import com.kuzheevadel.radioplayerv2.repositories.datasource.AudioDataSource
+import com.kuzheevadel.radioplayerv2.usecases.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -63,6 +64,11 @@ abstract class AudioModule {
     abstract fun bindAddAudioViewModel(viewModel: AddAudioViewModel): ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(EditPlaylistViewModel::class)
+    abstract fun bindEditPlaylistViewModel(viewModel: EditPlaylistViewModel): ViewModel
+
+    @Binds
     abstract fun provideAllAudioAdapter(adapter: AllAudioAdapter): ListAdapter<Audio, RecyclerView.ViewHolder>
 
     @Binds
@@ -78,6 +84,15 @@ abstract class AudioModule {
     abstract fun provideAudioRepo(repo: AudioRepositoryImp): AudioRepository
 
     @Binds
+    abstract fun provideFetchAudioDataUseCase(useCase: FetchAudioDataUseCaseImpl): FetchAudioUseCase
+
+    @Binds
+    abstract fun provideSetAudioDataUseCase(useCase: SetAudioDataUseCaseImpl): SetAudioDataUseCase
+
+    @Binds
+    abstract fun provideSaveAudioDataUseCase(useCase: SaveAudioDataUseCaseImpl): SaveAudioDataUseCase
+
+    @Binds
     abstract fun provideAudioDataSource(dataSourceImp: AudioDataSourceImp): AudioDataSource
 
     @Binds
@@ -87,7 +102,7 @@ abstract class AudioModule {
     abstract fun providePlaylistDiffCallback(callback: PlaylistDiffCallback): DiffUtil.ItemCallback<Playlist>
 
     @Binds
-    abstract fun provideAddAudioDiffCallback(callback: AddAudioDiffCallback): DiffUtil.ItemCallback<Audio>
+    abstract fun provideAddAudioDiffCallback(callback: AudioDiffCallback): DiffUtil.ItemCallback<Audio>
 
     @Binds
     abstract fun provideAddAudioAdapter(adapter: AddAudioAdapter): ListAdapter<Audio, RecyclerView.ViewHolder>
