@@ -164,18 +164,8 @@ class AudioRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun addAudioListInPlaylist(audioList: List<Long>, playlistPos: Int) {
-        val idList = audioList.map { it.toString() }
-        val playlist = _playlistInfoList[playlistPos]
-        val currentIdList = playlist.audioIdList.toMutableList()
-        for (item in idList) {
-            if (!currentIdList.contains(item))
-                currentIdList.add(item)
-        }
-        val playlistInfo = PlaylistInfo(playlist.id, playlist.name, currentIdList)
-
+    override suspend fun addAudioListInPlaylist(playlistInfo: PlaylistInfo) {
         playlistAudioDao.updatePlaylistInfo(playlistInfo)
-
     }
 
     override fun getAllPlaylists(): List<Playlist> = _playlistList

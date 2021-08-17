@@ -62,6 +62,10 @@ class EditPlaylistAdapter @Inject constructor(
         notifyDataSetChanged()
     }
 
+    fun getAudioList(): List<Audio> {
+        return audioList
+    }
+
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
         Collections.swap(audioList, fromPosition, toPosition)
         notifyItemMoved(fromPosition, toPosition)

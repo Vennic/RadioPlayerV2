@@ -35,6 +35,4 @@ interface SetAudioDataUseCase {
         dataType: AudioDataType,
         audioPosition: Int,
         audioListPos: Int = 0)
-
-
 }

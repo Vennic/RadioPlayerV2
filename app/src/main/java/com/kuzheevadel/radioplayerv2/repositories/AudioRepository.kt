@@ -21,5 +21,5 @@ interface AudioRepository {
     suspend fun renamePlaylist(newName: String, position: Int)
     suspend fun deletePlaylist(position: Int)
     suspend fun addAudioInPlaylist(audio: Audio, playlist: Playlist)
-    suspend fun addAudioListInPlaylist(audioList: List<Long>, playlistPos: Int)
+    suspend fun addAudioListInPlaylist(playlistInfo: PlaylistInfo)
 }

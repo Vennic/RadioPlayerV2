@@ -19,7 +19,7 @@ class AddAudioViewModel @Inject constructor(
     fun addAudioListInPlaylist(audioIdList: List<Long>, playlistPos: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
-                saveAudioDataUseCase.addAudioListInPlaylist(audioIdList, playlistPos)
+                saveAudioDataUseCase.addAudioIdListInPlaylist(audioIdList, playlistPos)
             }
         }
     }

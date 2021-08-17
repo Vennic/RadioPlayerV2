@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +19,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment
 import com.kuzheevadel.radioplayerv2.audio.allaudio.AudioDiffCallback
 import com.kuzheevadel.radioplayerv2.audio.detailaudiolist.playlist.addaudio.AddAudioViewModel
@@ -59,7 +61,21 @@ class EditPlaylistFragment: Fragment(), OnStartDragListener {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
 
+
         binding.addAudioToolbar.setupWithNavController(navController, appBarConfiguration)
+
+        binding.addAudioToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.apply_add_audio -> {
+                    viewModel
+                        .editPlaylistComplete(editAdapter.getAudioList(), args.playlistPos)
+                    findNavController().navigateUp()
+                    true
+                }
+                else -> false
+            }
+        }
+        binding.addAudioToolbar.menu.findItem(R.id.apply_add_audio).isVisible = true
 
         setUpRecyclerView()
         editAdapter.setAudioList(viewModel.getAudioList(args.playlistPos))
