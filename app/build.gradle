@@ -5,6 +5,8 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+apply from: 'https://raw.githubusercontent.com/JakeWharton/SdkSearch/master/gradle/projectDependencyGraph.gradle'
+
 android {
     defaultConfig {
         applicationId "com.kuzheevadel.radioplayerv2"
@@ -23,8 +25,8 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':core')
-    implementation project(path: ':features:audio')
+    implementation project(':core')
+    implementation project(':features:audio')
 
     implementation(Deps.kotlin_stbLib)
     implementation(Deps.androidx_core)

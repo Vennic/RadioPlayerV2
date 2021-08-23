@@ -1,15 +1,16 @@
-import org.gradle.api.JavaVersion
+
 
 object Config {
     const val minSdk = 21
     const val compileSdk = 30
     const val targetSdk = 30
-    val javaVersion = JavaVersion.VERSION_1_8
     const val buildTools = "30.0.2"
 }
 
 object Versions {
-    const val kotlin = "1.4.32"
+    const val kotlin = "1.5.21"
+    const val gradle_android = "7.0.0"
+    const val gradle_versions = "0.39.0"
     const val androidx_core = "1.6.0"
     const val androidx_appcompat = "1.3.1"
     const val android_material = "1.4.0"
@@ -27,7 +28,7 @@ object Versions {
     const val slide_panel = "3.4.0"
     const val dagger = "2.37"
     const val picasso = "2.71828"
-    const val picasso_transform = "2.2.1"
+    const val picasso_transform = "2.4.0"
     const val glide = "4.12.0"
     const val exo_player = "2.15.0"
     const val room = "2.3.0"
@@ -37,6 +38,11 @@ object Versions {
 
 object Deps {
     const val kotlin_stbLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+    const val tools_gradle_android = "com.android.tools.build:gradle:${Versions.gradle_android}"
+    const val tools_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    const val tools_gradle_versions = "com.github.ben-manes:gradle-versions-plugin:${Versions.gradle_versions}"
+    const val nav_save_args = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.nav_version}"
+
     const val androidx_core = "androidx.core:core-ktx:${Versions.androidx_core}"
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.androidx_appcompat}"
     const val android_material = "com.google.android.material:material:${Versions.android_material}"
