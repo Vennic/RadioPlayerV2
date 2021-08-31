@@ -5,17 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.ActivityMainBinding
+import com.kuzheevadel.ui.DrawableActivity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
-class MainActivity: AppCompatActivity(){
+class MainActivity: AppCompatActivity(), DrawableActivity{
 
     private lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var slidingPanel: SlidingUpPanelLayout
+    lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,7 @@ class MainActivity: AppCompatActivity(){
         }
         slidingPanel = binding.mainPlayer.root
 
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.audio_nav_graph), drawerLayout)
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
 
@@ -58,6 +62,9 @@ class MainActivity: AppCompatActivity(){
         super.onBackPressed()
     }
 
+    override fun getAppBarConfig(): AppBarConfiguration {
+        return appBarConfiguration
+    }
 
 
 }

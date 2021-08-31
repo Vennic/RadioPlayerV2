@@ -1,13 +1,24 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation(Deps.kotlin_stbLib)
+    implementation(Deps.androidx_core)
+    implementation(Deps.androidx_appcompat)
+    implementation(Deps.android_material)
+    implementation(Deps.constraint_layout)
+    implementation(Deps.androidx_legacy_sup)
+
+    //Dagger 2
+    implementation(Deps.dagger)
+    kapt(Deps.dagger_compiler)
+
+    //Room
+    implementation(Deps.room_runtime)
+    annotationProcessor(Deps.room_compiler)
+    kapt(Deps.room_compiler)
+    implementation(Deps.room_ktx)
 }

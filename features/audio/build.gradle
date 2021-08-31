@@ -1,16 +1,50 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 dependencies {
     implementation project(path: ':core')
+    implementation project(path: ':UI')
 
+    implementation(Deps.kotlin_stbLib)
     implementation(Deps.androidx_core)
     implementation(Deps.androidx_appcompat)
+    implementation(Deps.constraint_layout)
     implementation(Deps.android_material)
+
 
     testImplementation(Deps.test_junit)
     androidTestImplementation(Deps.androidx_test_ext_junit)
     androidTestImplementation(Deps.test_espresso)
+
+    implementation(Deps.fragment_ktx)
+    implementation(Deps.lf_viewModel_ktx)
+    implementation(Deps.lf_runtime_ktx)
+    implementation(Deps.lf_common_java8)
+    implementation(Deps.lf_viewModel_savedState)
+    implementation(Deps.lf_liveData_ktx)
+
+    //Navigation
+    implementation(Deps.nav_fragment_ktx)
+    implementation(Deps.nav_ui_ktx)
+    implementation(Deps.nav_dynamic_features_fragment)
+    implementation(Deps.nav_compose)
+
+    //Dagger 2
+    implementation(Deps.dagger)
+    kapt(Deps.dagger_compiler)
+
+    //Picasso
+    implementation(Deps.picasso)
+    implementation(Deps.picasso_transform)
+
+    //Glide
+    implementation(Deps.glide)
+
+    //RecyclerView
+    implementation(Deps.recyclerview)
+    implementation(Deps.recyclerview_selection)
 }

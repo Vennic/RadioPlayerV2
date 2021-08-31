@@ -12,7 +12,7 @@
     tools:context=".activities.main.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:name="com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment"
+        android:name="com.kuzheevadel.audio.AudioNavHostFragment"
         android:id="@+id/main_nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,7 +26,6 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/playback_nav_graph"/>
+        app:defaultNavHost="true" />
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

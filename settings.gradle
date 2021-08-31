@@ -1,3 +1,4 @@
 include ':app'
 include ':features:audio'
 include ':core'
+include ':UI'

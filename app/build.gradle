@@ -34,6 +34,7 @@ dependencies {
     implementation(Deps.android_material)
     implementation(Deps.constraint_layout)
     implementation(Deps.androidx_legacy_sup)
+    implementation project(path: ':UI')
 
     //Test
     testImplementation(Deps.test_junit)

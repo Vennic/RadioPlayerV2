@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/audio_nav_graph"
+    app:startDestination="@id/mainAudioFragment">
+
+    <fragment
+        android:id="@+id/mainAudioFragment"
+        android:name="com.kuzheevadel.audio.MainAudioFragment"
+        android:label="MainAudioFragment" >
+        <action
+            android:id="@+id/action_mainAudioFragment_to_detailPlaylistFragment"
+            app:destination="@id/detailPlaylistFragment" />
+        <action
+            android:id="@+id/action_mainAudioFragment_to_detailAlbumFragment"
+            app:destination="@id/detailAlbumFragment" />
+        <action
+            android:id="@+id/to_playlistBottomDialogFragment"
+            app:destination="@id/playlistBottomDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPlaylistFragment"
+        android:name="com.kuzheevadel.audio.detailaudiolist.playlist.DetailPlaylistFragment"
+        android:label="DetailPlaylistFragment" >
+        <action
+            android:id="@+id/action_detailPlaylistFragment_to_addAudioFragment"
+            app:destination="@id/addAudioFragment" />
+        <action
+            android:id="@+id/action_detailPlaylistFragment_to_editPlaylistFragment"
+            app:destination="@id/editPlaylistFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailAlbumFragment"
+        android:name="com.kuzheevadel.audio.detailaudiolist.album.DetailAlbumFragment"
+        android:label="DetailAlbumFragment" >
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAudioFragment"
+        android:name="com.kuzheevadel.audio.detailaudiolist.playlist.addaudio.AddAudioFragment"
+        android:label="AddAudioFragment" >
+        <argument
+            android:name="playlistPosition"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPlaylistFragment"
+        android:name="com.kuzheevadel.audio.detailaudiolist.playlist.editplaylist.EditPlaylistFragment"
+        android:label="EditPlaylistFragment" >
+        <argument
+            android:name="playlistPosition"
+            app:argType="integer" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/playlistNameDialogFragment"
+        android:name="com.kuzheevadel.audio.dialogs.PlaylistNameDialogFragment"
+        android:label="CreatePlaylistDialogFragment" >
+        <argument
+            android:name="resultType"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="playlistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/playlistBottomDialogFragment"
+        android:name="com.kuzheevadel.audio.dialogs.PlaylistBottomDialogFragment"
+        android:label="PlaylistBottomDialogFragment">
+        <argument
+            android:name="playlistName"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="playlistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+    <dialog
+        android:id="@+id/audioBottomDialogFragment"
+        android:name="com.kuzheevadel.audio.dialogs.AudioBottomDialogFragment"
+        android:label="AudioBottomDialogFragment">
+        <argument
+            android:name="audioPosition"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/chosePlaylistBottomDialogFragment"
+        android:name="com.kuzheevadel.audio.dialogs.ChosePlaylistBottomDialogFragment"
+        android:label="ChosePlaylistBottomDialogFragment">
+        <argument
+            android:name="audioPosition"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/audioInfoDialogFragment"
+        android:name="com.kuzheevadel.audio.dialogs.AudioInfoDialogFragment"
+        android:label="AudioInfoDialogFragment">
+        <argument
+            android:name="audioPosition"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </dialog>
+
+    <action
+        android:id="@+id/action_global_audioInfoDialogFragment"
+        app:destination="@id/audioInfoDialogFragment"/>
+
+    <action
+        android:id="@+id/action_global_chosePlaylistBottomDialogFragment"
+        app:destination="@id/chosePlaylistBottomDialogFragment" />
+
+    <action android:id="@+id/action_global_audioBottomDialogFragment"
+        app:destination="@id/audioBottomDialogFragment" />
+
+    <action
+        android:id="@+id/action_global_playlistNameDialogFragment"
+        app:destination="@id/playlistNameDialogFragment" />
+
+</navigation>

@@ -36,6 +36,38 @@
         <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/menu/add_audio_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/menu/edit_playlist_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/kuzhe/Desktop/Adel/AndroidProjects/RadioPlayerV2/app/src/main/res/menu/nav_menu.xml" value="0.25025641025641027" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/app/src/main/res/layout/album_item_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/app/src/main/res/layout/albums_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/app/src/main/res/layout/main_audio_layout.xml" value="0.24537037037037038" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/app/src/main/res/layout/main_player_layout.xml" value="0.24537037037037038" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_check_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_create_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_drag.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_play_circle_filled_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_queue_music_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/drawable/ic_baseline_radio_button_unchecked_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/add_audio_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/add_audio_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/album_audio_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/album_item_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/albums_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/all_audio_layout.xml" value="0.24814814814814815" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/audio_bottom_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/audio_info_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/audio_item_layout.xml" value="0.24814814814814815" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/chose_playlist_bottom_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/detail_audio_list_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/edit_audio_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/main_audio_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/playlist_bottom_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/playlist_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/playlist_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/playlist_item_bottom_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/layout/playlist_name_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/menu/add_audio_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kuzhe/Desktop/Adel/RadioPlayerV2Mod/features/audio/src/main/res/menu/edit_playlist_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

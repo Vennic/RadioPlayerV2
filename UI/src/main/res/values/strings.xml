@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RadioPlayerV2</string>
+    <string name="local_audio">Local audio</string>
+    <string name="radio">radio</string>
+    <string name="audio_description">audio image</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playlists_count">Playlists</string>
+    <string name="create_playlist_ok">OK</string>
+    <string name="create_playlist_cancel">CANCEL</string>
+    <string name="playlist_name">Playlist name</string>
+    <string name="add_songs">Add songs</string>
+    <string name="edit_playlist">Edit playlist</string>
+</resources>
