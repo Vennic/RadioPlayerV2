@@ -35,6 +35,7 @@ dependencies {
     implementation(Deps.constraint_layout)
     implementation(Deps.androidx_legacy_sup)
     implementation project(path: ':UI')
+    implementation project(path: ':features:playback')
 
     //Test
     testImplementation(Deps.test_junit)

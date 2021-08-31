@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.audio.playlists
+package com.kuzheevadel.audio.playlists
 
 import android.content.Context
 import android.os.Bundle
@@ -13,11 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kuzheevadel.radioplayerv2.MainNavGraphDirections
-import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
-import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
-import com.kuzheevadel.radioplayerv2.common.Constants
-import com.kuzheevadel.radioplayerv2.databinding.PlaylistFragmentBinding
+import com.kuzheevadel.audio.AudioNavGraphDirections
+import com.kuzheevadel.audio.MainAudioFragment
+import com.kuzheevadel.audio.MainAudioFragmentDirections
+import com.kuzheevadel.audio.databinding.PlaylistFragmentBinding
+import com.kuzheevadel.core.common.Constants
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,7 +55,7 @@ class PlaylistFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             createPlaylistImageButton.setOnClickListener {
-                val action = MainNavGraphDirections
+                val action = AudioNavGraphDirections
                     .actionGlobalPlaylistNameDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
 
                 findNavController().navigate(action)
@@ -90,7 +90,7 @@ class PlaylistFragment: Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.renamePlaylistData.collect { position ->
                     if (position != null) {
-                        val action = MainNavGraphDirections
+                        val action = AudioNavGraphDirections
                             .actionGlobalPlaylistNameDialogFragment(Constants.RENAME_PLAYLIST_RESULT, position)
 
                         findNavController().navigate(action)

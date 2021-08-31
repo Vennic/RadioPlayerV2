@@ -6,6 +6,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.ActivityMainBinding
@@ -43,23 +44,9 @@ class MainActivity: AppCompatActivity(), DrawableActivity{
 
     }
 
-    // Collapse panel when back button pressed if panel expanded
-    override fun onBackPressed() {
-        when (slidingPanel.panelState) {
-            SlidingUpPanelLayout.PanelState.EXPANDED -> {
-                slidingPanel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-                return
-            }
-            else -> {
-                val label = navController.currentDestination?.label
-                if ( label != "Music") {
-                    navController.navigateUp()
-                    return
-                }
-            }
-        }
-
-        super.onBackPressed()
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
     }
 
     override fun getAppBarConfig(): AppBarConfiguration {

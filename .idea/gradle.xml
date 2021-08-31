@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/audio" />
+            <option value="$PROJECT_DIR$/features/playback" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

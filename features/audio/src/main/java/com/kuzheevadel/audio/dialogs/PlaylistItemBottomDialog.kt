@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.audio.dialogs
+package com.kuzheevadel.audio.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.kuzheevadel.radioplayerv2.MainNavGraphDirections
-import com.kuzheevadel.radioplayerv2.databinding.PlaylistItemBottomDialogBinding
+import com.kuzheevadel.audio.AudioNavGraphDirections
+import com.kuzheevadel.audio.databinding.PlaylistItemBottomDialogBinding
+
 
 class PlaylistItemBottomDialog: BaseBottomSheetDialogFragment() {
 
@@ -24,14 +25,14 @@ class PlaylistItemBottomDialog: BaseBottomSheetDialogFragment() {
 
         binding.apply {
             addAudioInPlaylistTextView.setOnClickListener {
-                val action = MainNavGraphDirections
+                val action = AudioNavGraphDirections
                     .actionGlobalChosePlaylistBottomDialogFragment(args.audioPosition)
                 findNavController().navigateUp()
                 findNavController().navigate(action)
             }
 
             audioInfoTextView.setOnClickListener {
-                val action = MainNavGraphDirections
+                val action = AudioNavGraphDirections
                     .actionGlobalAudioInfoDialogFragment(args.audioPosition)
                 findNavController().navigateUp()
                 findNavController().navigate(action)

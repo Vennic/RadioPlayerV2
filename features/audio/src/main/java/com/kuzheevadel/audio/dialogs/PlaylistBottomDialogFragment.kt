@@ -1,4 +1,4 @@
-package com.kuzheevadel.radioplayerv2.audio.dialogs
+package com.kuzheevadel.audio.dialogs
 
 import android.content.Context
 import android.os.Bundle
@@ -9,13 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.kuzheevadel.radioplayerv2.audio.AudioNavHostFragment
-import com.kuzheevadel.radioplayerv2.audio.MainAudioFragment
-import com.kuzheevadel.radioplayerv2.audio.MainAudioFragmentDirections
-import com.kuzheevadel.radioplayerv2.audio.playlists.PlaylistViewModel
-import com.kuzheevadel.radioplayerv2.common.Constants
-import com.kuzheevadel.radioplayerv2.databinding.PlaylistBottomDialogBinding
+import com.kuzheevadel.audio.AudioNavGraphDirections
+import com.kuzheevadel.audio.AudioNavHostFragment
+import com.kuzheevadel.audio.databinding.PlaylistBottomDialogBinding
+import com.kuzheevadel.audio.playlists.PlaylistViewModel
+import com.kuzheevadel.core.common.Constants
+
 import javax.inject.Inject
 
 class PlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
@@ -45,8 +44,10 @@ class PlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
             playlistNameBottomTextView.text = args.playlistName
 
             renamePlaylistTextView.setOnClickListener {
+                val action = AudioNavGraphDirections
+                    .actionGlobalPlaylistNameDialogFragment(Constants.RENAME_PLAYLIST_POSITION, playlistPos = args.playlistPos)
                 findNavController().navigateUp()
-                viewModel.setPlaylistData(args.playlistPos)
+                findNavController().navigate(action)
             }
 
             editPlaylistTextView.setOnClickListener {
