@@ -1,11 +1,9 @@
 package com.kuzheevadel.core.di
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import com.kuzheevadel.core.database.PlaylistAudioDao
-import com.kuzheevadel.core.di.modules.CoreDatabaseModule
-import com.kuzheevadel.core.di.modules.CoreModule
-import com.kuzheevadel.core.di.modules.CoreRepoModule
-import com.kuzheevadel.core.di.modules.DispatchersModule
+import com.kuzheevadel.core.di.modules.*
 import com.kuzheevadel.core.repositories.AudioRepository
 import com.kuzheevadel.core.repositories.PlayerMediaRepository
 import dagger.Component
