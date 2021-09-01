@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.audio.AudioNavGraphDirections
 import com.kuzheevadel.audio.MainAudioFragment
 import com.kuzheevadel.audio.databinding.AllAudioLayoutBinding
-import com.kuzheevadel.audio.di.AudioComponentProvider
+import com.kuzheevadel.core.common.Constants
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -76,7 +76,7 @@ class AllAudioFragment: Fragment() {
             }
 
             onMenuButtonClick = { audioPosition ->
-                val action = AudioNavGraphDirections.actionGlobalAudioBottomDialogFragment(audioPosition)
+                val action = AudioNavGraphDirections.actionGlobalAudioBottomDialogFragment(audioPosition, destType = Constants.ALL_AUDIO)
                 findNavController().navigate(action)
             }
         }

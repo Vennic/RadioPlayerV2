@@ -14,6 +14,6 @@ class DetailPlaylistFragment: BaseDetailAudioFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        init(args.position, args.title, viewModel, DestinationType.PLAYLIST)
+        init(args.position, args.title, viewModel, DestinationType.Playlist())
     }
 }

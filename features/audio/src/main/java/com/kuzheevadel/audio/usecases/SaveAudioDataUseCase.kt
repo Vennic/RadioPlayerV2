@@ -1,17 +1,32 @@
 package com.kuzheevadel.audio.usecases
 
+import com.kuzheevadel.core.common.DestinationType
 import com.kuzheevadel.core.models.Audio
 import com.kuzheevadel.core.models.PlaylistInfo
 import com.kuzheevadel.core.repositories.AudioRepository
 import javax.inject.Inject
 
 class SaveAudioDataUseCaseImpl @Inject constructor(
-    val audioRepo: AudioRepository
+    private val audioRepo: AudioRepository
 ): SaveAudioDataUseCase {
 
-    override suspend fun addAudioInPlaylist(audioPos: Int, playlistPos: Int) {
-        audioRepo.addAudioInPlaylist(
-            audioRepo.getAllAudio()[audioPos], audioRepo.getAllPlaylists()[playlistPos])
+    override suspend fun addAudioInPlaylist(
+        destType: DestinationType<Nothing>,
+        playlistPos: Int
+    ) {
+        when(destType) {
+            is DestinationType.AllAudio -> audioRepo.addAudioInPlaylist(
+                audioRepo.getAllAudio()[destType.audioPos], audioRepo.getAllPlaylists()[playlistPos]
+            )
+
+            is DestinationType.Album -> {
+                val audio = audioRepo.getAllAlbumsList()[destType.albumPos]
+                    .audioList[destType.audioPos]
+                audioRepo.addAudioInPlaylist(audio, audioRepo.getAllPlaylists()[playlistPos])
+            }
+
+            is DestinationType.Playlist -> {}
+        }
     }
 
     override suspend fun addAudioIdListInPlaylist(audioIdList: List<Long>, playlistPos: Int) {
@@ -38,7 +53,7 @@ class SaveAudioDataUseCaseImpl @Inject constructor(
 }
 
 interface SaveAudioDataUseCase {
-    suspend fun addAudioInPlaylist(audioPos: Int, playlistPos: Int)
+    suspend fun addAudioInPlaylist(destType: DestinationType<Nothing>, playlistPos: Int)
     suspend fun addAudioIdListInPlaylist(audioIdList: List<Long>, playlistPos: Int)
     suspend fun addAudioListInPlaylist(audioList: List<Audio>, playlistPos: Int)
 }

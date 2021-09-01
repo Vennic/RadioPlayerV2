@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.audio.AudioNavHostFragment
-import com.kuzheevadel.audio.allaudio.AllAudioViewModel
 import com.kuzheevadel.audio.databinding.ChosePlaylistBottomDialogBinding
+import com.kuzheevadel.audio.dialogs.viewmodels.ChosePlaylistBottomViewModel
+import com.kuzheevadel.core.common.Constants
+import com.kuzheevadel.core.common.DestinationType
 import javax.inject.Inject
 
 class ChosePlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
@@ -27,7 +29,7 @@ class ChosePlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<AllAudioViewModel> ({requireParentFragment()},{ viewModelFactory })
+    private val viewModel by viewModels<ChosePlaylistBottomViewModel> { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,8 +49,18 @@ class ChosePlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
         )
 
         playlistAdapter.onPlaylistSelect = { playlistPos ->
-            viewModel.addInPlaylistButtonClicked(args.audioPosition, playlistPos)
-            findNavController().navigateUp()
+            when(args.destType) {
+                Constants.ALL_AUDIO -> {
+                    viewModel.addInPlaylistButtonClicked(DestinationType.AllAudio(args.audioPosition), playlistPos)
+                    findNavController().navigateUp()
+                }
+
+                Constants.ALBUM -> {
+                    viewModel.addInPlaylistButtonClicked(DestinationType.Album(args.audioPosition, args.albumOrPlaylistPos), playlistPos)
+                    findNavController().navigateUp()
+                }
+            }
+
         }
 
         binding.bottomRecycler.apply {

@@ -20,6 +20,7 @@ import com.kuzheevadel.audio.playlists.PlaylistDiffCallback
 import com.kuzheevadel.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.audio.usecases.*
 import com.kuzheevadel.audio.di.ViewModelKey
+import com.kuzheevadel.audio.dialogs.viewmodels.ChosePlaylistBottomViewModel
 import com.kuzheevadel.core.di.scopes.FeatureScope
 import com.kuzheevadel.core.models.Audio
 import com.kuzheevadel.core.models.Playlist
@@ -72,17 +73,20 @@ abstract class AudioModule {
     @ViewModelKey(DetailPlaylistViewModel::class)
     abstract fun bindDetailPlaylistViewModel(viewModel: DetailPlaylistViewModel): ViewModel
 
-    @FeatureScope
     @Binds
     @IntoMap
     @ViewModelKey(AddAudioViewModel::class)
     abstract fun bindAddAudioViewModel(viewModel: AddAudioViewModel): ViewModel
 
-    @FeatureScope
     @Binds
     @IntoMap
     @ViewModelKey(EditPlaylistViewModel::class)
     abstract fun bindEditPlaylistViewModel(viewModel: EditPlaylistViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChosePlaylistBottomViewModel::class)
+    abstract fun bindChosePlaylistViewModel(viewModel: ChosePlaylistBottomViewModel): ViewModel
 
     @FeatureScope
     @Binds

@@ -12,6 +12,5 @@ class AudioNavHostFragment: NavHostFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         audioComponent = (requireActivity().application as AudioComponentProvider).getAudioComponent()
-
     }
 }

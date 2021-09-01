@@ -1,7 +1,6 @@
 package com.kuzheevadel.core.di
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import com.kuzheevadel.core.database.PlaylistAudioDao
 import com.kuzheevadel.core.di.modules.*
 import com.kuzheevadel.core.repositories.AudioRepository

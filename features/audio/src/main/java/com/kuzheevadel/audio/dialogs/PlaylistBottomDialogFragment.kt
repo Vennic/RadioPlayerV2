@@ -50,9 +50,6 @@ class PlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
                 findNavController().navigate(action)
             }
 
-            editPlaylistTextView.setOnClickListener {
-            }
-
             deletePlaylistTextView.setOnClickListener {
                 viewModel.onDeletePlaylist(args.playlistPos)
                 dialog?.cancel()

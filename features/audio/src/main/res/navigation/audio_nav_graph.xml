@@ -98,6 +98,13 @@
             android:name="audioPosition"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="albumOrPlaylistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="destType"
+            app:argType="string" />
     </dialog>
 
     <dialog
@@ -108,6 +115,13 @@
             android:name="audioPosition"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="albumOrPlaylistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="destType"
+            app:argType="string" />
     </dialog>
 
     <dialog

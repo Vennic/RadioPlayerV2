@@ -24,12 +24,12 @@ class PlaylistItemBottomDialog: BaseBottomSheetDialogFragment() {
         binding = PlaylistItemBottomDialogBinding.inflate(inflater, container, false)
 
         binding.apply {
-            addAudioInPlaylistTextView.setOnClickListener {
+            /*addAudioInPlaylistTextView.setOnClickListener {
                 val action = AudioNavGraphDirections
                     .actionGlobalChosePlaylistBottomDialogFragment(args.audioPosition)
                 findNavController().navigateUp()
                 findNavController().navigate(action)
-            }
+            }*/
 
             audioInfoTextView.setOnClickListener {
                 val action = AudioNavGraphDirections

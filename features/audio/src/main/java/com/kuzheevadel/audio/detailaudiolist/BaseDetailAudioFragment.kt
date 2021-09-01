@@ -2,21 +2,21 @@ package com.kuzheevadel.audio.detailaudiolist
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kuzheevadel.audio.AudioNavGraphDirections
 import com.kuzheevadel.audio.AudioNavHostFragment
 import com.kuzheevadel.audio.R
 import com.kuzheevadel.audio.databinding.DetailAudioListFragmentBinding
 import com.kuzheevadel.audio.detailaudiolist.playlist.DetailPlaylistFragmentDirections
+import com.kuzheevadel.core.common.Constants
 import com.kuzheevadel.core.common.DestinationType
 
 import kotlinx.coroutines.flow.collect
@@ -33,7 +33,7 @@ open class BaseDetailAudioFragment: Fragment() {
 
     private lateinit var _viewModel: BaseDetailAudioViewModel
 
-    private lateinit var _destinationType: DestinationType
+    private lateinit var _destinationType: DestinationType<Nothing>
 
     private var _position: Int = 0
 
@@ -98,7 +98,7 @@ open class BaseDetailAudioFragment: Fragment() {
             }
         }
 
-        if (_destinationType == DestinationType.PLAYLIST) {
+        if (_destinationType is DestinationType.Playlist) {
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     _viewModel.playlistFlow.collect {
@@ -116,13 +116,16 @@ open class BaseDetailAudioFragment: Fragment() {
 
     private fun openItemsDialog(position: Int) {
         when(_destinationType) {
-            DestinationType.ALBUM -> {
+            is DestinationType.Album -> {
+                val action = AudioNavGraphDirections.actionGlobalAudioBottomDialogFragment(position, _position, Constants.ALBUM)
+                findNavController().navigate(action)
+            }
+
+            is DestinationType.Playlist -> {
 
             }
 
-            DestinationType.PLAYLIST -> {
-
-            }
+            else -> {}
         }
     }
 
@@ -130,7 +133,7 @@ open class BaseDetailAudioFragment: Fragment() {
         val addItem = binding.detailAlbumToolbar.menu.findItem(R.id.add_audio)
         val editItem = binding.detailAlbumToolbar.menu.findItem(R.id.edit_playlist)
 
-        if (_destinationType == DestinationType.ALBUM) {
+        if (_destinationType is DestinationType.Album) {
             addItem.isVisible = false
             editItem.isVisible = false
         } else {
@@ -158,7 +161,7 @@ open class BaseDetailAudioFragment: Fragment() {
         position: Int,
         title: String,
         viewModel: BaseDetailAudioViewModel,
-        destinationType: DestinationType) {
+        destinationType: DestinationType<Nothing>) {
         _position = position
         _title = title
         _viewModel = viewModel

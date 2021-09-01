@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kuzheevadel.audio.AudioNavGraphDirections
 import com.kuzheevadel.audio.databinding.AudioBottomDialogBinding
+import com.kuzheevadel.core.common.Constants
 
 class AudioBottomDialogFragment: BaseBottomSheetDialogFragment() {
 
@@ -25,7 +26,7 @@ class AudioBottomDialogFragment: BaseBottomSheetDialogFragment() {
         binding.apply {
             addAudioInPlaylistTextView.setOnClickListener {
                 val action = AudioNavGraphDirections
-                    .actionGlobalChosePlaylistBottomDialogFragment(args.audioPosition)
+                    .actionGlobalChosePlaylistBottomDialogFragment(args.audioPosition, args.albumOrPlaylistPos, args.destType)
                 findNavController().navigateUp()
                 findNavController().navigate(action)
             }

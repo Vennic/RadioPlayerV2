@@ -30,7 +30,6 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:text="@{audio.title}"
-            android:textColor="@{audio.selected ? Color.BLUE : Color.BLACK}"
             app:layout_constraintBottom_toTopOf="@+id/audio_info_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
