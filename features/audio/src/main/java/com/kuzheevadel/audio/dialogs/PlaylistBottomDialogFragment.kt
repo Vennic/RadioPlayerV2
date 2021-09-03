@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kuzheevadel.audio.AudioNavGraphDirections
 import com.kuzheevadel.audio.AudioNavHostFragment
+import com.kuzheevadel.audio.MainAudioFragmentDirections
 import com.kuzheevadel.audio.databinding.PlaylistBottomDialogBinding
 import com.kuzheevadel.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.core.common.Constants
@@ -45,7 +46,9 @@ class PlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
 
             renamePlaylistTextView.setOnClickListener {
                 val action = AudioNavGraphDirections
-                    .actionGlobalPlaylistNameDialogFragment(Constants.RENAME_PLAYLIST_POSITION, playlistPos = args.playlistPos)
+                    .actionGlobalPlaylistNameDialogFragment(
+                        Constants.RENAME_PLAYLIST_POSITION, playlistPos = args.playlistPos
+                    )
                 findNavController().navigateUp()
                 findNavController().navigate(action)
             }

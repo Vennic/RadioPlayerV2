@@ -3,7 +3,7 @@ package com.kuzheevadel.audio.di
 import com.kuzheevadel.audio.albums.AlbumsFragment
 import com.kuzheevadel.audio.allaudio.AllAudioFragment
 import com.kuzheevadel.audio.detailaudiolist.album.DetailAlbumFragment
-import com.kuzheevadel.audio.detailaudiolist.BaseDetailAudioFragment
+import com.kuzheevadel.audio.detailaudiolist.playlist.DetailPlaylistFragment
 import com.kuzheevadel.audio.detailaudiolist.playlist.addaudio.AddAudioFragment
 import com.kuzheevadel.audio.detailaudiolist.playlist.editplaylist.EditPlaylistFragment
 import com.kuzheevadel.audio.dialogs.AudioInfoDialogFragment
@@ -28,7 +28,7 @@ interface AudioComponent {
     fun inject(fragment: AlbumsFragment)
     fun inject(fragment: PlaylistFragment)
     fun inject(fragment: DetailAlbumFragment)
-    fun inject(fragment: BaseDetailAudioFragment)
+    fun inject(fragment: DetailPlaylistFragment)
     fun inject(nameDialogFragment: PlaylistNameDialogFragment)
     fun inject(playlistBottomDialog: PlaylistBottomDialogFragment)
     fun inject(choseBottomDialogFragmentFragment: ChosePlaylistBottomDialogFragment)

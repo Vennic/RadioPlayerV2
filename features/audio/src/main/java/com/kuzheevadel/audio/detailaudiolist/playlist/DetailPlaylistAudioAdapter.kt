@@ -1,4 +1,4 @@
-package com.kuzheevadel.audio.detailaudiolist
+package com.kuzheevadel.audio.detailaudiolist.playlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,8 @@ import com.kuzheevadel.core.models.Audio
 
 import javax.inject.Inject
 
-class DetailAudioAdapter @Inject constructor()
-    : RecyclerView.Adapter<DetailAudioAdapter.AudioViewHolder>() {
+class DetailPlaylistAudioAdapter @Inject constructor()
+    : RecyclerView.Adapter<DetailPlaylistAudioAdapter.AudioViewHolder>() {
 
     private var audioList = listOf<Audio>()
 

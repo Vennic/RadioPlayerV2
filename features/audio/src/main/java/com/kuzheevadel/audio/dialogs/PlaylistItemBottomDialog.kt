@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.kuzheevadel.audio.AudioNavGraphDirections
 import com.kuzheevadel.audio.databinding.PlaylistItemBottomDialogBinding
 
 
@@ -32,10 +30,10 @@ class PlaylistItemBottomDialog: BaseBottomSheetDialogFragment() {
             }*/
 
             audioInfoTextView.setOnClickListener {
-                val action = AudioNavGraphDirections
+                /*val action = AudioNavGraphDirections
                     .actionGlobalAudioInfoDialogFragment(args.audioPosition)
                 findNavController().navigateUp()
-                findNavController().navigate(action)
+                findNavController().navigate(action)*/
             }
 
         }

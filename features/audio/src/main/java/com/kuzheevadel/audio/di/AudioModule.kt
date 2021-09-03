@@ -9,8 +9,9 @@ import com.kuzheevadel.audio.albums.AlbumsViewModel
 import com.kuzheevadel.audio.allaudio.AllAudioAdapter
 import com.kuzheevadel.audio.allaudio.AllAudioViewModel
 import com.kuzheevadel.audio.allaudio.AudioDiffCallback
-import com.kuzheevadel.audio.detailaudiolist.DetailAudioAdapter
+import com.kuzheevadel.audio.detailaudiolist.album.DetailAlbumAudioAdapter
 import com.kuzheevadel.audio.detailaudiolist.album.DetailAlbumAudioViewModel
+import com.kuzheevadel.audio.detailaudiolist.playlist.DetailPlaylistAudioAdapter
 import com.kuzheevadel.audio.detailaudiolist.playlist.DetailPlaylistViewModel
 import com.kuzheevadel.audio.detailaudiolist.playlist.addaudio.AddAudioAdapter
 import com.kuzheevadel.audio.detailaudiolist.playlist.addaudio.AddAudioViewModel
@@ -19,7 +20,6 @@ import com.kuzheevadel.audio.playlists.PlaylistAdapter
 import com.kuzheevadel.audio.playlists.PlaylistDiffCallback
 import com.kuzheevadel.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.audio.usecases.*
-import com.kuzheevadel.audio.di.ViewModelKey
 import com.kuzheevadel.audio.dialogs.viewmodels.ChosePlaylistBottomViewModel
 import com.kuzheevadel.core.di.scopes.FeatureScope
 import com.kuzheevadel.core.models.Audio
@@ -98,7 +98,17 @@ abstract class AudioModule {
 
     @FeatureScope
     @Binds
-    abstract fun provideDetailedAlbumAdapter(adapter: DetailAudioAdapter): RecyclerView.Adapter<DetailAudioAdapter.AudioViewHolder>
+    abstract fun provideDetailPlaylistAudioAdapter(
+        adapter: DetailPlaylistAudioAdapter
+    ):
+            RecyclerView.Adapter<DetailPlaylistAudioAdapter.AudioViewHolder>
+
+    @FeatureScope
+    @Binds
+    abstract fun provideDetailAlbumAudioAdapter(
+        adapter: DetailAlbumAudioAdapter
+    ):
+            RecyclerView.Adapter<DetailAlbumAudioAdapter.AudioViewHolder>
 
     @FeatureScope
     @Binds

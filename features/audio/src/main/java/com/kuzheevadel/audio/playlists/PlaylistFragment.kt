@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.audio.AudioNavGraphDirections
+import com.kuzheevadel.audio.AudioNavHostFragment
 import com.kuzheevadel.audio.MainAudioFragment
 import com.kuzheevadel.audio.MainAudioFragmentDirections
 import com.kuzheevadel.audio.databinding.PlaylistFragmentBinding
@@ -56,7 +57,9 @@ class PlaylistFragment: Fragment() {
         binding.apply {
             createPlaylistImageButton.setOnClickListener {
                 val action = AudioNavGraphDirections
-                    .actionGlobalPlaylistNameDialogFragment(Constants.CREATE_PLAYLIST_RESULT)
+                    .actionGlobalPlaylistNameDialogFragment(
+                        Constants.CREATE_PLAYLIST_RESULT
+                    )
 
                 findNavController().navigate(action)
             }

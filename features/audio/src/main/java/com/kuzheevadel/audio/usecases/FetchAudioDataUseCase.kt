@@ -1,6 +1,7 @@
 package com.kuzheevadel.audio.usecases
 
 import com.kuzheevadel.core.common.AudioDataType
+import com.kuzheevadel.core.common.DestinationType
 import com.kuzheevadel.core.common.MediaType
 import com.kuzheevadel.core.models.Album
 import com.kuzheevadel.core.models.Audio
@@ -83,6 +84,22 @@ class FetchAudioDataUseCaseImpl @Inject constructor(
     override fun getPlaylistByPosition(position: Int): Playlist {
         return audioRepo.getAllPlaylists()[position]
     }
+
+    override fun getAudioByDestType(destType: DestinationType<Nothing>): Audio {
+        return when(destType) {
+            is DestinationType.AllAudio -> {
+                audioRepo.getAllAudio()[destType.audioPos]
+            }
+
+            is DestinationType.Album -> {
+                audioRepo.getAllAlbumsList()[destType.albumPos].audioList[destType.audioPos]
+            }
+
+            is DestinationType.Playlist -> {
+                audioRepo.getAllPlaylists()[destType.playlistPos].audioList[destType.playlistPos]
+            }
+        }
+    }
 }
 
 interface FetchAudioUseCase {
@@ -97,4 +114,5 @@ interface FetchAudioUseCase {
     fun getAllPlaylistsList(): List<Playlist>
     fun getPlayListsFlow(): Flow<List<Playlist>>
     fun getPlaylistByPosition(position: Int): Playlist
+    fun getAudioByDestType(destType: DestinationType<Nothing>): Audio
 }

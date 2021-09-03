@@ -2,19 +2,28 @@ package com.kuzheevadel.audio.dialogs
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.kuzheevadel.audio.AudioNavHostFragment
+import com.kuzheevadel.audio.common.DatabaseState
 import com.kuzheevadel.audio.databinding.ChosePlaylistBottomDialogBinding
 import com.kuzheevadel.audio.dialogs.viewmodels.ChosePlaylistBottomViewModel
 import com.kuzheevadel.core.common.Constants
 import com.kuzheevadel.core.common.DestinationType
+import com.kuzheevadel.ui.R
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ChosePlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
@@ -51,13 +60,15 @@ class ChosePlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
         playlistAdapter.onPlaylistSelect = { playlistPos ->
             when(args.destType) {
                 Constants.ALL_AUDIO -> {
-                    viewModel.addInPlaylistButtonClicked(DestinationType.AllAudio(args.audioPosition), playlistPos)
-                    findNavController().navigateUp()
+                    viewModel.addInPlaylistButtonClicked(
+                        DestinationType.AllAudio(args.audioPosition), playlistPos
+                    )
                 }
 
                 Constants.ALBUM -> {
-                    viewModel.addInPlaylistButtonClicked(DestinationType.Album(args.audioPosition, args.albumOrPlaylistPos), playlistPos)
-                    findNavController().navigateUp()
+                    viewModel.addInPlaylistButtonClicked(
+                        DestinationType.Album(args.audioPosition, args.albumOrPlaylistPos), playlistPos
+                    )
                 }
             }
 
@@ -70,6 +81,35 @@ class ChosePlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
 
         playlistAdapter.submitList(viewModel.getPlaylists())
 
+        subscribeUI()
+
         return binding.root
+    }
+
+    private fun subscribeUI() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.dbState.collect { dbState ->
+                    when(dbState) {
+                        is DatabaseState.None -> {}
+                        is DatabaseState.AudioAdded -> {
+                            Log.d("QWER", "added ${dbState.audioName} in ${dbState.playlistName}")
+                            Snackbar.make(requireParentFragment().requireView(),
+                                "${dbState.audioName} " + getString(R.string.added_in_playlist) +
+                                " ${dbState.playlistName}",
+                                Snackbar.LENGTH_LONG)
+                                .show()
+                            findNavController().navigateUp()
+                        }
+
+                        is DatabaseState.Error -> {
+                            Snackbar.make(requireView(), dbState.error, Snackbar.LENGTH_LONG)
+                                .show()
+                            findNavController().navigateUp()
+                        }
+                    }
+                }
+            }
+        }
     }
 }

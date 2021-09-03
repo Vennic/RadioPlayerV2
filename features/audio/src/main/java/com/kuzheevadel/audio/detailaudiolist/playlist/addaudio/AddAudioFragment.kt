@@ -19,10 +19,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.selection.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.kuzheevadel.audio.AudioNavHostFragment
 import com.kuzheevadel.audio.databinding.AddAudioFragmentBinding
 import kotlinx.coroutines.launch
 import com.kuzheevadel.audio.R
+import com.kuzheevadel.audio.common.AudioConstants
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -76,6 +78,11 @@ class AddAudioFragment: Fragment() {
                     R.id.apply_add_audio -> {
                         viewModel
                             .addAudioListInPlaylist(tracker.selection.toList(), args.playlistPosition)
+
+                        findNavController().previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set(AudioConstants.AUDIO_KEY, tracker.selection.size())
+
                         findNavController().navigateUp()
                         true
                     }

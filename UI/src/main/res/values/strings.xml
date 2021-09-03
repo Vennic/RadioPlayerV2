@@ -11,4 +11,7 @@
     <string name="playlist_name">Playlist name</string>
     <string name="add_songs">Add songs</string>
     <string name="edit_playlist">Edit playlist</string>
+    <string name="added_in_playlist">added in playlist</string>
+    <string name="songs_added_in_playlist"> songs added in playlist</string>
+
 </resources>

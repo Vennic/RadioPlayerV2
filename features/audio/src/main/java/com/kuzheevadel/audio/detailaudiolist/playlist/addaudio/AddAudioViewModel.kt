@@ -16,11 +16,15 @@ class AddAudioViewModel @Inject constructor(
 
     val audioFlow = fetchAudioUseCase.getAllAudioFlow()
 
-    fun addAudioListInPlaylist(audioIdList: List<Long>, playlistPos: Int) {
+    fun addAudioListInPlaylist(audioIdList: List<Long>, playlistPos: Int): Boolean {
+        var isAdded = false
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 saveAudioDataUseCase.addAudioIdListInPlaylist(audioIdList, playlistPos)
             }
+            isAdded = true
         }
+
+        return isAdded
     }
 }

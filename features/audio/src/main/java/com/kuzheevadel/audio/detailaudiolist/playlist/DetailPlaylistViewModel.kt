@@ -1,5 +1,6 @@
 package com.kuzheevadel.audio.detailaudiolist.playlist
 
+import androidx.lifecycle.ViewModel
 import com.kuzheevadel.audio.detailaudiolist.BaseDetailAudioViewModel
 import com.kuzheevadel.audio.usecases.FetchAudioUseCase
 import com.kuzheevadel.audio.usecases.SaveAudioDataUseCase

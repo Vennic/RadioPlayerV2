@@ -26,7 +26,12 @@ class AudioBottomDialogFragment: BaseBottomSheetDialogFragment() {
         binding.apply {
             addAudioInPlaylistTextView.setOnClickListener {
                 val action = AudioNavGraphDirections
-                    .actionGlobalChosePlaylistBottomDialogFragment(args.audioPosition, args.albumOrPlaylistPos, args.destType)
+                    .actionGlobalChosePlaylistBottomDialogFragment(
+                        args.audioPosition,
+                        args.albumOrPlaylistPos,
+                        args.destType
+                    )
+
                 findNavController().navigateUp()
                 findNavController().navigate(action)
             }
@@ -34,6 +39,7 @@ class AudioBottomDialogFragment: BaseBottomSheetDialogFragment() {
             audioInfoTextView.setOnClickListener {
                 val action = AudioNavGraphDirections
                     .actionGlobalAudioInfoDialogFragment(args.audioPosition)
+
                 findNavController().navigateUp()
                 findNavController().navigate(action)
             }
