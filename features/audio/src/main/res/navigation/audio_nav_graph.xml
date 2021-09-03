@@ -131,7 +131,14 @@
         <argument
             android:name="audioPosition"
             app:argType="integer"
-            android:defaultValue="0"/>
+            android:defaultValue="0" />
+        <argument
+            android:name="albumOrPlaylistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="destType"
+            app:argType="string" />
     </dialog>
 
     <action
@@ -148,5 +155,26 @@
     <action
         android:id="@+id/action_global_playlistNameDialogFragment"
         app:destination="@id/playlistNameDialogFragment" />
+
+    <action
+        android:id="@+id/action_global_playlistItemBottomDialog"
+        app:destination="@id/playlistItemBottomDialog" />
+
+    <dialog
+        android:id="@+id/playlistItemBottomDialog"
+        android:name="com.kuzheevadel.audio.dialogs.PlaylistItemBottomDialog"
+        android:label="PlaylistItemBottomDialog">
+        <argument
+            android:name="audioPosition"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="albumOrPlaylistPos"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="destType"
+            app:argType="string" />
+    </dialog>
 
 </navigation>

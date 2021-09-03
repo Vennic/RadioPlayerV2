@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.kuzheevadel.audio.AudioNavHostFragment
+import com.kuzheevadel.audio.common.AudioConstants
 import com.kuzheevadel.audio.common.DatabaseState
 import com.kuzheevadel.audio.databinding.ChosePlaylistBottomDialogBinding
 import com.kuzheevadel.audio.dialogs.viewmodels.ChosePlaylistBottomViewModel
@@ -59,13 +60,13 @@ class ChosePlaylistBottomDialogFragment: BaseBottomSheetDialogFragment() {
 
         playlistAdapter.onPlaylistSelect = { playlistPos ->
             when(args.destType) {
-                Constants.ALL_AUDIO -> {
+                AudioConstants.ALL_AUDIO -> {
                     viewModel.addInPlaylistButtonClicked(
                         DestinationType.AllAudio(args.audioPosition), playlistPos
                     )
                 }
 
-                Constants.ALBUM -> {
+                AudioConstants.ALBUM -> {
                     viewModel.addInPlaylistButtonClicked(
                         DestinationType.Album(args.audioPosition, args.albumOrPlaylistPos), playlistPos
                     )

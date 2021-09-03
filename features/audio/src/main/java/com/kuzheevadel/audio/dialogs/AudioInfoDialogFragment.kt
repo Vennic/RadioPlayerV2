@@ -10,7 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.kuzheevadel.audio.AudioNavHostFragment
 import com.kuzheevadel.audio.allaudio.AllAudioViewModel
+import com.kuzheevadel.audio.common.AudioConstants
 import com.kuzheevadel.audio.databinding.AudioInfoDialogBinding
+import com.kuzheevadel.audio.dialogs.viewmodels.AudioInfoDialogViewModel
+import com.kuzheevadel.core.common.DestinationType
 
 import javax.inject.Inject
 
@@ -21,7 +24,7 @@ class AudioInfoDialogFragment: DialogFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<AllAudioViewModel> ({requireParentFragment()}, { viewModelFactory })
+    private val viewModel by viewModels<AudioInfoDialogViewModel> { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,10 +41,28 @@ class AudioInfoDialogFragment: DialogFragment() {
 
             binding = AudioInfoDialogBinding.inflate(inflater, null, false)
 
-            binding.audio = viewModel.getAudioByPos(args.audioPosition)
+            val destType = createDestType()
+            binding.audio = viewModel.getAudio(destType)
 
             builder.setView(binding.root)
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
+    }
+
+    private fun createDestType(): DestinationType<Nothing> {
+       return when(args.destType) {
+           AudioConstants.ALL_AUDIO -> {
+                DestinationType.AllAudio(args.audioPosition)
+            }
+
+           AudioConstants.ALBUM -> {
+               DestinationType.Album(args.audioPosition, args.albumOrPlaylistPos)
+           }
+
+           else -> {
+               DestinationType.Playlist(args.audioPosition, args.albumOrPlaylistPos)
+           }
+
+        }
     }
 }

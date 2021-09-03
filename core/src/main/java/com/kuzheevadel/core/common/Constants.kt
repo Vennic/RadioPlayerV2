@@ -7,7 +7,4 @@ object Constants {
     const val RENAME_PLAYLIST_RESULT = "rename playlist"
     const val RENAME_PLAYLIST_POSITION = "rename playlist"
     const val EMPTY_LIST = "Empty"
-    const val ALL_AUDIO = "All audio"
-    const val ALBUM = "Album"
-    const val PLAYLIST = "Playlist"
 }

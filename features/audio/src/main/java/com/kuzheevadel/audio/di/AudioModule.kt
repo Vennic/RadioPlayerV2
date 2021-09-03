@@ -16,11 +16,13 @@ import com.kuzheevadel.audio.detailaudiolist.playlist.DetailPlaylistViewModel
 import com.kuzheevadel.audio.detailaudiolist.playlist.addaudio.AddAudioAdapter
 import com.kuzheevadel.audio.detailaudiolist.playlist.addaudio.AddAudioViewModel
 import com.kuzheevadel.audio.detailaudiolist.playlist.editplaylist.EditPlaylistViewModel
+import com.kuzheevadel.audio.dialogs.viewmodels.AudioInfoDialogViewModel
 import com.kuzheevadel.audio.playlists.PlaylistAdapter
 import com.kuzheevadel.audio.playlists.PlaylistDiffCallback
 import com.kuzheevadel.audio.playlists.PlaylistViewModel
 import com.kuzheevadel.audio.usecases.*
 import com.kuzheevadel.audio.dialogs.viewmodels.ChosePlaylistBottomViewModel
+import com.kuzheevadel.audio.dialogs.viewmodels.PlaylistItemBottomViewModel
 import com.kuzheevadel.core.di.scopes.FeatureScope
 import com.kuzheevadel.core.models.Audio
 import com.kuzheevadel.core.models.Playlist
@@ -41,7 +43,7 @@ abstract class AudioModule {
 
     @FeatureScope
     @Binds
-    abstract fun provideSaveAudioDataUseCase(useCase: SaveAudioDataUseCaseImpl): SaveAudioDataUseCase
+    abstract fun provideSaveAudioDataUseCase(useCase: EditPlaylistUseCaseImpl): EditPlaylistUseCase
 
     @FeatureScope
     @Binds
@@ -87,6 +89,16 @@ abstract class AudioModule {
     @IntoMap
     @ViewModelKey(ChosePlaylistBottomViewModel::class)
     abstract fun bindChosePlaylistViewModel(viewModel: ChosePlaylistBottomViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AudioInfoDialogViewModel::class)
+    abstract fun bindAudioInfoViewModel(viewModel: AudioInfoDialogViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PlaylistItemBottomViewModel::class)
+    abstract fun bindPlaylistItemViewModel(viewModel: PlaylistItemBottomViewModel): ViewModel
 
     @FeatureScope
     @Binds

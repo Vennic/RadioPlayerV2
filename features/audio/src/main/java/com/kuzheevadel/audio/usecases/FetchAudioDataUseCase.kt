@@ -96,7 +96,7 @@ class FetchAudioDataUseCaseImpl @Inject constructor(
             }
 
             is DestinationType.Playlist -> {
-                audioRepo.getAllPlaylists()[destType.playlistPos].audioList[destType.playlistPos]
+                audioRepo.getAllPlaylists()[destType.playlistPos].audioList[destType.audioPos]
             }
         }
     }

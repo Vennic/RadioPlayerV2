@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kuzheevadel.audio.AudioNavGraphDirections
 import com.kuzheevadel.audio.AudioNavHostFragment
+import com.kuzheevadel.audio.common.AudioConstants
 import com.kuzheevadel.audio.databinding.DetailAlbumFragmentBinding
 import com.kuzheevadel.core.common.Constants
 import kotlinx.coroutines.flow.collect
@@ -105,7 +106,7 @@ class DetailAlbumFragment: Fragment() {
 
     private fun openItemsDialog(position: Int) {
         val action = AudioNavGraphDirections
-            .actionGlobalAudioBottomDialogFragment(position, args.position, Constants.ALBUM)
+            .actionGlobalAudioBottomDialogFragment(position, args.position, AudioConstants.ALBUM)
         findNavController().navigate(action)
     }
 }

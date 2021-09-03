@@ -14,10 +14,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.kuzheevadel.audio.AudioNavGraphDirections
 import com.kuzheevadel.audio.AudioNavHostFragment
 import com.kuzheevadel.audio.R
 import com.kuzheevadel.audio.common.AudioConstants
 import com.kuzheevadel.audio.databinding.DetailPlaylistFragmentBinding
+import com.kuzheevadel.core.common.Constants
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -128,7 +130,9 @@ class DetailPlaylistFragment: Fragment() {
     }
 
     private fun openItemsDialog(position: Int) {
-
+        val action = AudioNavGraphDirections
+            .actionGlobalPlaylistItemBottomDialog(position, args.position, AudioConstants.PLAYLIST)
+        findNavController().navigate(action)
     }
 
     private fun setUpAppBarMenu() {

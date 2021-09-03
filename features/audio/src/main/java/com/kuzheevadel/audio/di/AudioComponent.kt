@@ -6,10 +6,7 @@ import com.kuzheevadel.audio.detailaudiolist.album.DetailAlbumFragment
 import com.kuzheevadel.audio.detailaudiolist.playlist.DetailPlaylistFragment
 import com.kuzheevadel.audio.detailaudiolist.playlist.addaudio.AddAudioFragment
 import com.kuzheevadel.audio.detailaudiolist.playlist.editplaylist.EditPlaylistFragment
-import com.kuzheevadel.audio.dialogs.AudioInfoDialogFragment
-import com.kuzheevadel.audio.dialogs.ChosePlaylistBottomDialogFragment
-import com.kuzheevadel.audio.dialogs.PlaylistBottomDialogFragment
-import com.kuzheevadel.audio.dialogs.PlaylistNameDialogFragment
+import com.kuzheevadel.audio.dialogs.*
 import com.kuzheevadel.audio.playlists.PlaylistFragment
 import com.kuzheevadel.core.di.CoreComponent
 import com.kuzheevadel.core.di.scopes.FeatureScope
@@ -35,4 +32,5 @@ interface AudioComponent {
     fun inject(dialogFragment: AudioInfoDialogFragment)
     fun inject(fragment: AddAudioFragment)
     fun inject(fragment: EditPlaylistFragment)
+    fun inject(fragment: PlaylistItemBottomDialog)
 }

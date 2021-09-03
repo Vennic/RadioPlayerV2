@@ -6,9 +6,9 @@ import com.kuzheevadel.core.models.PlaylistInfo
 import com.kuzheevadel.core.repositories.AudioRepository
 import javax.inject.Inject
 
-class SaveAudioDataUseCaseImpl @Inject constructor(
+class EditPlaylistUseCaseImpl @Inject constructor(
     private val audioRepo: AudioRepository
-): SaveAudioDataUseCase {
+): EditPlaylistUseCase {
 
     override suspend fun addAudioInPlaylist(
         destType: DestinationType<Nothing>,
@@ -50,10 +50,23 @@ class SaveAudioDataUseCaseImpl @Inject constructor(
         val playlistInfo = PlaylistInfo(playlist.id, playlist.name, idList)
         audioRepo.addAudioListInPlaylist(playlistInfo)
     }
+
+    override suspend fun deleteAudioFromPlaylist(audioPos: Int, playlistPos: Int) {
+        val audioList = audioRepo.getAllPlaylists()[playlistPos].audioList.toMutableList()
+        val audio = audioList[audioPos]
+
+        if (audioList.remove(audio)) {
+            val idList = audioList.map { it.id.toString() }
+            val playlist = audioRepo.getAllPlaylists()[playlistPos]
+            val playlistInfo = PlaylistInfo(playlist.id, playlist.name, idList)
+            audioRepo.addAudioListInPlaylist(playlistInfo)
+        }
+    }
 }
 
-interface SaveAudioDataUseCase {
+interface EditPlaylistUseCase {
     suspend fun addAudioInPlaylist(destType: DestinationType<Nothing>, playlistPos: Int)
     suspend fun addAudioIdListInPlaylist(audioIdList: List<Long>, playlistPos: Int)
     suspend fun addAudioListInPlaylist(audioList: List<Audio>, playlistPos: Int)
+    suspend fun deleteAudioFromPlaylist(audioPos: Int, playlistPos: Int)
 }

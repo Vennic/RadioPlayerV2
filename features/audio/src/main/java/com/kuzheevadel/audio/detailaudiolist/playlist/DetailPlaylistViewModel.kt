@@ -1,9 +1,8 @@
 package com.kuzheevadel.audio.detailaudiolist.playlist
 
-import androidx.lifecycle.ViewModel
 import com.kuzheevadel.audio.detailaudiolist.BaseDetailAudioViewModel
 import com.kuzheevadel.audio.usecases.FetchAudioUseCase
-import com.kuzheevadel.audio.usecases.SaveAudioDataUseCase
+import com.kuzheevadel.audio.usecases.EditPlaylistUseCase
 import com.kuzheevadel.audio.usecases.SetAudioDataUseCase
 import com.kuzheevadel.core.common.AudioDataType
 import com.kuzheevadel.core.common.DetailAudioItem
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class DetailPlaylistViewModel @Inject constructor(
     private val fetchAudioUseCase: FetchAudioUseCase,
     private val setAudioDataUseCase: SetAudioDataUseCase,
-    private val saveAudioDataUseCase: SaveAudioDataUseCase,
+    private val editPlaylistUseCase: EditPlaylistUseCase,
     private val playerRepo: PlayerMediaRepository
 ): BaseDetailAudioViewModel() {
 
