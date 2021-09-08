@@ -10,6 +10,10 @@ class PlaybackViewModel @Inject constructor(
 
     val currentMediaFLow = repository.getStateCurrentMediaData()
 
+    fun onPlayButtonClicked() {
+        repository.playOrPauseMedia()
+    }
+
     fun onNextAudio() {
         repository.setNextAudio()
     }
@@ -18,7 +22,4 @@ class PlaybackViewModel @Inject constructor(
         repository.setPreviousAudio()
     }
 
-    fun addOnPlaylist() {
-
-    }
 }

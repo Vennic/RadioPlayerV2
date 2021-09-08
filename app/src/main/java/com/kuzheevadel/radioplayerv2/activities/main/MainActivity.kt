@@ -1,5 +1,6 @@
 package com.kuzheevadel.radioplayerv2.activities.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,10 +11,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.kuzheevadel.radioplayerv2.R
 import com.kuzheevadel.radioplayerv2.databinding.ActivityMainBinding
+import com.kuzheevadel.radioplayerv2.services.PlayerService
 import com.kuzheevadel.ui.DrawableActivity
+import com.kuzheevadel.ui.SlidePanelActivity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
-class MainActivity: AppCompatActivity(), DrawableActivity{
+class MainActivity: AppCompatActivity(), DrawableActivity, SlidePanelActivity{
 
     private lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
@@ -42,6 +45,9 @@ class MainActivity: AppCompatActivity(), DrawableActivity{
 
         navMenu.setupWithNavController(navController)
 
+        Intent(this, PlayerService::class.java).also { intent ->
+            startService(intent)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -53,6 +59,8 @@ class MainActivity: AppCompatActivity(), DrawableActivity{
         return appBarConfiguration
     }
 
+    override fun getSlidePanelLayoutInst(): SlidingUpPanelLayout =
+        slidingPanel
 
 }
 

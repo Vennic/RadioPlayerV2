@@ -7,8 +7,7 @@ import android.util.Log
 import com.kuzheevadel.core.common.Constants
 import com.kuzheevadel.core.database.PlaylistAudioDao
 import com.kuzheevadel.core.models.*
-import com.kuzheevadel.core.repositories.datasource.AudioDataSource
-import com.kuzheevadel.core.repositories.datasource.AudioDataSourceImp
+import com.kuzheevadel.core.datasource.AudioDataSourceImp
 import com.kuzheevadel.core.utils.mapToAudioEntity
 import com.kuzheevadel.core.utils.setAudioState
 import kotlinx.coroutines.CoroutineDispatcher

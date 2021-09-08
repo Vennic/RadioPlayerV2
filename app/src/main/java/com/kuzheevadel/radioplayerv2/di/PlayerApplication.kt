@@ -15,6 +15,13 @@ class PlayerApplication: Application(), AudioComponentProvider, PlaybackComponen
 
     lateinit var coreComponent: CoreComponent
 
+    fun getAppComponent(): AppComponent {
+        return DaggerAppComponent
+            .builder()
+            .coreComponent(coreComponent)
+            .build()
+    }
+
     override fun getAudioComponent(): AudioComponent {
         return DaggerAudioComponent
             .builder()

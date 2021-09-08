@@ -18,5 +18,5 @@ interface PlayerMediaRepository {
     fun setPreviousAudio()
     fun setRepeatMode(isEnabled: Boolean)
     fun setShuffleMode(isEnabled: Boolean)
-
+    fun playOrPauseMedia()
 }

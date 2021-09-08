@@ -28,6 +28,9 @@ dependencies {
     implementation(Deps.lf_viewModel_savedState)
     implementation(Deps.lf_liveData_ktx)
 
+    //Slide panel
+    implementation(Deps.slide_panel)
+
     //Navigation
     implementation(Deps.nav_fragment_ktx)
     implementation(Deps.nav_ui_ktx)

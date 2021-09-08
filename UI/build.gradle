@@ -17,4 +17,7 @@ dependencies {
     implementation(Deps.nav_ui_ktx)
     implementation(Deps.nav_dynamic_features_fragment)
     implementation(Deps.nav_compose)
+
+    //Slide panel
+    implementation(Deps.slide_panel)
 }

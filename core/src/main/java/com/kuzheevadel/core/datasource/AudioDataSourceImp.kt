@@ -1,4 +1,4 @@
-package com.kuzheevadel.core.repositories.datasource
+package com.kuzheevadel.core.datasource
 
 import android.content.ContentUris
 import android.content.Context

@@ -44,12 +44,12 @@
             android:text="@{audio.fullName}"
             tools:text="Rammstein - Reise Reise"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/play_or_pause_imageButton"
             app:layout_constraintStart_toEndOf="@+id/top_playback_imageView"
             app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/play_or_pause_imageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginTop="8dp"
@@ -62,5 +62,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressBar"
             app:srcCompat="@drawable/ic_baseline_play_circle_filled_24" />
+
+        <ImageView
+            android:id="@+id/horizontal_line_imageView"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_horizontal_rule_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

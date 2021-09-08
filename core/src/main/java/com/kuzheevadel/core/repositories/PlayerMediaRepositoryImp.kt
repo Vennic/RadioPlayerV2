@@ -1,6 +1,5 @@
 package com.kuzheevadel.core.repositories
 
-import android.util.Log
 import com.kuzheevadel.core.common.MediaType
 import com.kuzheevadel.core.common.PlayingState
 import com.kuzheevadel.core.models.Audio
@@ -13,9 +12,6 @@ class PlayerMediaRepositoryImp @Inject constructor(): PlayerMediaRepository {
     private var _currentMediaData = MutableStateFlow<MediaType<Audio>>(MediaType.None(false))
     private val currentMediaData: StateFlow<MediaType<Audio>> = _currentMediaData
 
-    private var _playingState = MutableStateFlow(PlayingState.STOP)
-    private val playingState: StateFlow<PlayingState> = _playingState
-
     private var currentAudioIndex = 0
     private var currentAudioList = listOf<Audio>()
 
@@ -25,30 +21,26 @@ class PlayerMediaRepositoryImp @Inject constructor(): PlayerMediaRepository {
 
     override fun setCurrentAudioMedia(audioList: List<Audio>, position: Int) {
 
-        Log.d("REPOTEST", "PlayerRepo set $audioList")
         if (currentAudioList != audioList) {
             currentAudioList = audioList
         }
 
         currentAudioIndex = position
 
-        val newAudio = with(currentAudioList[currentAudioIndex]) {
-            Audio(uri, name, id, title,artistName, albumTitle, duration, albumId, imageUri, isSelected, isPlaying)
-        }
+        val newAudio = createNewAudio()
 
         when (val mediaType = _currentMediaData.value) {
             is MediaType.Audio -> {
                 if (mediaType.audio.id == newAudio.id) {
                     newAudio.isSelected = true
                     newAudio.isPlaying = !mediaType.audio.isPlaying
-                    setPlayingState(newAudio.isPlaying)
+
                     _currentMediaData.value = MediaType.Audio(newAudio)
 
                 } else {
                     newAudio.isPlaying = true
                     newAudio.isSelected = true
 
-                    _playingState.value = PlayingState.PLAY
                     _currentMediaData.value = MediaType.Audio(newAudio)
                 }
             }
@@ -56,18 +48,22 @@ class PlayerMediaRepositoryImp @Inject constructor(): PlayerMediaRepository {
                 newAudio.isPlaying = true
                 newAudio.isSelected = true
 
-                _playingState.value = PlayingState.PLAY
                 _currentMediaData.value = MediaType.Audio(newAudio)
             }
         }
 
     }
 
-    private fun setPlayingState(isPlaying: Boolean) {
-        if (isPlaying) {
-            _playingState.value = PlayingState.PLAY
-        } else {
-            _playingState.value = PlayingState.STOP
+    override fun playOrPauseMedia() {
+        val newAudio = createNewAudio()
+
+        when (val mediaType = _currentMediaData.value) {
+            is MediaType.Audio -> {
+                newAudio.isSelected = true
+                newAudio.isPlaying = !mediaType.audio.isPlaying
+
+                _currentMediaData.value = MediaType.Audio(newAudio)
+            }
         }
     }
 
@@ -106,4 +102,23 @@ class PlayerMediaRepositoryImp @Inject constructor(): PlayerMediaRepository {
     override fun setShuffleMode(isEnabled: Boolean) {
         TODO("Not yet implemented")
     }
+
+    private fun createNewAudio(): Audio {
+        return with(currentAudioList[currentAudioIndex]) {
+            Audio(
+                uri,
+                name,
+                id,
+                title,
+                artistName,
+                albumTitle,
+                duration,
+                albumId,
+                imageUri,
+                isSelected,
+                isPlaying
+            )
+        }
+    }
+
 }

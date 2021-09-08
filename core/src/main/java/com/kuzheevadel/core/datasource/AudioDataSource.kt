@@ -1,4 +1,4 @@
-package com.kuzheevadel.core.repositories.datasource
+package com.kuzheevadel.core.datasource
 
 import com.kuzheevadel.core.models.Audio
 import kotlinx.coroutines.flow.Flow

@@ -4,8 +4,6 @@ import com.kuzheevadel.core.repositories.AudioRepository
 import com.kuzheevadel.core.repositories.AudioRepositoryImp
 import com.kuzheevadel.core.repositories.PlayerMediaRepository
 import com.kuzheevadel.core.repositories.PlayerMediaRepositoryImp
-import com.kuzheevadel.core.repositories.datasource.AudioDataSource
-import com.kuzheevadel.core.repositories.datasource.AudioDataSourceImp
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
